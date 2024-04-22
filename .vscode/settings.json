@@ -56,5 +56,9 @@
         "temp/": true,
         "Temp/": true
     },
+<<<<<<< HEAD
     "dotnet.defaultSolution": "TT4L-Group5-master.sln"
+=======
+    "dotnet.defaultSolution": "Dmitriv's Breakfast Journey.sln"
+>>>>>>> cf3846a4e64b9ab960428a183b4f8a7f932b7c8c
 }
