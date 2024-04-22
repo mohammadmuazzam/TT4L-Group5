@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 10f;
-    [SerializeField]
-    private float jumpForce = 10f;
+    private float speed = 20f;
+    private float jumpForce = 30f;
     private Rigidbody2D playerBody;
 
     private float movementX;
