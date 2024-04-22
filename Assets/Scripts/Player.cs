@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -11,7 +12,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D playerBody;
 
     private float movementX;
-    private bool shouldJump = true;
+    private bool shouldJump = false;
+    private bool isOnGround = false;
     void Awake()
     {
         playerBody = GetComponent<Rigidbody2D>();
@@ -25,22 +27,35 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerMovement();   
+        PlayerMovement();
     }
 
     void FixedUpdate()
     {
-
+        if (shouldJump)
+        {
+            Debug.Log("Jumping");
+            playerBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            shouldJump = false;
+        }
     }
 
     void PlayerMovement()
     {
         movementX = Input.GetAxisRaw("Horizontal");
-        transform.position += new Vector3(movementX, 0f) * speed * Time.deltaTime; 
+        transform.position += new Vector3(movementX, 0f) * speed * Time.deltaTime;
+        if (isOnGround && Input.GetButtonDown("Jump"))
+        {
+            isOnGround = false;
+            shouldJump = true;
+        }
     }
 
-    void PlayerJump()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isOnGround = true;
+        }
     }
 }
