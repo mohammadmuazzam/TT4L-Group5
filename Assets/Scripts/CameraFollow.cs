@@ -6,6 +6,8 @@ public class CameraFollow : MonoBehaviour
 {
     private Transform player;
     private Vector3 tempPos;
+    [SerializeField]
+    private float minX, maxX;
 
     void Awake()
     {
@@ -17,9 +19,12 @@ public class CameraFollow : MonoBehaviour
         // if player is null
         if (!player) return;
 
+        
         tempPos = transform.position;
         tempPos.x = player.position.x;
-        transform.position = tempPos;
+
+        // move camera if camera is in the range
+        if (tempPos.x > minX && tempPos.x < maxX) transform.position = tempPos;
         
     }
 }

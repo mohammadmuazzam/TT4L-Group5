@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Platform
+  - Trap
   layers:
   - Default
   - TransparentFX
@@ -44,6 +45,9 @@ TagManager:
     locked: 0
   - name: BG
     uniqueID: 2820736307
+    locked: 0
+  - name: Collider
+    uniqueID: 3232888341
     locked: 0
   - name: Player
     uniqueID: 1283709203
