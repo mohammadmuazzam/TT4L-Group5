@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Platform
   - Trap
+  - Trap Trigger
   layers:
   - Default
   - TransparentFX

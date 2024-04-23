@@ -71,9 +71,17 @@ public class Player : MonoBehaviour
             isOnGround = true;
         }
 
+        // collision with trap
         if (collision.gameObject.CompareTag("Trap"))
         {
             Debug.Log("trap");
+        }
+
+        // collision with trap trigger
+        if (collision.gameObject.CompareTag("Trap Trigger"))
+        {
+            Debug.Log("on trap trigger");
+            
         }
     }
 }
