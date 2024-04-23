@@ -4,16 +4,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrapTrigger : MonoBehaviour
-{
-    // Start is called before the first frame update
-    
-    void OnTriggerEnter2D(Collider2D player)
+{   
+    public GameObject trapObject;
+    void OnTriggerStay2D (Collider2D player)
     {
-        if (player.gameObject.CompareTag("Player"))
+        //Debug.Log($"compare tag player? {player.gameObject.CompareTag("Player")}, is player on ground? {Player.isOnGround}");
+        if (player.gameObject.CompareTag("Player") && !Player.isOnGround)
         {
-            Debug.Log("Move trap");
+            Debug.Log(trapObject.name);
+            //Trap.shouldMoveTrap = true;
+            //Debug.Log("Move trap");
         }
     }
+
     // Update is called once per frame
     void Update()
     {
