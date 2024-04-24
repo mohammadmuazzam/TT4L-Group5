@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     private float movementX;
     public static bool isOnGround = false;
+    private bool isPlayerAlive {get; set;}
     private bool shouldJump = false;
     private bool isCrouch = false;
 
@@ -26,7 +27,8 @@ public class Player : MonoBehaviour
     {
         playerBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();    
+        sr = GetComponent<SpriteRenderer>();   
+        isPlayerAlive = true; 
     }
 
     // Update is called once per frame
