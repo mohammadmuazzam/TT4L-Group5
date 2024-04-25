@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GateDoor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool playerReachesGate;
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        playerReachesGate = false;
+    }
+    void OnTriggerEnter2D (Collider2D player)
+    {
+        if (player.gameObject.CompareTag("Player"))
+        {
+            playerReachesGate = true;
+        }
     }
 }

@@ -18,11 +18,12 @@ public class Level1 : MonoBehaviour
     [SerializeField]
     private GameObject[] trapTriggers;
 
-    private bool trap2Activated;
+    private bool trap2Activated, trap3Activated;
 
     void Awake()
     {
         trap2Activated = false;
+        trap3Activated = false;
     }
 
     // Update is called once per frame
@@ -68,6 +69,15 @@ public class Level1 : MonoBehaviour
                             trap2Activated = true;
                         }         
                         break;
+
+                        case "Trap Trigger 3":
+                        if (!trap3Activated)
+                        {
+                            StartCoroutine(MoveTrapNonStop(trapScripts[2], 2));
+                            trap3Activated = true;
+                        }
+                        break;
+
                     }
                 }
             }

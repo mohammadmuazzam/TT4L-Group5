@@ -75,9 +75,6 @@ public class Player : MonoBehaviour
             transform.position = tempPos;
         }
 
-        
-
-
         // jump
         if (isOnGround && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
         {
@@ -100,13 +97,6 @@ public class Player : MonoBehaviour
         {
             Debug.Log("trap");
             isPlayerAlive = false;
-        }
-
-        // collision with exit door
-        if (collision.gameObject.CompareTag("Gate"))
-        {
-            Debug.Log("Exit");
-            //TODO: do the check in gate/door class
         }
     }
 
