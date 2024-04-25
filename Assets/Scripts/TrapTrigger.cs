@@ -21,7 +21,7 @@ public class TrapTrigger : MonoBehaviour
         if (player.gameObject.CompareTag("Player"))
         {
             playerIsInTrigger = true;
-            print("traptrigger: player is in trigger");
+            //print("traptrigger: player is in trigger");
         }
     }
 
@@ -30,7 +30,7 @@ public class TrapTrigger : MonoBehaviour
         if (player.gameObject.CompareTag("Player"))
         {
             playerIsInTrigger = false;
-            print("traptrigger: player is NOT in trigger");
+            //print("traptrigger: player is NOT in trigger");
         }
     }
 }

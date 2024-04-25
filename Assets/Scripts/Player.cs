@@ -13,9 +13,9 @@ public class Player : MonoBehaviour
     private SpriteRenderer sr;
 
     private float movementX;
-    public static bool isOnGround = false;
+    private bool isOnGround = false;
     private bool isPlayerAlive {get; set;}
-    private bool shouldJump = false;
+    public static bool shouldJump = false;
     private bool isCrouch = false;
 
     private const string CROUCH_ANIMATION_CONDITION = "Crouch";
@@ -42,8 +42,8 @@ public class Player : MonoBehaviour
     {
         if (shouldJump)
         {
-            playerBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             shouldJump = false;
+            playerBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
     }
 
@@ -99,13 +99,14 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap"))
         {
             Debug.Log("trap");
+            isPlayerAlive = false;
         }
 
-        // collision with trap trigger
-        if (collision.gameObject.CompareTag("Trap Trigger"))
+        // collision with exit door
+        if (collision.gameObject.CompareTag("Gate"))
         {
-            Debug.Log("on trap trigger");
-
+            Debug.Log("Exit");
+            //TODO: do the check in gate/door class
         }
     }
 

@@ -18,6 +18,13 @@ public class Level1 : MonoBehaviour
     [SerializeField]
     private GameObject[] trapTriggers;
 
+    private bool trap2Activated;
+
+    void Awake()
+    {
+        trap2Activated = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -25,9 +32,12 @@ public class Level1 : MonoBehaviour
     }
 
     //coroutine to move trap
-    IEnumerator MoveTrapNonStop(Trap trapScript)
+    IEnumerator MoveTrapNonStop(Trap trapScript, int mode)
     {
-        yield return StartCoroutine(trapScript.PermanentMoveTrap());
+        if (mode == 1) // perma move
+            yield return StartCoroutine(trapScript.PermanentMoveTrap());
+        else if (mode == 2) // temp move
+            yield return StartCoroutine(trapScript.TemporaryMoveTrap());
     }
 
     void CheckForTrapTrigger()
@@ -36,23 +46,27 @@ public class Level1 : MonoBehaviour
             foreach (GameObject triggerGameObject in trapTriggers)
             {
                 TrapTrigger trapTriggerScript = triggerGameObject.GetComponent<TrapTrigger>();
+                
 
                 if (trapTriggerScript != null && trapTriggerScript.playerIsInTrigger)
                 {   
-                    Debug.Log($"{triggerGameObject.name} has been triggered. player is in trigger: {trapTriggerScript.playerIsInTrigger}");
-
                     // trigger traps according to trapTrigger
                     switch (trapTriggerScript.name)
                     {
                         case "Trap Trigger 1":
-                        if (!Player.isOnGround)
+                        if (Player.shouldJump)
                         {   
-                            StartCoroutine(MoveTrapNonStop(trapScripts[0]));
-                            Debug.Log($"trap is now moving"); 
+                            StartCoroutine(MoveTrapNonStop(trapScripts[0], 1));
                         }
                         break;
 
                         case "Trap Trigger 2":
+                        //Debug.Log($"Checking {triggerGameObject.name}, player is in trigger: {trapTriggerScript.playerIsInTrigger}");
+                        if (!trap2Activated)
+                        {
+                            StartCoroutine(MoveTrapNonStop(trapScripts[1], 2));
+                            trap2Activated = true;
+                        }         
                         break;
                     }
                 }
