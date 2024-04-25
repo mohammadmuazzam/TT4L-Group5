@@ -1,22 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TrapTrigger : MonoBehaviour
-{
-    // Start is called before the first frame update
+{   
+    public bool playerIsInTrigger = false;
+
+    void Awake()
+    {
+
+    }
     
-    void OnTriggerEnter2D(Collider2D player)
+    // when player is in trap trigger
+    void OnTriggerStay2D (Collider2D player)
+    {
+        //Debug.Log($"player is in {gameObject.name}");
+        if (player.gameObject.CompareTag("Player"))
+        {
+            playerIsInTrigger = true;
+            //print("traptrigger: player is in trigger");
+        }
+    }
+
+    void OnTriggerExit2D (Collider2D player)
     {
         if (player.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Move trap");
+            playerIsInTrigger = false;
+            //print("traptrigger: player is NOT in trigger");
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
