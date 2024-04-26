@@ -48,7 +48,6 @@ public class Level1 : MonoBehaviour
             {
                 TrapTrigger trapTriggerScript = triggerGameObject.GetComponent<TrapTrigger>();
                 
-
                 if (trapTriggerScript != null && trapTriggerScript.playerIsInTrigger)
                 {   
                     // trigger traps according to trapTrigger
@@ -62,7 +61,6 @@ public class Level1 : MonoBehaviour
                         break;
 
                         case "Trap Trigger 2":
-                        //Debug.Log($"Checking {triggerGameObject.name}, player is in trigger: {trapTriggerScript.playerIsInTrigger}");
                         if (!trap2Activated)
                         {
                             StartCoroutine(MoveTrapNonStop(trapScripts[1], 2));

@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 
     private float movementX;
     private bool isOnGround = false;
-    private bool isPlayerAlive {get; set;}
+    public static bool isPlayerAlive;
     public static bool shouldJump = false;
     private bool isCrouch = false;
 
