@@ -19,6 +19,7 @@ public class Level1 : MonoBehaviour
     private GameObject[] trapTriggers;
 
     private bool trap2Activated, trap3Activated;
+    public float playerMinX, playerMaxX;
 
     void Awake()
     {

@@ -19,8 +19,9 @@ public class Player : MonoBehaviour
     private bool isCrouch = false;
 
     private const string CROUCH_ANIMATION_CONDITION = "Crouch";
+    private const string IDLE_ANIMATION_CONDITION = "IdleStand";
 
-
+    //! get minX, maxX from level manager
     [SerializeField]
     private float minX, maxX;
     void Awake()
@@ -108,14 +109,22 @@ public class Player : MonoBehaviour
             playerAnimator.SetBool(CROUCH_ANIMATION_CONDITION, true);
         }
         else playerAnimator.SetBool(CROUCH_ANIMATION_CONDITION, false);
-        
-        if (movementX > 0)
+        //TODO: if crouch, then don't go to idle animation
+        if (movementX != 0)
         {
-            sr.flipX = false;
+            playerAnimator.SetBool(IDLE_ANIMATION_CONDITION, false);
+            if (movementX > 0)
+            {
+                sr.flipX = false;
+            }
+            else if (movementX < 0)
+            {
+                sr.flipX = true;
+            }
         }
-        else if (movementX < 0)
+        else
         {
-            sr.flipX = true;
+            playerAnimator.SetBool(IDLE_ANIMATION_CONDITION, true);
         }
     }
 }
