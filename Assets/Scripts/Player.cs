@@ -107,8 +107,14 @@ public class Player : MonoBehaviour
         if (isCrouch) 
         {
             playerAnimator.SetBool(CROUCH_ANIMATION_CONDITION, true);
+            playerAnimator.SetBool(IDLE_ANIMATION_CONDITION, false);
         }
-        else playerAnimator.SetBool(CROUCH_ANIMATION_CONDITION, false);
+        else 
+        {
+            playerAnimator.SetBool(CROUCH_ANIMATION_CONDITION, false);
+            playerAnimator.SetBool(IDLE_ANIMATION_CONDITION, true);
+        }
+        
         //TODO: if crouch, then don't go to idle animation
         if (movementX != 0)
         {
@@ -122,9 +128,6 @@ public class Player : MonoBehaviour
                 sr.flipX = true;
             }
         }
-        else
-        {
-            playerAnimator.SetBool(IDLE_ANIMATION_CONDITION, true);
-        }
+        
     }
 }
