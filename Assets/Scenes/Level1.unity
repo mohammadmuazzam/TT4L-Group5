@@ -626,7 +626,7 @@ SpriteRenderer:
   m_SortingLayerID: -1062078955
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b4b691fcda546fd4a8bc535b41eeff26, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b299142cf6df97945b88beb99c77d291, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1497,7 +1497,7 @@ SpriteRenderer:
   m_SortingLayerID: -1474230989
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6ac3bc4a1d94079489992d555ecac2f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a93a923481e630d49975e3afc332e923, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2092,7 +2092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7786bcfbc97534cae987ddd6b0fa10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAmountX: 4.5
+  moveAmountX: 4.18
   moveAmountY: 0.87
   moveSpeedX: 1.3
   moveSpeedY: 0.8
@@ -2469,7 +2469,7 @@ SpriteRenderer:
   m_SortingLayerID: -1474230989
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6ac3bc4a1d94079489992d555ecac2f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a93a923481e630d49975e3afc332e923, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2480,32 +2480,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &2128127781 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4788908920833289248, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
-  m_PrefabInstance: {fileID: 774053790569357154}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &2128127787
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2128127781}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4b262348f235ec4489bfb4cb28dea095, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &774053790569357154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2561,10 +2535,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4788908920833289248, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2128127787}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
