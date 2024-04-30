@@ -9,7 +9,11 @@ public class NewBehaviourScript : MonoBehaviour
 
         Debug.Log ("Button Function");
         SceneManager.LoadScene ("Level1");
-        
+    }
 
+    public void QuitGame() {
+
+        Debug.Log ("Quit");
+        Application.Quit();
     }
 }
