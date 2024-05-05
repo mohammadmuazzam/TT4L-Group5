@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class CustomTrap
 {
@@ -30,7 +31,11 @@ public class Level1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      CheckForTrapTrigger();  
+        CheckForTrapTrigger();  
+
+        //!TEMP CODE
+        if (!Player.isPlayerAlive)
+        SceneManager.LoadScene("Level1");
     }
 
     //coroutine to move trap
