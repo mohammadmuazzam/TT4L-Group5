@@ -8,16 +8,42 @@ public class Arrow1 : MonoBehaviour
 [SerializeField]
 private float arrowSpeed = 5f;
 
-// Start is called before the first frame update
-void MoveTrap()
+[SerializeField]
+private float uTurnPosition = -5f;
+
+private Rigidbody2D arrow;
+private bool hasRotated = false;
+
+private void Start()
 {
-    Rigidbody2D arrow = GetComponent <Rigidbody2D>();
-    arrow.velocity = new Vector2(-arrowSpeed, arrow.velocity.y);
+    arrow = GetComponent <Rigidbody2D>();
+}
+private void MoveTrap()
+{
+    if (!hasRotated)
+    {
+        if (transform.position.x > uTurnPosition)
+        {
+            arrow.velocity = new Vector2(-arrowSpeed,arrow.velocity.y);
+        }
+        else
+        {
+            arrow.velocity = Vector2.zero;
+            transform.Rotate (0f,0f,180f);
+            hasRotated = true;
+        }
+    }
+    else
+    {
+        arrow.velocity = new Vector2(arrowSpeed,arrow.velocity.y);
+    }
+
+}
+// Update is called once per frame
+private void Update()
+{
+    MoveTrap(); 
+}
 }
 
-// Update is called once per frame
-void Update()
-{
- MoveTrap();   
-}
-}
+
