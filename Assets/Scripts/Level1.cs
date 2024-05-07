@@ -45,41 +45,41 @@ public class Level1 : MonoBehaviour
     void CheckForTrapTrigger()
     {
         // check if the trap trigger has been triggered
-            foreach (GameObject triggerGameObject in trapTriggers)
-            {
-                TrapTrigger trapTriggerScript = triggerGameObject.GetComponent<TrapTrigger>();
-                
-                if (trapTriggerScript != null && trapTriggerScript.playerIsInTrigger)
-                {   
-                    // trigger traps according to trapTrigger
-                    switch (trapTriggerScript.name)
-                    {
-                        case "Trap Trigger 1":
-                        if (Player.shouldJump)
-                        {   
-                            StartCoroutine(MoveTrapNonStop(trapScripts[0], 1));
-                        }
-                        break;
-
-                        case "Trap Trigger 2":
-                        if (!trap2Activated)
-                        {
-                            StartCoroutine(MoveTrapNonStop(trapScripts[1], 2));
-                            trap2Activated = true;
-                        }         
-                        break;
-
-                        case "Trap Trigger 3":
-                        if (!trap3Activated)
-                        {
-                            StartCoroutine(MoveTrapNonStop(trapScripts[2], 2));
-                            trap3Activated = true;
-                        }
-                        break;
-
+        foreach (GameObject triggerGameObject in trapTriggers)
+        {
+            TrapTrigger trapTriggerScript = triggerGameObject.GetComponent<TrapTrigger>();
+            
+            if (trapTriggerScript != null && trapTriggerScript.playerIsInTrigger)
+            {   
+                // trigger traps according to trapTrigger
+                switch (trapTriggerScript.name)
+                {
+                    case "Trap Trigger 1":
+                    if (Player.shouldJump)
+                    {   
+                        StartCoroutine(MoveTrapNonStop(trapScripts[0], 1));
                     }
+                    break;
+
+                    case "Trap Trigger 2":
+                    if (!trap2Activated)
+                    {
+                        StartCoroutine(MoveTrapNonStop(trapScripts[1], 2));
+                        trap2Activated = true;
+                    }         
+                    break;
+
+                    case "Trap Trigger 3":
+                    if (!trap3Activated)
+                    {
+                        StartCoroutine(MoveTrapNonStop(trapScripts[2], 2));
+                        trap3Activated = true;
+                    }
+                    break;
+
                 }
             }
+        }
     }
 }
 

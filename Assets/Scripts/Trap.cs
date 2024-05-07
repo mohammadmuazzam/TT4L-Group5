@@ -56,7 +56,6 @@ public class Trap : MonoBehaviour
         // trap activating
         while(!hasFinishedMoving1)
         {
-            Debug.Log($"{gameObject.name} current pos: ({transform.position.x}, {transform.position.y}), final pos: ({finalXPos}, {finalYPos})");
             ActivateTrap();     
             
             // if trap has reached final position, then stop moving and stop coroutine
@@ -71,15 +70,13 @@ public class Trap : MonoBehaviour
             yield return null;
         }
 
+        // wait
         bool hasFinishedMoving2 = false;
-        Debug.Log("start 1s");
         yield return new WaitForSeconds(waitTime);
-        Debug.Log("end 1s");
 
         // trap going back to original position
         while (!hasFinishedMoving2)
         {
-            Debug.Log($"{gameObject.name} temp moving back to original position");
             DeactivateTrap();
 
             if ((!negativeX && transform.position.x <= initialXPos) || (negativeX && transform.position.x >= initialXPos))
