@@ -6,9 +6,17 @@ using UnityEngine.UI;
 
 public class EndPageButtons : MonoBehaviour
 {
+    static bool level2done = false;
     public void NextLevel()
     {
-        SceneManager.LoadScene("");
+        if (!level2done)
+        {
+            SceneManager.LoadScene("Level2");
+            level2done = true;
+        }
+            
+        else
+            SceneManager.LoadScene("Level3");
         Debug.Log("Entering Next Level");
     }
 

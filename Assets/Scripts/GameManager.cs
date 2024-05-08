@@ -55,16 +55,12 @@ public class GameManager : MonoBehaviour
     public void SceneChange()
     {
         // move to EndPage and calculate elapsed time
-        if (gateScript != null)
-        {
-            endTime = DateTime.Now.TimeOfDay;
-            SceneManager.LoadScene("EndPage");
-            if (elapsedTime.ToString() == "00:00:00")
-                elapsedTime = endTime - startTime;
-            Debug.Log($"elapsed time: {elapsedTime.TotalSeconds}");
-        }
-        else
-            print("game script is null");
+        print("scene changing");
+        endTime = DateTime.Now.TimeOfDay;
+        SceneManager.LoadScene("EndPage");
+        if (elapsedTime.ToString() == "00:00:00")
+            elapsedTime = endTime - startTime;
+        Debug.Log($"elapsed time: {elapsedTime.TotalSeconds}");
         
     }
 }
