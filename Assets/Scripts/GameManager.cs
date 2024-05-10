@@ -30,9 +30,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // get current time
-        startTime = DateTime.Now.TimeOfDay;
-        Debug.Log("Current Time: " + startTime.ToString());
+        
     }
 
     void LateUpdate()
@@ -70,6 +68,12 @@ public class GameManager : MonoBehaviour
     {
         // get name of current level, not current scene name
         if (scene.name.Substring(0,5).ToLower() == "level")
+        {
             currentLevelName = scene.name;
+            // get current time
+            startTime = DateTime.Now.TimeOfDay;
+            Debug.Log("Current Time: " + startTime.ToString());
+        }
+            
     }
 }
