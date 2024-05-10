@@ -31,11 +31,7 @@ public class Level1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForTrapTrigger();  
-
-        //!TEMP CODE
-        if (!Player.isPlayerAlive)
-        SceneManager.LoadScene("Level1");
+        CheckForTrapTrigger();
     }
 
     //coroutine to move trap
