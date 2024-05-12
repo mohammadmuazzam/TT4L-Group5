@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static string currentLevelName;
 
     public static TimeSpan elapsedTime;
+    public static int attempts;
     TimeSpan startTime;
     TimeSpan endTime;
 
@@ -29,8 +31,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        
     }
 
     void LateUpdate()
@@ -69,11 +69,23 @@ public class GameManager : MonoBehaviour
         // get name of current level, not current scene name
         if (scene.name.Substring(0,5).ToLower() == "level")
         {
+            // reset attempt if not in the same level
+            if (currentLevelName != scene.name)
+            {
+                attempts = 0;
+            }
+                
+
             currentLevelName = scene.name;
             // get current time
             startTime = DateTime.Now.TimeOfDay;
-            Debug.Log("Current Time: " + startTime.ToString());
         }
-            
+
+        // calculate attempts
+        if (scene.name == currentLevelName)
+        {
+            attempts += 1   ;
+        }
+        Debug.Log($"current: {currentLevelName}, scene: {scene.name}, attempt: {attempts}");
     }
 }
