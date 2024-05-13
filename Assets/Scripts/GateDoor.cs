@@ -7,7 +7,10 @@ using UnityEngine.Events;
 public class GateDoor : MonoBehaviour
 {
     public bool playerReachesGate;
-    public UnityEvent playerWins;
+
+    // delegate & events
+    public delegate void PlayerWins();
+    public static event PlayerWins playerWins;
 
     void Awake()
     {
@@ -18,8 +21,11 @@ public class GateDoor : MonoBehaviour
         if (player.gameObject.CompareTag("Player"))
         {
             playerReachesGate = true;
-            playerWins.Invoke();
             Debug.Log("player reach gate");
+            if (playerWins != null)
+            {
+                playerWins();
+            }
         }
     }
 }

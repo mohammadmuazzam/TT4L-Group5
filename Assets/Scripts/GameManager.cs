@@ -1,19 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//? keep track of level data for next level
+//?  restart game if player touches trap
 public class GameManager : MonoBehaviour
 {
-    // TODO: keep track of player tries
-    // TODO: restart game if player touches trap
-    private string currentSceneName;
-    private GameObject gate;
-    private GateDoor gateScript;
+    
     private static GameManager instance;
+    
+    public static string currentLevelName;
 
-    public TimeSpan elapsedTime;
+    public static TimeSpan elapsedTime;
+    public static int attempts;
     TimeSpan startTime;
     TimeSpan endTime;
 
@@ -29,42 +31,61 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-
-        //get gate script
-        gate = GameObject.FindWithTag("Gate");
-        gateScript = gate.GetComponent<GateDoor>();
-
-        // get current time
-        startTime = DateTime.Now.TimeOfDay;
-        Debug.Log("Current Time: " + startTime.ToString());
-
-        // get current scene name
-        currentSceneName = SceneManager.GetActiveScene().name;
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
+        // if player dies
         if (!Player.isPlayerAlive)
         {
-            SceneManager.LoadScene(currentSceneName);
+            SceneManager.LoadScene(currentLevelName);
         }
     }
 
-    public void SceneChange()
+    void OnEnable()
+    {
+        GateDoor.playerWins += LevelEnd;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        GateDoor.playerWins -= LevelEnd;
+    }
+
+    public void LevelEnd()
     {
         // move to EndPage and calculate elapsed time
-        if (gateScript != null)
-        {
-            endTime = DateTime.Now.TimeOfDay;
-            SceneManager.LoadScene("EndPage");
-            if (elapsedTime.ToString() == "00:00:00")
-                elapsedTime = endTime - startTime;
-            Debug.Log($"elapsed time: {elapsedTime.TotalSeconds}");
-        }
-        else
-            print("game script is null");
+        endTime = DateTime.Now.TimeOfDay;
         
+        // this check is so that we don't double check
+        if (elapsedTime.ToString() == "00:00:00")
+            elapsedTime = endTime - startTime;
+        
+        SceneManager.LoadScene("EndPage");
+    }
+
+    void OnSceneLoaded (Scene scene, LoadSceneMode mode)
+    {
+        // get name of current level, not current scene name
+        if (scene.name.Substring(0,5).ToLower() == "level")
+        {
+            // reset attempt if not in the same level
+            if (currentLevelName != scene.name)
+            {
+                attempts = 0;
+            }
+                
+
+            currentLevelName = scene.name;
+            // get current time
+            startTime = DateTime.Now.TimeOfDay;
+        }
+
+        // calculate attempts
+        if (scene.name == currentLevelName)
+        {
+            attempts += 1   ;
+        }
+        Debug.Log($"current: {currentLevelName}, scene: {scene.name}, attempt: {attempts}");
     }
 }

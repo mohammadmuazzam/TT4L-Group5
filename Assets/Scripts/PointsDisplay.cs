@@ -2,24 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System;
 
 public class PointsDisplay : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI showTime;
-    GameManager gameManager;
+    [SerializeField] TextMeshProUGUI showAttempts;
+    GameObject gameManager;
     private float elapsedTime;
+    private int playerAttempts;
     void Start()
     {
-        // show elapsed time
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        elapsedTime = (float) gameManager.elapsedTime.TotalSeconds;
-        showTime.text = elapsedTime.ToString() +"s";
-    }
+        // get time, attempts, coins
+        gameManager = GameObject.Find("Game Manager");
+        if (gameManager != null)
+        {
+            elapsedTime = (float) GameManager.elapsedTime.TotalSeconds;
+            showTime.text = elapsedTime.ToString("0.00") +"s";
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            playerAttempts = GameManager.attempts;
+            showAttempts.text = playerAttempts.ToString();
+        }
     }
 }
