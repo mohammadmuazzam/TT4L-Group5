@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Arrow1 : MonoBehaviour
@@ -13,6 +14,8 @@ private float uTurnPosition = -5f;
 
 private Rigidbody2D arrow;
 private bool hasRotated = false;
+private float tempZRotation;
+
 
 private void Start()
 {
@@ -29,10 +32,16 @@ private void MoveTrap()
         else
         {
             arrow.velocity = Vector2.zero;
-            transform.Rotate (0f,0f,180f);
-            hasRotated = true;
-        }
+
+            tempZRotation = transform.rotation.z;
+            tempZRotation += 90f;
+       
+            if (tempZRotation >= 180f)
+                hasRotated = true;  
+                transform.Rotate (0f,0f,tempZRotation); 
+        } 
     }
+    
     else
     {
         arrow.velocity = new Vector2(arrowSpeed,arrow.velocity.y);
