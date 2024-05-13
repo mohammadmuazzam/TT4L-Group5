@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 234189391}
   m_Layer: 0
   m_Name: DeathDetector (5)
-  m_TagString: Platform
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -446,7 +446,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -804,7 +804,7 @@ GameObject:
   - component: {fileID: 400894205}
   m_Layer: 0
   m_Name: DeathDetector (1)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -853,7 +853,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -947,9 +947,11 @@ GameObject:
   m_Component:
   - component: {fileID: 425401240}
   - component: {fileID: 425401239}
+  - component: {fileID: 425401241}
+  - component: {fileID: 425401242}
   m_Layer: 0
   m_Name: Gate
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1021,6 +1023,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &425401241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425401238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6125058f04bcec948a89aed1cf7de3e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerReachesGate: 0
+--- !u!61 &425401242
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425401238}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.61887676}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5, y: 5}
+    newSize: {x: 5, y: 5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5, y: 3.7622466}
+  m_EdgeRadius: 0
 --- !u!1 &429413725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,7 +1298,7 @@ GameObject:
   - component: {fileID: 549472669}
   m_Layer: 0
   m_Name: DeathDetector (3)
-  m_TagString: Platform
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1287,7 +1347,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1644,7 +1704,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1474230989
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 664d44f8f22b99c47b4a281f7520a5a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1731,7 +1791,7 @@ MonoBehaviour:
   moveAmountX: 0
   moveAmountY: 6
   moveSpeedX: 0
-  moveSpeedY: 3.51
+  moveSpeedY: 1
   waitTime: 1.5
 --- !u!1 &654021083
 GameObject:
@@ -2115,6 +2175,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &774683995
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.80615914
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.3224103
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.010452144
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6778376793218841900, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_Name
+      value: Game Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
 --- !u!1 &784704782
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,7 +2246,7 @@ GameObject:
   - component: {fileID: 784704786}
   m_Layer: 0
   m_Name: DeathDetector
-  m_TagString: Platform
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2178,7 +2295,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2536,7 +2653,7 @@ GameObject:
   - component: {fileID: 832857008}
   m_Layer: 0
   m_Name: DeathDetector (2)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2585,7 +2702,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -3546,7 +3663,7 @@ GameObject:
   - component: {fileID: 1391296161}
   m_Layer: 0
   m_Name: DeathDetector (4)
-  m_TagString: Platform
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3595,7 +3712,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -4697,7 +4814,7 @@ GameObject:
   - component: {fileID: 1714350970}
   m_Layer: 0
   m_Name: DeathDetector (6)
-  m_TagString: Platform
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4746,7 +4863,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5379,3 +5496,4 @@ SceneRoots:
   - {fileID: 429413726}
   - {fileID: 425401240}
   - {fileID: 715984347}
+  - {fileID: 774683995}
