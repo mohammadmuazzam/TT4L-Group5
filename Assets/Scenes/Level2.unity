@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowSpeed: 10
-  uTurnPosition: -5
+  uTurnPosition: -10
 --- !u!212 &314280848
 SpriteRenderer:
   m_ObjectHideFlags: 0
