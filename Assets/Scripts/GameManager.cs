@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     TimeSpan startTime;
     TimeSpan endTime;
 
+    private float deltaTime = 0.0f;
+
     void Awake()
     {
         // create only one instance of gamemanager
@@ -31,6 +33,20 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Application.targetFrameRate = 60;
+    }
+
+    void Update()
+    {
+        // Calculate deltaTime
+        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+
+        // Calculate FPS
+        float fps = 1.0f / deltaTime;
+
+        // Print FPS
+        //Debug.Log("FPS: " + Mathf.Round(fps));
     }
 
     void LateUpdate()

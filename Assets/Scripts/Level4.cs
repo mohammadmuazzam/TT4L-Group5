@@ -10,11 +10,14 @@ public class Level4 : MonoBehaviour
 
     [SerializeField]private GameObject[] trapTriggers;
 
-    private bool hasTriggered1, hasTriggered2;
+    private bool hasTriggered1, hasTriggered2, hasCloudMoved;
+    
+
     void Awake()
     {
         hasTriggered1 = false;
         hasTriggered2 = false;
+        hasCloudMoved = false;
     }
 
     // Update is called once per frame
@@ -46,7 +49,16 @@ public class Level4 : MonoBehaviour
                     case "Trap Trigger 2":
                     if (!hasTriggered2)
                     {
-                        StartCoroutine(trapScripts[0].PermanentMoveTrap());
+                        StartCoroutine(CloudMovementCheck(trapScripts[0].PermanentMoveTrap()));
+                        if (hasCloudMoved)
+                            StartCoroutine(rockScript.MoveAndGrowRock());
+                    }
+                    break;
+
+                    case "Trap Trigger 3":
+                    if (Player.shouldJump)
+                    {
+                        StartCoroutine(trapScripts[1].TemporaryMoveTrap());
                     }
                     break;
                 }
@@ -55,9 +67,9 @@ public class Level4 : MonoBehaviour
         }
     }
 
-    IEnumerator StartTraps(Lightning lightningScript)
+    IEnumerator CloudMovementCheck(IEnumerator coroutine)
     {
-
-        yield return StartCoroutine(lightningScript.SpawnLightning());
+        yield return StartCoroutine(coroutine);
+        hasCloudMoved = true;
     }
 }

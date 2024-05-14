@@ -390,7 +390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAmountX: 9.1
   moveAmountY: 0
-  moveSpeedX: 0.2
+  moveSpeedX: 2
   moveSpeedY: 0
   waitTime: 0
 --- !u!1 &655637137
@@ -553,6 +553,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1839277229}
+  - {fileID: 733293741}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &733293739
@@ -565,6 +566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 733293741}
   - component: {fileID: 733293740}
+  - component: {fileID: 733293742}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Trap
@@ -632,13 +634,35 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733293739}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.57, y: 3.4, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.7908354, y: 4.0519753, z: 0.0044156187}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 690185182}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &733293742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733293739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a604ce38b9a4ef44d99cccd7f633edd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveAmountX: 0
+  moveAmountY: -13
+  moveSpeedX: 0
+  moveSpeedY: 2
+  waitTime: 1
+  isDefaultActive: 0
+  finalScaleX: 0.5
+  finalScaleY: 0.5
+  scaleSpeedX: 2
+  scaleSpeedY: 2
 --- !u!1 &792707116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1218,7 @@ MonoBehaviour:
   trapScripts:
   - {fileID: 560128118}
   lightningScripts: {fileID: 1157972734}
+  rockScript: {fileID: 733293742}
   trapTriggers:
   - {fileID: 1647508817}
   - {fileID: 1839277228}
@@ -1723,4 +1748,3 @@ SceneRoots:
   - {fileID: 1037326465}
   - {fileID: 794373844}
   - {fileID: 690185182}
-  - {fileID: 733293741}

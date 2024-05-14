@@ -58,7 +58,7 @@ public class Level1 : MonoBehaviour
                     case "Trap Trigger 1":
                     if (Player.shouldJump)
                     {   
-                        StartCoroutine(MoveTrapNonStop(trapScripts[0], 1));
+                        StartCoroutine(trapScripts[0].PermanentMoveTrap());
                     }
                     break;
 
