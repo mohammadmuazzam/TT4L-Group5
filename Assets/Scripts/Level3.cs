@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level3 : MonoBehaviour
 {
@@ -30,34 +32,32 @@ public class Level3 : MonoBehaviour
             yield return StartCoroutine(trapScript.PermanentMoveTrap());
         else if (mode == 2) // temp move
             yield return StartCoroutine(trapScript.TemporaryMoveTrap());
+            trapActivated = true;
+            yield return new WaitForSeconds(4f);
+            trapActivated = false;
     }
 
-    void CheckForTrapTrigger()
+void CheckForTrapTrigger()
+{
+    // Check if any trap trigger has been triggered
+    foreach (GameObject triggerGameObject in trapTriggers)
     {
-        // Check if any trap trigger has been triggered
-        foreach (GameObject triggerGameObject in trapTriggers)
-        {
-           
-            TrapTrigger trapTriggerScript = triggerGameObject.GetComponent<TrapTrigger>();
-            if (trapTriggerScript != null && trapTriggerScript.playerIsInTrigger)
-            {   
-                // Trigger the trap if the player should jump
-                if (Player.shouldJump && triggerGameObject.name == "Trap Trigger")
-                {   
-                    
-                    // Start the coroutine to move the trap
-                    StartCoroutine(MoveTrapNonStop(trapScripts[0], 2));
-                    Debug.Log("hello");
-                }
+        TrapTrigger trapTriggerScript = triggerGameObject.GetComponent<TrapTrigger>();
 
-                // Mark the trap as activated to prevent repeated triggering
-                trapTriggerScript.playerIsInTrigger = false; 
-                break;
+        if (trapTriggerScript != null && trapTriggerScript.playerIsInTrigger && !trapActivated)
+        {
+            // Trigger the trap if the player should jump and trap is not currently activated
+            if (Player.shouldJump && triggerGameObject.name == "Trap Trigger")
+            {
+                // Start the coroutine to move the trap temporarily
+                StartCoroutine(MoveTrapNonStop(trapScripts[0], 2));
             }
         }
     }
+}
 
-        
+
+    //respawn mechanic
 }
 
 
