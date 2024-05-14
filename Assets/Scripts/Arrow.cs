@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Arrow1 : MonoBehaviour
 {
@@ -8,8 +9,7 @@ public class Arrow1 : MonoBehaviour
 [SerializeField]
 private float arrowSpeed = 5f;
 
-[SerializeField]
-private float uTurnPosition = -5f;
+[SerializeField]private float uTurnPosition = -5f;
 
 private Rigidbody2D arrow;
 private bool hasRotated = false;
@@ -31,18 +31,14 @@ private void MoveTrap()
         {
             arrow.velocity = Vector2.zero;
             tempZRotation = transform.rotation.z;
-            tempZRotation += 10f;
+            tempZRotation += 180f;
 
-            if (transform.rotation.z <= 180f && transform.rotation.z >= 0f)
+            if (transform.rotation.z <= 180f)
             {
                 transform.Rotate (0f,0f,tempZRotation);
-                
-            }
-            else
-            {
                 hasRotated = true;
             }
-            Debug.Log(tempZRotation);
+            Debug.Log(transform.rotation.z);
 
         }
     }
