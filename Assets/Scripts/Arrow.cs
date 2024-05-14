@@ -31,13 +31,18 @@ private void MoveTrap()
         {
             arrow.velocity = Vector2.zero;
             tempZRotation = transform.rotation.z;
-            tempZRotation += 180f;
+            tempZRotation += 10f;
 
-            if (tempZRotation >= 180f)
+            if (transform.rotation.z <= 180f && transform.rotation.z >= 0f)
             {
                 transform.Rotate (0f,0f,tempZRotation);
-                hasRotated = true; 
+                
             }
+            else
+            {
+                hasRotated = true;
+            }
+            Debug.Log(tempZRotation);
 
         }
     }
@@ -52,10 +57,6 @@ private void Update()
 {
     MoveTrap(); 
 
-    if (hasRotated)
-    {
-        Debug.Log("arrow rotate");
-    }
 }
 }
 

@@ -297,7 +297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 77197644}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trap 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,8 +546,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314280845}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -23.12, y: -2.08, z: 0.019010454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -23.03, y: -2.21, z: 0.019010454}
   m_LocalScale: {x: 0.2045, y: 0.2045, z: 0.2045}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -565,8 +565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0f95a05e3d56040bcefca19fda1f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowSpeed: 10
-  uTurnPosition: -10
+  arrowSpeed: 15
+  uTurnPosition: -3.5
 --- !u!212 &314280848
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -645,7 +645,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 2
 --- !u!61 &314280850
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2344,7 +2344,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2108440865}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trap 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
