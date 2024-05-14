@@ -98,7 +98,7 @@ public class Trap : MonoBehaviour
         tempPos = transform.position;
 
         if ((!negativeX && transform.position.x <= finalXPos) || (negativeX && transform.position.x >= finalXPos))
-        tempPos.x += (negativeX ? -1 : 1) * 0.1f* moveSpeedX; //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
+        tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX; //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
 
         if ((!negativeY && transform.position.y <= finalYPos) || (negativeY && transform.position.y >= finalYPos))
         tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY;

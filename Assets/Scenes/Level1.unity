@@ -313,7 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAmountX: -6.68
   moveAmountY: 0
-  moveSpeedX: 1
+  moveSpeedX: 4
   moveSpeedY: 1
   waitTime: 0.5
 --- !u!212 &166369579
@@ -540,21 +540,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerReachesGate: 0
-  playerWins:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1194597634}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SceneChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!61 &423173231
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -986,7 +971,7 @@ MonoBehaviour:
   moveAmountX: 0
   moveAmountY: 1.325
   moveSpeedX: 0
-  moveSpeedY: 1
+  moveSpeedY: 3
   waitTime: 0.5
 --- !u!60 &824383606
 PolygonCollider2D:
@@ -1277,17 +1262,6 @@ MonoBehaviour:
   - {fileID: 185070781}
   playerMinX: 0
   playerMaxX: 0
---- !u!114 &1194597634 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6793114483388157272, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
-  m_PrefabInstance: {fileID: 5362603565584989262}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aceddbfbd26d24748aeccde94193214d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1349623638
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,8 +2130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAmountX: 4.18
   moveAmountY: 0.87
-  moveSpeedX: 2.18
-  moveSpeedY: 0.8
+  moveSpeedX: 2
+  moveSpeedY: 1.5
   waitTime: 0
 --- !u!1 &1778214269
 GameObject:
