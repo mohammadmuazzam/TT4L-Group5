@@ -8,16 +8,21 @@ public class EndPageButtons : MonoBehaviour
 {
     GameObject gameManager;
     private string currentLevelName;
+    private string nextLevelName;
+    private string currentLevelNumChar;
+    private int nextLevelInt;
 
     void Awake()
     {
         currentLevelName = GameManager.currentLevelName;
-        Debug.Log($"Current level is {currentLevelName}");
+        currentLevelNumChar = currentLevelName[currentLevelName.Length - 1].ToString();
+        nextLevelInt = int.Parse(currentLevelNumChar) + 1;
+        nextLevelName = "Level" + nextLevelInt.ToString();
+
     }
     public void NextLevel()
     {
-        SceneManager.LoadScene("Level2");
-        SceneManager.LoadScene("Level3");
+        SceneManager.LoadScene(nextLevelName);
     }
 
     public void BackToMainMenu()

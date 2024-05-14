@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Level4 : MonoBehaviour
 {
-    [SerializeField]
-    private Trap[] trapScripts;
+    [SerializeField] private Trap[] trapScripts;
     [SerializeField] private Lightning lightningScripts;
-    
-    [SerializeField]
-    private GameObject[] trapTriggers;
-    void Start()
+    [SerializeField] private Rock rockScript;
+
+    [SerializeField]private GameObject[] trapTriggers;
+
+    private bool hasTriggered1, hasTriggered2;
+    void Awake()
     {
-        
+        hasTriggered1 = false;
+        hasTriggered2 = false;
     }
 
     // Update is called once per frame
@@ -34,10 +36,28 @@ public class Level4 : MonoBehaviour
                 switch (trapTriggerScript.name)
                 {
                     case "Trap Trigger 1":
+                    if (!hasTriggered1)
+                    {
+                        hasTriggered1 = true;
+                        StartCoroutine(lightningScripts.SpawnLightning()); 
+                    }
+                    break;
+
+                    case "Trap Trigger 2":
+                    if (!hasTriggered2)
+                    {
+                        StartCoroutine(trapScripts[0].PermanentMoveTrap());
+                    }
                     break;
                 }
 
             }
         }
+    }
+
+    IEnumerator StartTraps(Lightning lightningScript)
+    {
+
+        yield return StartCoroutine(lightningScript.SpawnLightning());
     }
 }
