@@ -96,7 +96,6 @@ public class Player : MonoBehaviour
         // collision with trap
         if (collision.gameObject.CompareTag("Trap"))
         {
-            Debug.Log("trap");
             isPlayerAlive = false;
         }
     }

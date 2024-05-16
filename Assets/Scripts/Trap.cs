@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Trap : MonoBehaviour
@@ -11,6 +13,7 @@ public class Trap : MonoBehaviour
 
     private float finalXPos, finalYPos, initialXPos, initialYPos;
     private bool negativeX, negativeY;
+    public bool permaMoveCondition = false;
     Vector2 tempPos;
     void Awake()
     {
@@ -28,13 +31,16 @@ public class Trap : MonoBehaviour
         else negativeY = false;
         
     }
-
     // move trap
-    public IEnumerator PermanentMoveTrap()
+    public async void PermanentMoveTrap()
     {
+        Stopwatch watch = Stopwatch.StartNew();
         bool hasFinishedMoving = false;
+        watch.Start();
+        
+        //! POSSIBLY LOOP ISN'T CONSISTENTLY LOOPING
         while(!hasFinishedMoving)
-        {
+        {   
             ActivateTrap();
             
             // if trap has reached final position, then stop moving and stop coroutine
@@ -45,8 +51,11 @@ public class Trap : MonoBehaviour
                     hasFinishedMoving = true;
                 }
             }
-            yield return null;
+            await Task.Yield();
         }
+        watch.Stop();
+        var elapsedTime = watch.ElapsedMilliseconds;
+        print($"elapsed ms: {elapsedTime}");
     }
 
     public IEnumerator TemporaryMoveTrap()
@@ -98,10 +107,10 @@ public class Trap : MonoBehaviour
         tempPos = transform.position;
 
         if ((!negativeX && transform.position.x <= finalXPos) || (negativeX && transform.position.x >= finalXPos))
-        tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX; //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
+        tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX * Time.deltaTime; //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
 
         if ((!negativeY && transform.position.y <= finalYPos) || (negativeY && transform.position.y >= finalYPos))
-        tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY;
+        tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY * Time.deltaTime;
 
         transform.position = tempPos;
     }
@@ -113,10 +122,10 @@ public class Trap : MonoBehaviour
 
         //* (negativeX ? 1 : -1) returns 1 if negativeX is true and -1 if negativeX is false
         if ((!negativeX && transform.position.x >= initialXPos) || (negativeX && transform.position.x <= initialXPos))
-        tempPos.x += (negativeX ? 1 : -1) * 0.1f * moveSpeedX;
+        tempPos.x += (negativeX ? 1 : -1) * 0.1f * moveSpeedX * Time.deltaTime;
 
         if ((!negativeY && transform.position.y >= initialYPos) || (negativeY && transform.position.y <= initialYPos))
-        tempPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY;
+        tempPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY * Time.deltaTime;
 
         transform.position = tempPos;
     }
