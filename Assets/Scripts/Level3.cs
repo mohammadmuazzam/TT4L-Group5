@@ -21,20 +21,9 @@ public class Level3 : MonoBehaviour
         trapActivated = false;
     }
 
-    void Update()
+    void LateUpdate()
     {
         CheckForTrapTrigger();
-    }
-
-    IEnumerator MoveTrapNonStop(Trap trapScript, int mode)
-    {
-        if (mode == 1) // perma move
-            yield return StartCoroutine(trapScript.PermanentMoveTrap());
-        else if (mode == 2) // temp move
-            yield return StartCoroutine(trapScript.TemporaryMoveTrap());
-            trapActivated = true;
-            yield return new WaitForSeconds(4f);
-            trapActivated = false;
     }
 
 void CheckForTrapTrigger()
@@ -47,10 +36,11 @@ void CheckForTrapTrigger()
         if (trapTriggerScript != null && trapTriggerScript.playerIsInTrigger && !trapActivated)
         {
             // Trigger the trap if the player should jump and trap is not currently activated
-            if (Player.shouldJump && triggerGameObject.name == "Trap Trigger")
+            if (Player.shouldJump && triggerGameObject.name == "Trap Trigger" && !trapActivated)
             {
                 // Start the coroutine to move the trap temporarily
-                StartCoroutine(MoveTrapNonStop(trapScripts[0], 2));
+                trapActivated = true;
+                StartCoroutine(trapScripts[0].TemporaryMoveTrap());
             }
         }
     }

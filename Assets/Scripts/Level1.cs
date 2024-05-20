@@ -19,17 +19,18 @@ public class Level1 : MonoBehaviour
     [SerializeField]
     private GameObject[] trapTriggers;
 
-    private bool trap2Activated, trap3Activated;
+    private bool trap1Activated, trap2Activated, trap3Activated;
     public float playerMinX, playerMaxX;
 
     void Awake()
     {
+        trap1Activated = false;
         trap2Activated = false;
         trap3Activated = false;
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         CheckForTrapTrigger();
     }
@@ -56,9 +57,10 @@ public class Level1 : MonoBehaviour
                 switch (trapTriggerScript.name)
                 {
                     case "Trap Trigger 1":
-                    if (Player.shouldJump)
-                    {   
+                    if (!trap1Activated && Player.shouldJump)
+                    {
                         StartCoroutine(trapScripts[0].PermanentMoveTrap());
+                        trap1Activated = true;
                     }
                     break;
 
@@ -83,4 +85,3 @@ public class Level1 : MonoBehaviour
         }
     }
 }
-

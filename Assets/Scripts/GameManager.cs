@@ -85,14 +85,13 @@ public class GameManager : MonoBehaviour
         // get name of current level, not current scene name
         if (scene.name.Substring(0,5).ToLower() == "level")
         {
+            currentLevelName = scene.name;
             // reset attempt if not in the same level
             if (currentLevelName != scene.name)
             {
                 attempts = 0;
             }
-                
-
-            currentLevelName = scene.name;
+            
             // get current time
             startTime = DateTime.Now.TimeOfDay;
         }
@@ -102,6 +101,5 @@ public class GameManager : MonoBehaviour
         {
             attempts += 1   ;
         }
-        Debug.Log($"current: {currentLevelName}, scene: {scene.name}, attempt: {attempts}");
     }
 }

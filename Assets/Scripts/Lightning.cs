@@ -23,19 +23,7 @@ public class Lightning : MonoBehaviour
     public IEnumerator SpawnLightning()
     {
         AddLightning();
-
-        Debug.Log("about to play sound");
-        if (!audioSource.isPlaying)
-        {
-            Debug.Log("audio is playing");
-            audioSource.Play();
-        }
-            
-        
-        yield return new WaitForSeconds(0.2f);
-        RemoveLightning();
-        yield return new WaitForSeconds(0.1f);
-        AddLightning();
+        audioSource.Play();
         yield return new WaitForSeconds(2f);
         RemoveLightning();
     }
