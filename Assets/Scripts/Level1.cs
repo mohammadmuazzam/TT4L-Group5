@@ -1,7 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class CustomTrap
 {
@@ -20,7 +20,6 @@ public class Level1 : MonoBehaviour
     private GameObject[] trapTriggers;
 
     private bool trap1Activated, trap2Activated, trap3Activated;
-    private bool moveTrap1, moveTrap2, moveTrap3 = false;
     public float playerMinX, playerMaxX;
 
     void Awake()
@@ -30,18 +29,20 @@ public class Level1 : MonoBehaviour
         trap3Activated = false;
     }
 
-    void Start()
-    {
-        //StartCoroutine(CoroutineTimeCheck(trapScripts[0].PermanentMoveTrap()));
-    }
-
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         CheckForTrapTrigger();
     }
 
     //coroutine to move trap
+    IEnumerator MoveTrapNonStop(Trap trapScript, int mode)
+    {
+        if (mode == 1) // perma move
+            yield return StartCoroutine(trapScript.PermanentMoveTrap());
+        else if (mode == 2) // temp move
+            yield return StartCoroutine(trapScript.TemporaryMoveTrap());
+    }
 
     void CheckForTrapTrigger()
     {
@@ -56,9 +57,9 @@ public class Level1 : MonoBehaviour
                 switch (trapTriggerScript.name)
                 {
                     case "Trap Trigger 1":
-                    if (Player.shouldJump && !trap1Activated)
+                    if (!trap1Activated && Player.shouldJump)
                     {
-                        trapScripts[0].PermanentMoveTrap(); 
+                        StartCoroutine(trapScripts[0].PermanentMoveTrap());
                         trap1Activated = true;
                     }
                     break;
@@ -66,7 +67,7 @@ public class Level1 : MonoBehaviour
                     case "Trap Trigger 2":
                     if (!trap2Activated)
                     {
-                        moveTrap2 = true;
+                        StartCoroutine(MoveTrapNonStop(trapScripts[1], 2));
                         trap2Activated = true;
                     }         
                     break;
@@ -74,7 +75,7 @@ public class Level1 : MonoBehaviour
                     case "Trap Trigger 3":
                     if (!trap3Activated)
                     {
-                        moveTrap3 = true;
+                        StartCoroutine(MoveTrapNonStop(trapScripts[2], 2));
                         trap3Activated = true;
                     }
                     break;
@@ -84,4 +85,3 @@ public class Level1 : MonoBehaviour
         }
     }
 }
-

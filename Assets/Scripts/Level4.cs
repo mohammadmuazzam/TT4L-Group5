@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Level4 : MonoBehaviour
 {
+    public class CoroutineStatus
+    {
+        public bool IsCompleted;   
+    }
+    public CoroutineStatus cloudMovementCoroutineStatus = new CoroutineStatus();
+
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private Lightning lightningScripts;
     [SerializeField] private Rock rockScript;
@@ -20,7 +26,7 @@ public class Level4 : MonoBehaviour
         hasCloudMoved = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         CheckForTrapTrigger();
@@ -50,8 +56,19 @@ public class Level4 : MonoBehaviour
                     if (!hasTriggered2)
                     {
                         //StartCoroutine(CloudMovementCheck(trapScripts[0].PermanentMoveTrap()));
-                        if (hasCloudMoved)
-                            StartCoroutine(rockScript.MoveAndGrowRock());
+                        if (!hasCloudMoved)
+                        {
+                            hasCloudMoved = true;
+                            StartCoroutine(RunCoroutineWithStatus(trapScripts[0].PermanentMoveTrap(), cloudMovementCoroutineStatus));
+                        }
+                        Debug.Log("cloud status: " + cloudMovementCoroutineStatus.IsCompleted);
+
+                        if (cloudMovementCoroutineStatus.IsCompleted)
+                        {
+                            rockScript.MoveAndGrowRock();
+                            hasTriggered2 = true;
+                        }
+                            
                     }
                     break;
 
@@ -67,9 +84,10 @@ public class Level4 : MonoBehaviour
         }
     }
 
-    IEnumerator CloudMovementCheck(IEnumerator coroutine)
+    IEnumerator RunCoroutineWithStatus(IEnumerator coroutine, CoroutineStatus status)
     {
+        status.IsCompleted = false;
         yield return StartCoroutine(coroutine);
-        hasCloudMoved = true;
+        status.IsCompleted = true;
     }
 }

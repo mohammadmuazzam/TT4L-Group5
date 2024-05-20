@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +11,7 @@ public class GameManager : MonoBehaviour
 {
     
     private static GameManager instance;
-    [SerializeField] Animator transitionAnim;
+    
     public static string currentLevelName;
 
     public static TimeSpan elapsedTime;
@@ -55,12 +54,19 @@ public class GameManager : MonoBehaviour
         // if player dies
         if (!Player.isPlayerAlive)
         {
-            Debug.Log("restarting level");
-            //! COROUTINE CALLED LIKE 10 TIMES
-            LoadLevel();
+            SceneManager.LoadScene(currentLevelName);
         }
     }
 
+    void OnEnable()
+    {
+        GateDoor.playerWins += LevelEnd;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        GateDoor.playerWins -= LevelEnd;
+    }
 
     public void LevelEnd()
     {
@@ -77,16 +83,16 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded (Scene scene, LoadSceneMode mode)
     {
         // get name of current level, not current scene name
-        transitionAnim.SetTrigger("Start");
         if (scene.name.Substring(0,5).ToLower() == "level")
         {
-            // reset attempt 
+            currentLevelName = scene.name;
+            // reset attempt if not in the same level
             if (currentLevelName != scene.name)
             {
                 attempts = 0;
             }
-         
-            currentLevelName = scene.name;
+            
+            // get current time
             startTime = DateTime.Now.TimeOfDay;
         }
 
@@ -96,24 +102,4 @@ public class GameManager : MonoBehaviour
             attempts += 1   ;
         }
     }
-
-    private async void LoadLevel()
-    {
-        transitionAnim.SetTrigger("End");
-        await Task.Delay(500);
-        SceneManager.LoadScene(currentLevelName);
-        await Task.Yield();
-    }
-
-    void OnEnable()
-    {
-        GateDoor.playerWins += LevelEnd;
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    void OnDisable()
-    {
-        GateDoor.playerWins -= LevelEnd;
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
 }

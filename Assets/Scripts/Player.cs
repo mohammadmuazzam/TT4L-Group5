@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     private const string IDLE_ANIMATION_CONDITION = "IdleStand";
 
     //! get minX, maxX from level manager
+
+    //! use events that trigger should jump
     [SerializeField]
     private float minX, maxX;
     void Awake()
@@ -97,6 +99,15 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap"))
         {
             isPlayerAlive = false;
+        }
+    }
+
+    // checks when 2 object stops colliding
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isOnGround = false;
         }
     }
 
