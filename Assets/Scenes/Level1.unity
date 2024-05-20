@@ -313,7 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAmountX: -6.68
   moveAmountY: 0
-  moveSpeedX: 600
+  moveSpeedX: 6
   moveSpeedY: 0
   waitTime: 0.5
 --- !u!212 &166369579
@@ -971,7 +971,7 @@ MonoBehaviour:
   moveAmountX: 0
   moveAmountY: 0.99
   moveSpeedX: 0
-  moveSpeedY: 300
+  moveSpeedY: 3
   waitTime: 0.5
 --- !u!60 &824383606
 PolygonCollider2D:
@@ -2121,8 +2121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAmountX: 4.18
   moveAmountY: 0.75
-  moveSpeedX: 140
-  moveSpeedY: 100
+  moveSpeedX: 2
+  moveSpeedY: 1
   waitTime: 0
 --- !u!1 &1778214269
 GameObject:

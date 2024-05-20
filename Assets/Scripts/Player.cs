@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     //! get minX, maxX from level manager
 
     //! use events that trigger should jump
-    [SerializeField]
-    private float minX, maxX;
+    [SerializeField] private float minX, maxX;
+    [SerializeField] bool canPlayerDie;
     void Awake()
     {
         playerBody = GetComponent<Rigidbody2D>();
@@ -89,16 +89,20 @@ public class Player : MonoBehaviour
     //check for collision
     void OnCollisionEnter2D(Collision2D collision)
     {
+        // collision with trap
+        if (collision.gameObject.CompareTag("Trap") && canPlayerDie)
+        {
+            isPlayerAlive = false;
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
         // collision with ground or platform
         if (collision.gameObject.CompareTag("Platform"))
         {
             isOnGround = true;
-        }
-
-        // collision with trap
-        if (collision.gameObject.CompareTag("Trap"))
-        {
-            isPlayerAlive = false;
+            Debug.Log("STAY");
         }
     }
 
@@ -107,6 +111,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
+            Debug.Log("OUT");    
             isOnGround = false;
         }
     }
@@ -140,4 +145,4 @@ public class Player : MonoBehaviour
         }
         
     }
-}
+}   

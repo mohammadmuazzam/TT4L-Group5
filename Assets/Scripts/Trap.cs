@@ -103,12 +103,12 @@ public class Trap : MonoBehaviour
         tempPos = transform.position;
 
         if ((!negativeX && transform.position.x < finalXPos) || (negativeX && transform.position.x > finalXPos))
-        tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX * Time.deltaTime; //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
+        tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX; //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
         else
         tempPos.x = finalXPos;
 
         if ((!negativeY && transform.position.y < finalYPos) || (negativeY && transform.position.y > finalYPos))
-        tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY * Time.deltaTime;
+        tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY;
         else
         tempPos.y = finalYPos;
 
@@ -122,13 +122,13 @@ public class Trap : MonoBehaviour
 
         //* (negativeX ? 1 : -1) returns 1 if negativeX is true and -1 if negativeX is false
         if ((!negativeX && transform.position.x > initialXPos) || (negativeX && transform.position.x < initialXPos))
-        tempPos.x += (negativeX ? 1 : -1) * 0.1f * moveSpeedX * Time.deltaTime;
+        tempPos.x += (negativeX ? 1 : -1) * 0.1f * moveSpeedX;
         else
         tempPos.x = initialXPos;
 
 
         if ((!negativeY && transform.position.y > initialYPos) || (negativeY && transform.position.y < initialYPos))
-        tempPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY * Time.deltaTime;
+        tempPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY;
         else
         tempPos.y = initialYPos;
 
