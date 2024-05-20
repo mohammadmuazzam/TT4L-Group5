@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 
-public class Level3 : MonoBehaviour
+public class Level5 : MonoBehaviour
 {
     [SerializeField]
     Trap[] trapScripts;
@@ -14,17 +14,14 @@ public class Level3 : MonoBehaviour
     bool trapActivated;
     public float playerMinX, playerMaxX;
 
-    
     void Awake()
     {
         trapActivated = false;
     }
-
-    void Update()
+     void Update()
     {
         CheckForTrapTrigger();
     }
-
     IEnumerator MoveTrapNonStop(Trap trapScript, int mode)
     {
         if (mode == 1) // perma move
@@ -35,8 +32,7 @@ public class Level3 : MonoBehaviour
             yield return new WaitForSeconds(4f);
             trapActivated = false;
     }
-
-void CheckForTrapTrigger()
+    void CheckForTrapTrigger()
 {
     // Check if any trap trigger has been triggered
     foreach (GameObject triggerGameObject in trapTriggers)
@@ -54,8 +50,4 @@ void CheckForTrapTrigger()
         }
     }
 }
-
-
 }
-
-
