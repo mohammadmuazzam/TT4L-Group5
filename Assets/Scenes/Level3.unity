@@ -1791,7 +1791,7 @@ MonoBehaviour:
   moveAmountX: 0
   moveAmountY: 6
   moveSpeedX: 0
-  moveSpeedY: 3
+  moveSpeedY: 5
   waitTime: 1.5
 --- !u!1 &654021083
 GameObject:
@@ -2223,6 +2223,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5237522632024391710, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1393905732}
     - target: {fileID: 6778376793218841900, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
       propertyPath: m_Name
       value: Game Manager
@@ -3261,7 +3265,7 @@ Transform:
   m_GameObject: {fileID: 1044494289}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.39617, y: 0.34296513, z: -0.3984571}
+  m_LocalPosition: {x: -8.39617, y: 1.3, z: -0.3984571}
   m_LocalScale: {x: 0.9505, y: 0.9505, z: 0.9505}
   m_ConstrainProportionsScale: 0
   m_Children: []

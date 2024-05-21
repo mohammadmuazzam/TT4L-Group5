@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Trap : MonoBehaviour
@@ -32,7 +33,9 @@ public class Trap : MonoBehaviour
     // move trap
     public IEnumerator PermanentMoveTrap()
     {
+        Stopwatch watch = Stopwatch.StartNew();
         bool hasFinishedMoving = false;
+        watch.Start();
         while(!hasFinishedMoving)
         {
             ActivateTrap();
@@ -47,6 +50,8 @@ public class Trap : MonoBehaviour
             }
             yield return null;
         }
+        watch.Stop();
+        print($"elapsed time: {watch.ElapsedMilliseconds}");
     }
 
     public IEnumerator TemporaryMoveTrap()
@@ -97,11 +102,15 @@ public class Trap : MonoBehaviour
     {
         tempPos = transform.position;
 
-        if ((!negativeX && transform.position.x <= finalXPos) || (negativeX && transform.position.x >= finalXPos))
-        tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX; //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
+        if ((!negativeX && transform.position.x < finalXPos) || (negativeX && transform.position.x > finalXPos))
+        tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX * Time.deltaTime; //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
+        else
+        tempPos.x = finalXPos;
 
-        if ((!negativeY && transform.position.y <= finalYPos) || (negativeY && transform.position.y >= finalYPos))
-        tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY;
+        if ((!negativeY && transform.position.y < finalYPos) || (negativeY && transform.position.y > finalYPos))
+        tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY * Time.deltaTime;
+        else
+        tempPos.y = finalYPos;
 
         transform.position = tempPos;
     }
@@ -112,11 +121,16 @@ public class Trap : MonoBehaviour
         tempPos = transform.position;
 
         //* (negativeX ? 1 : -1) returns 1 if negativeX is true and -1 if negativeX is false
-        if ((!negativeX && transform.position.x >= initialXPos) || (negativeX && transform.position.x <= initialXPos))
-        tempPos.x += (negativeX ? 1 : -1) * 0.1f * moveSpeedX;
+        if ((!negativeX && transform.position.x > initialXPos) || (negativeX && transform.position.x < initialXPos))
+        tempPos.x += (negativeX ? 1 : -1) * 0.1f * moveSpeedX * Time.deltaTime;
+        else
+        tempPos.x = initialXPos;
 
-        if ((!negativeY && transform.position.y >= initialYPos) || (negativeY && transform.position.y <= initialYPos))
-        tempPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY;
+
+        if ((!negativeY && transform.position.y > initialYPos) || (negativeY && transform.position.y < initialYPos))
+        tempPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY * Time.deltaTime;
+        else
+        tempPos.y = initialYPos;
 
         transform.position = tempPos;
     }

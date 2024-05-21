@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Rock : Trap
@@ -9,12 +10,12 @@ public class Rock : Trap
     private float tempCurrentScaleX, tempCurrentScaleY, initialScaleX, initialScaleY;
 
     private bool isScaleUpX, isScaleUpY;
-    private bool doneGrowing2, doneGrowing;
+    private bool doneScaling, doneScaling2;
     void Awake()
     {
         gameObject.SetActive(isDefaultActive);
-        doneGrowing2 = false;
-        doneGrowing = false;
+        doneScaling2 = false;
+        doneScaling = false;
 
         initialScaleX = transform.localScale.x;
         initialScaleY = transform.localScale.y;
@@ -31,53 +32,37 @@ public class Rock : Trap
             isScaleUpY = false;    
     }
 
-    public IEnumerator MoveAndGrowRock()
+    public async void MoveAndGrowRock()
     {
         ActivateRock();
-    
-        // move and grow
-        while (!doneGrowing2)
-        {
-            // scale
-            if (!doneGrowing)
-            {
-                PositiveScaleRock();
-                if ((isScaleUpX && tempCurrentScaleX >= finalScaleX) || (!isScaleUpX && tempCurrentScaleX <= finalScaleX))
-                {
-                    if ((isScaleUpY && tempCurrentScaleY >= finalScaleY) || (!isScaleUpY && tempCurrentScaleY <= finalScaleY))
-                    {
-                        doneGrowing = true;
-                    }
-                }
-                yield return null;
-            }
-            yield return new WaitForSeconds(1);
-            if (!doneGrowing2)
-            {
-                NegativeScaleRock();
-                if ((isScaleUpX && tempCurrentScaleX <= initialScaleX) || (!isScaleUpX && tempCurrentScaleX >= initialScaleX))
-                {
-                    if ((isScaleUpY && tempCurrentScaleY <= initialScaleX) || (!isScaleUpY && tempCurrentScaleY >= initialScaleY))
-                    {
-                        doneGrowing2 = true;
-                    }
-                }
-                yield return null;
-            }
-            
-        }
-        
+
+        await PositiveScaleRock();
+  
     }
 
-    private void PositiveScaleRock()
+    private async Task PositiveScaleRock()
     {
+        while (!doneScaling)
+        {
             tempCurrentScaleX = transform.localScale.x;
             tempCurrentScaleX += (isScaleUpX? 1 : -1) * scaleSpeedX * 0.01f;
 
             tempCurrentScaleY = transform.localScale.y;
             tempCurrentScaleY += (isScaleUpY? 1 : -1) * scaleSpeedY * 0.01f;
 
+
+            // stop scaling condition
+            if ((isScaleUpX && tempCurrentScaleX >= finalScaleX) || (!isScaleUpX && tempCurrentScaleX <= finalScaleX))
+            {
+                if ((isScaleUpY && tempCurrentScaleY >= finalScaleY) || (!isScaleUpY && tempCurrentScaleY <= finalScaleY))
+                {
+                    doneScaling = true;
+                }
+            }
             transform.localScale = new Vector3(tempCurrentScaleX, tempCurrentScaleY, transform.localScale.z);   
+            await Task.Yield();
+        }
+        
     }
 
     private void NegativeScaleRock()
@@ -87,6 +72,15 @@ public class Rock : Trap
 
             tempCurrentScaleY = transform.localScale.y;
             tempCurrentScaleY += (isScaleUpY? -1 : 1) * scaleSpeedY * 0.01f;
+
+            // stop scaling condition
+            if ((isScaleUpX && tempCurrentScaleX <= initialScaleX) || (!isScaleUpX && tempCurrentScaleX >= initialScaleX))
+            {
+                if ((isScaleUpY && tempCurrentScaleY <= initialScaleX) || (!isScaleUpY && tempCurrentScaleY >= initialScaleY))
+                {
+                    doneScaling2 = true;
+                }
+            }
 
             transform.localScale = new Vector3(tempCurrentScaleX, tempCurrentScaleY, transform.localScale.z);   
     }
