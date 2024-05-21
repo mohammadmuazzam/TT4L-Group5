@@ -49,7 +49,7 @@ public class Rock : Trap
             isScaleUpY = false;    
     }
 
-    public async Task MoveAndGrowRock()
+    public void MoveAndGrowRock()
     {
         try
         {
@@ -94,7 +94,7 @@ public class Rock : Trap
                 await Task.Yield();
             }
         }
-        catch (System.Exception ex)
+        catch (System.Exception)
         {
             return;
         }

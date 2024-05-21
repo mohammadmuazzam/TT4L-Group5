@@ -199,9 +199,10 @@ GameObject:
   - component: {fileID: 284385133}
   - component: {fileID: 284385135}
   - component: {fileID: 284385134}
+  - component: {fileID: 284385136}
   m_Layer: 0
   m_Name: Spike
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmountX: 0
-  moveAmountY: 2
+  moveAmountY: 2.5
   moveSpeedX: 0
   moveSpeedY: 200
   waitTime: 500
@@ -290,6 +291,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &284385136
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284385132}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 10.8, y: 9.38}
+    newSize: {x: 10.8, y: 9.38}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.0842433, y: 4.9028597}
+      - {x: 5.462656, y: -4.6982417}
+      - {x: -5.4187627, y: -4.6779547}
+  m_UseDelaunayMesh: 0
 --- !u!1 &478444935
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +792,7 @@ Transform:
   m_GameObject: {fileID: 733293739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7908354, y: 4.0519753, z: 0.0044156187}
+  m_LocalPosition: {x: 0.92, y: 6.15, z: 0.0044156187}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -762,15 +811,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmountX: 0
-  moveAmountY: -2.7
+  moveAmountY: -6.14
   moveSpeedX: 0
-  moveSpeedY: 150
+  moveSpeedY: 100
   waitTime: 1000
   isDefaultActive: 0
-  finalScaleX: 1.3
-  finalScaleY: 0.3
-  scaleSpeedX: 3
-  scaleSpeedY: 1.5
+  finalScaleX: 0.8
+  finalScaleY: 0.5
+  scaleSpeedX: 1.5
+  scaleSpeedY: 0.7
   offsetInitialYPos: 16.43
   offsetInitialXPos: 0
 --- !u!61 &733293743
