@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Level4 : MonoBehaviour
@@ -16,7 +17,7 @@ public class Level4 : MonoBehaviour
 
     [SerializeField]private GameObject[] trapTriggers;
 
-    private bool hasTriggered1, hasTriggered2, hasCloudMoved;
+    private bool hasTriggered1, hasTriggered2, hasCloudMoved, tempSpike;
     
 
     void Awake()
@@ -24,15 +25,16 @@ public class Level4 : MonoBehaviour
         hasTriggered1 = false;
         hasTriggered2 = false;
         hasCloudMoved = false;
+        tempSpike = false;
     }
 
 
-    void Update()
+    void LateUpdate()
     {
         CheckForTrapTrigger();
     }
 
-    void CheckForTrapTrigger()
+    async void CheckForTrapTrigger()
     {
         // check if any trap trigger has been triggered
         foreach (GameObject triggerGameObject in trapTriggers)
@@ -59,35 +61,28 @@ public class Level4 : MonoBehaviour
                         if (!hasCloudMoved)
                         {
                             hasCloudMoved = true;
-                            StartCoroutine(RunCoroutineWithStatus(trapScripts[0].PermanentMoveTrap(), cloudMovementCoroutineStatus));
-                        }
-                        Debug.Log("cloud status: " + cloudMovementCoroutineStatus.IsCompleted);
-
-                        if (cloudMovementCoroutineStatus.IsCompleted)
-                        {
-                            rockScript.MoveAndGrowRock();
+                            //await trapScripts[0].PermanentMoveTrap();
+                            await rockScript.MoveAndGrowRock();
                             hasTriggered2 = true;
-                        }
                             
+                        }
+                    }
+                    if (Player.shouldJump && !tempSpike)
+                    {
+                        _ = trapScripts[1].TemporaryMoveTrap();
+                        tempSpike = true;
                     }
                     break;
 
                     case "Trap Trigger 3":
                     if (Player.shouldJump)
                     {
-                        StartCoroutine(trapScripts[1].TemporaryMoveTrap());
+                        //StartCoroutine(trapScripts[1].TemporaryMoveTrap());
                     }
                     break;
                 }
 
             }
         }
-    }
-
-    IEnumerator RunCoroutineWithStatus(IEnumerator coroutine, CoroutineStatus status)
-    {
-        status.IsCompleted = false;
-        yield return StartCoroutine(coroutine);
-        status.IsCompleted = true;
     }
 }

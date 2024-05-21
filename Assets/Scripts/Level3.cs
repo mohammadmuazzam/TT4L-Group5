@@ -40,7 +40,7 @@ void CheckForTrapTrigger()
             {
                 // Start the coroutine to move the trap temporarily
                 trapActivated = true;
-                StartCoroutine(trapScripts[0].TemporaryMoveTrap());
+                _ = trapScripts[0].TemporaryMoveTrap();
             }
         }
     }
