@@ -1791,8 +1791,8 @@ MonoBehaviour:
   moveAmountX: 0
   moveAmountY: 6
   moveSpeedX: 0
-  moveSpeedY: 5
-  waitTime: 1.5
+  moveSpeedY: 500
+  waitTime: 500
 --- !u!1 &654021083
 GameObject:
   m_ObjectHideFlags: 0
@@ -4962,6 +4962,10 @@ PrefabInstance:
     - target: {fileID: 500274060321632254, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
       propertyPath: maxX
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 500274060321632254, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
+      propertyPath: canPlayerDie
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 739047056036975620, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
       propertyPath: m_LocalPosition.x
