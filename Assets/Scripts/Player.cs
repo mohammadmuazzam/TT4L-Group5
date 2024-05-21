@@ -102,7 +102,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             isOnGround = true;
-            Debug.Log("STAY");
         }
     }
 

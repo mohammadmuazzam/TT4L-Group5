@@ -29,12 +29,6 @@ public class Level2 : MonoBehaviour
         CheckTrapTrigger ();
     }
 
-    IEnumerator MoveTrapNonStop (Trap trapScript, int mode)
-    {
-        if (mode == 1) // temp move
-        yield return StartCoroutine(trapScript.TemporaryMoveTrap());
-    }
-
     void CheckTrapTrigger()
     {
         foreach (GameObject triggerGameObject in trapTriggers)
@@ -49,8 +43,8 @@ public class Level2 : MonoBehaviour
                     case "Trap Trigger 1":
                     if (!trap1Activated)
                     {
-                        StartCoroutine(MoveTrapNonStop(trapScripts[0], 1));
-                        trap1Activated = true;
+                        _ = trapScripts[0].TemporaryMoveTrap();
+                        trapActivated = true;
                     }
                     break;
 
