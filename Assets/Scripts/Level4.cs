@@ -62,7 +62,7 @@ public class Level4 : MonoBehaviour
                         {
                             hasCloudMoved = true;
                             //await trapScripts[0].PermanentMoveTrap();
-                            await rockScript.MoveAndGrowRock();
+                            rockScript.MoveAndGrowRock();
                             hasTriggered2 = true;
                             
                         }
