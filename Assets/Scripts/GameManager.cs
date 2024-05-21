@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         // calculate attempts
         if (scene.name == currentLevelName)
         {
-            attempts += 1   ;
+            attempts += 1;
         }
     }
 }
