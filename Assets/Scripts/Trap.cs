@@ -126,7 +126,7 @@ public class Trap : MonoBehaviour
             }
             watch.Stop();
         } 
-        catch (Exception ex)
+        catch (Exception)
         {
             return;
         }
