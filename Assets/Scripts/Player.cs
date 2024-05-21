@@ -110,6 +110,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
+            Debug.Log("OUT");    
             isOnGround = false;
         }
     }
@@ -143,4 +144,4 @@ public class Player : MonoBehaviour
         }
         
     }
-}
+}   

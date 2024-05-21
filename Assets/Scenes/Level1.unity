@@ -1985,8 +1985,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAmountX: 4.18
   moveAmountY: 0.75
-  moveSpeedX: 140
-  moveSpeedY: 100
+  moveSpeedX: 2
+  moveSpeedY: 1
   waitTime: 0
 --- !u!1 &1778214269
 GameObject:
