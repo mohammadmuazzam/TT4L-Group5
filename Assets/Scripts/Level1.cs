@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,15 +36,6 @@ public class Level1 : MonoBehaviour
         CheckForTrapTrigger();
     }
 
-    //coroutine to move trap
-    IEnumerator MoveTrapNonStop(Trap trapScript, int mode)
-    {
-        if (mode == 1) // perma move
-            yield return StartCoroutine(trapScript.PermanentMoveTrap());
-        else if (mode == 2) // temp move
-            yield return StartCoroutine(trapScript.TemporaryMoveTrap());
-    }
-
     void CheckForTrapTrigger()
     {
         // check if the trap trigger has been triggered
@@ -59,7 +51,7 @@ public class Level1 : MonoBehaviour
                     case "Trap Trigger 1":
                     if (!trap1Activated && Player.shouldJump)
                     {
-                        StartCoroutine(trapScripts[0].PermanentMoveTrap());
+                        _ = trapScripts[0].PermanentMoveTrap();
                         trap1Activated = true;
                     }
                     break;
@@ -67,7 +59,7 @@ public class Level1 : MonoBehaviour
                     case "Trap Trigger 2":
                     if (!trap2Activated)
                     {
-                        StartCoroutine(MoveTrapNonStop(trapScripts[1], 2));
+                        _ = trapScripts[1].TemporaryMoveTrap();
                         trap2Activated = true;
                     }         
                     break;
@@ -75,7 +67,7 @@ public class Level1 : MonoBehaviour
                     case "Trap Trigger 3":
                     if (!trap3Activated)
                     {
-                        StartCoroutine(MoveTrapNonStop(trapScripts[2], 2));
+                        _ = trapScripts[2].TemporaryMoveTrap();
                         trap3Activated = true;
                     }
                     break;

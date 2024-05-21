@@ -6,13 +6,30 @@ using UnityEngine;
 public class Rock : Trap
 {
     [SerializeField] private bool isDefaultActive;
-    [SerializeField] float finalScaleX, finalScaleY, scaleSpeedX, scaleSpeedY;
+    [SerializeField] float finalScaleX, finalScaleY, scaleSpeedX, scaleSpeedY, offsetInitialYPos, offsetInitialXPos;
     private float tempCurrentScaleX, tempCurrentScaleY, initialScaleX, initialScaleY;
 
     private bool isScaleUpX, isScaleUpY;
     private bool doneScaling, doneScaling2;
     void Awake()
     {
+        initialXPos = transform.localPosition.x;
+        initialYPos = transform.localPosition.y; 
+        
+
+        finalXPos = initialXPos + moveAmountX;
+        finalYPos = initialYPos + moveAmountY;
+        initialYPos = initialYPos + offsetInitialYPos;
+        initialXPos = initialXPos + offsetInitialXPos;
+        Debug.Log($"in rock final pos: ({finalXPos}, {finalYPos})");
+
+        //* check if final position is less than initial position
+        if (finalXPos < initialXPos) negativeX = true;
+        else negativeX = false;
+
+        if (finalYPos < initialYPos) negativeY = true;
+        else negativeY = false;
+
         gameObject.SetActive(isDefaultActive);
         doneScaling2 = false;
         doneScaling = false;
@@ -32,38 +49,59 @@ public class Rock : Trap
             isScaleUpY = false;    
     }
 
-    public async void MoveAndGrowRock()
+    public async Task MoveAndGrowRock()
     {
-        ActivateRock();
+        try
+        {
+            gameObject.SetActive(true);
 
-        await PositiveScaleRock();
+            _ = PositiveScaleRock();
+            Debug.Log("Calling TemporaryMoveTrap");
+            _ = base.TemporaryMoveTrap();
+            Debug.Log("MoveAndGrowRock completed");
+        }
+        catch (System.Exception ex)
+        {
+            return;
+        }
+        
   
     }
 
     private async Task PositiveScaleRock()
     {
-        while (!doneScaling)
+        try
         {
-            tempCurrentScaleX = transform.localScale.x;
-            tempCurrentScaleX += (isScaleUpX? 1 : -1) * scaleSpeedX * 0.01f;
-
-            tempCurrentScaleY = transform.localScale.y;
-            tempCurrentScaleY += (isScaleUpY? 1 : -1) * scaleSpeedY * 0.01f;
-
-
-            // stop scaling condition
-            if ((isScaleUpX && tempCurrentScaleX >= finalScaleX) || (!isScaleUpX && tempCurrentScaleX <= finalScaleX))
+            while (!doneScaling)
             {
-                if ((isScaleUpY && tempCurrentScaleY >= finalScaleY) || (!isScaleUpY && tempCurrentScaleY <= finalScaleY))
+
+                tempCurrentScaleX = transform.localScale.x;
+                tempCurrentScaleX += (isScaleUpX? 1 : -1) * scaleSpeedX * 0.01f;
+
+                tempCurrentScaleY = transform.localScale.y;
+                tempCurrentScaleY += (isScaleUpY? 1 : -1) * scaleSpeedY * 0.01f;
+
+
+                // stop scaling condition
+                if ((isScaleUpX && tempCurrentScaleX >= finalScaleX) || (!isScaleUpX && tempCurrentScaleX <= finalScaleX))
                 {
-                    doneScaling = true;
+                    if ((isScaleUpY && tempCurrentScaleY >= finalScaleY) || (!isScaleUpY && tempCurrentScaleY <= finalScaleY))
+                    {
+                        doneScaling = true;
+                    }
                 }
+                transform.localScale = new Vector3(tempCurrentScaleX, tempCurrentScaleY, transform.localScale.z);   
+                await Task.Yield();
             }
-            transform.localScale = new Vector3(tempCurrentScaleX, tempCurrentScaleY, transform.localScale.z);   
-            await Task.Yield();
+        }
+        catch (System.Exception ex)
+        {
+            return;
         }
         
+        
     }
+
 
     private void NegativeScaleRock()
     {
