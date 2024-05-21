@@ -774,11 +774,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7786bcfbc97534cae987ddd6b0fa10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAmountX: -5
+  moveAmountX: -3
   moveAmountY: 0
-  moveSpeedX: 3
+  moveSpeedX: 300
   moveSpeedY: 0
-  waitTime: 0.5
+  waitTime: 3000
 --- !u!212 &448733091
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -926,6 +926,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2962314727928258367, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
       propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2962314727928258367, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6778376793218841900, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
@@ -1696,8 +1700,8 @@ Transform:
   m_GameObject: {fileID: 1245273126}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.51, y: 1.72, z: 0.09355348}
-  m_LocalScale: {x: 0.42447066, y: 1.8712627, z: 1}
+  m_LocalPosition: {x: 13.51, y: 0.3, z: 0.09355348}
+  m_LocalScale: {x: 0.42447066, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 935872998}
@@ -1794,8 +1798,8 @@ MonoBehaviour:
   moveAmountX: 0
   moveAmountY: -6
   moveSpeedX: 0
-  moveSpeedY: 3
-  waitTime: 10
+  moveSpeedY: 300
+  waitTime: 0
 --- !u!212 &1245273130
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1926,7 +1930,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -102.06768, y: 3.7560549}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1937,7 +1941,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 205.13536, y: 8.51211}
   m_EdgeRadius: 0
 --- !u!1 &1473656195
 GameObject:
@@ -2162,8 +2166,8 @@ Transform:
   m_GameObject: {fileID: 1561342979}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.92, y: 2.77, z: 0}
-  m_LocalScale: {x: 3.4083, y: 1, z: 1}
+  m_LocalPosition: {x: 11.81, y: 2.77, z: 0}
+  m_LocalScale: {x: 6.1347866, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 931914126}
@@ -2592,8 +2596,8 @@ MonoBehaviour:
   moveAmountX: 0
   moveAmountY: 3.6
   moveSpeedX: 0
-  moveSpeedY: 3
-  waitTime: 1
+  moveSpeedY: 300
+  waitTime: 1000
 --- !u!212 &1881624874
 SpriteRenderer:
   m_ObjectHideFlags: 0

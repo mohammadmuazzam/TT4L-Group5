@@ -60,7 +60,7 @@ public class Rock : Trap
             _ = base.TemporaryMoveTrap();
             Debug.Log("MoveAndGrowRock completed");
         }
-        catch (System.Exception ex)
+        catch (System.Exception)
         {
             return;
         }

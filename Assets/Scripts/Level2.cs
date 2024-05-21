@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Level2 : MonoBehaviour
@@ -24,7 +25,7 @@ public class Level2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         CheckTrapTrigger ();
     }
@@ -44,14 +45,14 @@ public class Level2 : MonoBehaviour
                     if (!trap1Activated)
                     {
                         _ = trapScripts[0].TemporaryMoveTrap();
-                        trapActivated = true;
+                        trap1Activated = true;
                     }
                     break;
 
                     case "Trap Trigger 2":
                     if(!trap2Activated && Player.shouldJump)
                     {
-                        StartCoroutine(MoveTrapNonStop(trapScripts[1],1));
+                        _ = trapScripts[1].PermanentMoveTrap();
                         trap2Activated = true;
                     }
                     break;
@@ -59,7 +60,7 @@ public class Level2 : MonoBehaviour
                     case "Trap Trigger 3":
                     if (!trap3Activated)
                     {
-                        StartCoroutine(MoveTrapNonStop(trapScripts[2],1));
+                        _ = trapScripts[2].TemporaryMoveTrap();
                         trap3Activated = true;
                     }
                     break;
