@@ -2120,8 +2120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAmountX: 4.18
   moveAmountY: 0.75
-  moveSpeedX: 2
-  moveSpeedY: 1
+  moveSpeedX: 200
+  moveSpeedY: 100
   waitTime: 0
 --- !u!1 &1778214269
 GameObject:
@@ -2519,6 +2519,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 500274060321632254, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
+      propertyPath: canPlayerDie
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 739047056036975620, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.11
