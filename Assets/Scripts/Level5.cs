@@ -14,14 +14,17 @@ public class Level5 : MonoBehaviour
     bool trapActivated;
     public float playerMinX, playerMaxX;
 
+    
     void Awake()
     {
         trapActivated = false;
     }
-     void Update()
+
+    void Update()
     {
         CheckForTrapTrigger();
     }
+
     IEnumerator MoveTrapNonStop(Trap trapScript, int mode)
     {
         if (mode == 1) // perma move
@@ -32,22 +35,26 @@ public class Level5 : MonoBehaviour
             yield return new WaitForSeconds(4f);
             trapActivated = false;
     }
-    void CheckForTrapTrigger()
-{
-    // Check if any trap trigger has been triggered
-    foreach (GameObject triggerGameObject in trapTriggers)
-    {
-        TrapTrigger trapTriggerScript = triggerGameObject.GetComponent<TrapTrigger>();
 
-        if (trapTriggerScript != null && trapTriggerScript.playerIsInTrigger && !trapActivated)
+    void CheckForTrapTrigger()
+    {
+        // Check if any trap trigger has been triggered
+        foreach (GameObject triggerGameObject in trapTriggers)
         {
-            // Trigger the trap if the player should jump and trap is not currently activated
-            if (Player.shouldJump && triggerGameObject.name == "Trap Trigger")
+            TrapTrigger trapTriggerScript = triggerGameObject.GetComponent<TrapTrigger>();
+
+            if (trapTriggerScript != null && trapTriggerScript.playerIsInTrigger && !trapActivated)
             {
-                // Start the coroutine to move the trap temporarily
-                StartCoroutine(MoveTrapNonStop(trapScripts[0], 2));
+                // Trigger the trap if the player should jump and trap is not currently activated
+                if (Player.shouldJump && triggerGameObject.name == "Trap Trigger")
+                {
+                    // Start the coroutine to move the trap temporarily
+                    StartCoroutine(MoveTrapNonStop(trapScripts[0], 2));
+                }
             }
         }
     }
-}
+
+
+
 }
