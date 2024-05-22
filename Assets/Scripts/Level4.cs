@@ -57,12 +57,11 @@ public class Level4 : MonoBehaviour
                     case "Trap Trigger 2":
                     if (!hasTriggered2)
                     {
-                        //StartCoroutine(CloudMovementCheck(trapScripts[0].PermanentMoveTrap()));
                         if (!hasCloudMoved)
                         {
                             hasCloudMoved = true;
-                            //await trapScripts[0].PermanentMoveTrap();
-                            rockScript.MoveAndGrowRock();
+                            await rockScript.PermanentMoveTrap();
+                            _ = rockScript.MoveAndGrowRock();
                             hasTriggered2 = true;
                             
                         }

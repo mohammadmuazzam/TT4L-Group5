@@ -109,8 +109,7 @@ public class Player : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))
-        {
-            Debug.Log("OUT");    
+        {   
             isOnGround = false;
         }
     }

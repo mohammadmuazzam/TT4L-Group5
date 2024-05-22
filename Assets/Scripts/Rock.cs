@@ -2,34 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Rock : Trap
 {
     [SerializeField] private bool isDefaultActive;
     [SerializeField] float finalScaleX, finalScaleY, scaleSpeedX, scaleSpeedY, offsetInitialYPos, offsetInitialXPos;
+    
     private float tempCurrentScaleX, tempCurrentScaleY, initialScaleX, initialScaleY;
 
     private bool isScaleUpX, isScaleUpY;
     private bool doneScaling, doneScaling2;
-    void Awake()
+    protected override void Awake()
     {
-        initialXPos = transform.localPosition.x;
-        initialYPos = transform.localPosition.y; 
-        
-
-        finalXPos = initialXPos + moveAmountX;
-        finalYPos = initialYPos + moveAmountY;
-        initialYPos = initialYPos + offsetInitialYPos;
-        initialXPos = initialXPos + offsetInitialXPos;
-        Debug.Log($"in rock final pos: ({finalXPos}, {finalYPos})");
-
-        //* check if final position is less than initial position
-        if (finalXPos < initialXPos) negativeX = true;
-        else negativeX = false;
-
-        if (finalYPos < initialYPos) negativeY = true;
-        else negativeY = false;
-
+        print("intializing in rock");
+        Initialization();
         gameObject.SetActive(isDefaultActive);
         doneScaling2 = false;
         doneScaling = false;
@@ -49,16 +36,18 @@ public class Rock : Trap
             isScaleUpY = false;    
     }
 
-    public void MoveAndGrowRock()
+    public async Task MoveAndGrowRock()
     {
         try
         {
             gameObject.SetActive(true);
+            print("Rock - gameobject active status: " + gameObject.activeSelf);
+            //! GAME OBJECT INS'T ACTUALLY ACTIVE
 
-            _ = PositiveScaleRock();
-            Debug.Log("Calling TemporaryMoveTrap");
-            _ = base.TemporaryMoveTrap();
-            Debug.Log("MoveAndGrowRock completed");
+            await PermanentMoveTrap(initialXPos, initialYPos-2);
+            print("After PermanentMoveTrap");
+            //_ = PositiveScaleRock();
+            //_ = base.TemporaryMoveTrap();
         }
         catch (System.Exception)
         {
