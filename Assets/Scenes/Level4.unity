@@ -206,7 +206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &284385133
 Transform:
   m_ObjectHideFlags: 0
@@ -239,6 +239,7 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 200
   waitTime: 500
+  stopPoints: []
 --- !u!212 &284385135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -463,7 +464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &560128116
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -548,6 +549,7 @@ MonoBehaviour:
   moveSpeedX: 400
   moveSpeedY: 0
   waitTime: 0
+  stopPoints: []
 --- !u!1 &655637137
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,8 +854,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1839277229}
-  - {fileID: 733293741}
   - {fileID: 284385133}
+  - {fileID: 733293741}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &733293739
@@ -865,8 +867,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 733293741}
-  - component: {fileID: 733293740}
   - component: {fileID: 733293742}
+  - component: {fileID: 733293740}
   - component: {fileID: 733293743}
   m_Layer: 0
   m_Name: Rock
@@ -936,7 +938,7 @@ Transform:
   m_GameObject: {fileID: 733293739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.79, y: 6.15, z: 0.0044156187}
+  m_LocalPosition: {x: 0.78999996, y: 6.15, z: 0.0044156187}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -959,6 +961,7 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 50
   waitTime: 1000
+  stopPoints: []
   isDefaultActive: 0
   finalScaleX: 0.8
   finalScaleY: 0.8

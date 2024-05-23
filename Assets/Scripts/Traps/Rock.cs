@@ -38,10 +38,10 @@ public class Rock : Trap
 
     public async Task MoveAndGrowRock()
     {
+        gameObject.SetActive(true);
+        print("Rock - gameobject active status: " + gameObject.activeSelf);
         try
         {
-            gameObject.SetActive(true);
-            print("Rock - gameobject active status: " + gameObject.activeSelf);
             //! GAME OBJECT INS'T ACTUALLY ACTIVE
 
             await PermanentMoveTrap(initialXPos, initialYPos-2);
