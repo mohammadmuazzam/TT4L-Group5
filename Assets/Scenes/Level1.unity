@@ -821,6 +821,7 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 300
   waitTime: 500
+  stopPoints: []
 --- !u!60 &824383606
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1070,7 +1071,7 @@ GameObject:
   - component: {fileID: 1173512443}
   m_Layer: 0
   m_Name: Moveable Spike 3
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1092,6 +1093,7 @@ MonoBehaviour:
   moveSpeedX: 600
   moveSpeedY: 0
   waitTime: 500
+  stopPoints: []
 --- !u!60 &1173512444
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2123,6 +2125,7 @@ MonoBehaviour:
   moveSpeedX: 200
   moveSpeedY: 100
   waitTime: 0
+  stopPoints: []
 --- !u!1 &1778214269
 GameObject:
   m_ObjectHideFlags: 0
