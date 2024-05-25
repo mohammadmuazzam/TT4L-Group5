@@ -42,14 +42,13 @@ public class Trap : MonoBehaviour
 
     protected void Initialization()
     {
-        print("initializing");
         initialXPos = gameObject.transform.localPosition.x;
         initialYPos = gameObject.transform.localPosition.y; 
-        UnityEngine.Debug.Log($"Trap - initial pos: ({transform.localPosition.x}, {transform.localPosition.y})");
+        //UnityEngine.Debug.Log($"Trap - initial pos: ({transform.localPosition.x}, {transform.localPosition.y})");
 
         finalXPos = initialXPos + moveAmountX;
         finalYPos = initialYPos + moveAmountY;
-        UnityEngine.Debug.Log($"Trap - final pos: ({finalXPos}, {finalYPos})");
+        //UnityEngine.Debug.Log($"Trap - final pos: ({finalXPos}, {finalYPos})");
 
         //* check if final position is less than initial position
         if (finalXPos < initialXPos) negativeX = true;
@@ -60,22 +59,21 @@ public class Trap : MonoBehaviour
     }
 
     // move trap
-    public async Task PermanentMoveTrap(float stopX, float stopY)
+    public async Task PermanentMoveTrap(float startX, float startY, float stopX, float stopY)
     {
         Stopwatch watch = Stopwatch.StartNew();
         bool hasFinishedMoving = false;
         watch.Start();
         print("Starting PermanentMoveTrap");
 
-        if (stopY < initialXPos) negativeX = true;
+        if (stopX < startX) negativeX = true;
         else negativeX = false;
 
-        if (stopY < initialYPos) negativeY = true;
+        if (stopY < startY) negativeY = true;
         else negativeY = false;
 
         while(!hasFinishedMoving)
         {
-            print("gameobject active status: " + gameObject.activeSelf);
             ActivateTrap(stopX, stopY);
             
             // if trap has reached final position, then stop moving and stop coroutine
@@ -83,6 +81,9 @@ public class Trap : MonoBehaviour
             {
                 if ((!negativeY && transform.localPosition.y >= stopY) || (negativeY && transform.localPosition.y <= stopY))
                 {
+                    tempPos.x = stopX;
+                    tempPos.y = stopY;
+                    transform.localPosition = tempPos;
                     hasFinishedMoving = true;
                 }
             }
@@ -93,40 +94,38 @@ public class Trap : MonoBehaviour
     }
     public async Task PermanentMoveTrap()
     {
-        await PermanentMoveTrap(finalXPos, finalYPos);
+        await PermanentMoveTrap(initialXPos, initialYPos, finalXPos, finalYPos);
     }
-    public async Task TemporaryMoveTrap()
+    public async Task TemporaryMoveTrap(float startX, float startY, float stopX, float stopY)
     {
         bool hasFinishedMoving1 = false;
-        UnityEngine.Debug.Log($"in temp trap, final pos: ({finalXPos}, {finalYPos}), current world pos: {transform.position}, current local pos: {transform.localPosition}");
+        //UnityEngine.Debug.Log($"in temp trap, final pos: ({finalXPos}, {finalYPos}), current world pos: {transform.position}, current local pos: {transform.localPosition}");
         
+        if (stopX < startX) negativeX = true;
+        else negativeX = false;
+
+        if (stopY < startY) negativeY = true;
+        else negativeY = false;
+
         // trap activating 
         try
         {
             while(!hasFinishedMoving1)
             {
-                if (gameObject == null || this == null || UnityEngine.Object.ReferenceEquals(gameObject, null))
+                ActivateTrap(stopX, stopY);
+                
+                // if trap has reached final position, then stop moving and stop coroutine
+                if ((!negativeX && transform.localPosition.x >= stopX) || (negativeX && transform.localPosition.x <= stopX))
                 {
-                    return;
-                }
-                else
-                {
-                    ActivateTrap();
-
-                    // if trap has reached final position, then stop moving and stop coroutine
-                    if ((!negativeX && transform.localPosition.x >= finalXPos) || (negativeX && transform.localPosition.x <= finalXPos))
+                    if ((!negativeY && transform.localPosition.y >= stopY) || (negativeY && transform.localPosition.y <= stopY))
                     {
-                        if ((!negativeY && transform.localPosition.y >= finalYPos) || (negativeY && transform.localPosition.y <= finalYPos))
-                        {
-                            tempPos.x = finalXPos;
-                            tempPos.y = finalYPos;
-                            transform.localPosition = tempPos;
-                            hasFinishedMoving1 = true;
-                        }
+                        tempPos.x = stopX;
+                        tempPos.y = stopY;
+                        transform.localPosition = tempPos;
+                        hasFinishedMoving1 = true;
                     }
-
-                    await Task.Yield();
                 }
+                await Task.Yield();
             }
 
             // wait
@@ -138,18 +137,14 @@ public class Trap : MonoBehaviour
             // trap going back to original position
             while (!hasFinishedMoving2)
             {
-                if (gameObject == null)
-                {
-                    return;
-                }
-                DeactivateTrap();
+                DeactivateTrap(startX, startY);
 
-                if ((!negativeX && transform.localPosition.x <= initialXPos) || (negativeX && transform.localPosition.x >= initialXPos))
+                if ((!negativeX && transform.localPosition.x <= startX) || (negativeX && transform.localPosition.x >= startX))
                 {
-                    if ((!negativeY && transform.localPosition.y <= initialYPos) || (negativeY && transform.localPosition.y >= initialYPos))
+                    if ((!negativeY && transform.localPosition.y <= startY) || (negativeY && transform.localPosition.y >= startY))
                     {
-                        tempPos.x = initialXPos;
-                        tempPos.y = initialYPos;
+                        tempPos.x = startX;
+                        tempPos.y = startY;
                         transform.localPosition = tempPos;
                         hasFinishedMoving2 = true;
                     }
@@ -166,6 +161,10 @@ public class Trap : MonoBehaviour
         
     }
 
+    public async Task TemporaryMoveTrap()
+    {
+        await TemporaryMoveTrap(initialXPos, initialYPos, finalXPos, finalYPos);
+    }
     // move trap out of initial position
     private void ActivateTrap(float stopX, float stopY)
     {
@@ -175,18 +174,24 @@ public class Trap : MonoBehaviour
         {
             //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
             tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX * Time.deltaTime;
-            print("ActivatingTrap in X");
+            //print("ActivatingTrap in X");
         }
         else
-            UnityEngine.Debug.Log("not ActivatingTrap in X");
+        {
+            //UnityEngine.Debug.Log("not ActivatingTrap in X");
+        }
+            
 
         if ((!negativeY && transform.localPosition.y < stopY) || (negativeY && transform.localPosition.y > stopY))
         {
             tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY * Time.deltaTime;
-            print("ActivatingTrap in Y");
+            //print("ActivatingTrap in Y");
         }
         else
-            UnityEngine.Debug.Log("not ActivatingTrap in Y");
+        {
+            //UnityEngine.Debug.Log("not ActivatingTrap in Y");
+        }
+            
         
         transform.localPosition = tempPos;
         print("After ActivateTrap - position: " + transform.localPosition);
@@ -196,18 +201,23 @@ public class Trap : MonoBehaviour
         ActivateTrap(finalXPos, finalYPos);
     }
     // move trap back to initial position
-    private void DeactivateTrap()
+    private void DeactivateTrap(float startX, float startY)
     {
         tempPos = transform.localPosition;
 
         //* (negativeX ? 1 : -1) returns 1 if negativeX is true and -1 if negativeX is false
-        if ((!negativeX && transform.localPosition.x > initialXPos) || (negativeX && transform.localPosition.x < initialXPos))
+        if ((!negativeX && transform.localPosition.x > startX) || (negativeX && transform.localPosition.x < startX))
         tempPos.x += (negativeX ? 1 : -1) * 0.1f * moveSpeedX * Time.deltaTime;
 
 
-        if ((!negativeY && transform.localPosition.y > initialYPos) || (negativeY && transform.localPosition.y < initialYPos))
+        if ((!negativeY && transform.localPosition.y > startY) || (negativeY && transform.localPosition.y < startY))
         tempPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY * Time.deltaTime;
 
         transform.localPosition = tempPos;
+    }
+
+    private void DeactivateTrap()
+    {
+        DeactivateTrap(initialXPos, initialYPos);
     }
 }

@@ -36,18 +36,18 @@ public class Rock : Trap
             isScaleUpY = false;    
     }
 
-    public async Task MoveAndGrowRock()
+    public async Task MoveAndGrowRockLevel3()
     {
-        gameObject.SetActive(true);
-        print("Rock - gameobject active status: " + gameObject.activeSelf);
         try
         {
+            gameObject.SetActive(true);
             //! GAME OBJECT INS'T ACTUALLY ACTIVE
 
-            await PermanentMoveTrap(initialXPos, initialYPos-2);
+            await PermanentMoveTrap();
             print("After PermanentMoveTrap");
-            //_ = PositiveScaleRock();
-            //_ = base.TemporaryMoveTrap();
+            _ = PositiveScaleRock();
+            _ = TemporaryMoveTrap(initialXPos, initialYPos+10, finalXPos, finalYPos);
+            //await PermanentMoveTrap(initialXPos, initialYPos+10);
         }
         catch (System.Exception)
         {

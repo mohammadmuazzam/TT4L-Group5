@@ -17,17 +17,8 @@ public class Level4 : MonoBehaviour
 
     [SerializeField]private GameObject[] trapTriggers;
 
-    private bool hasTriggered1, hasTriggered2, hasCloudMoved, tempSpike;
-    
-
-    void Awake()
-    {
-        hasTriggered1 = false;
-        hasTriggered2 = false;
-        hasCloudMoved = false;
-        tempSpike = false;
-    }
-
+    private bool hasTriggered1, hasTriggered2, hasTriggered3, hasTriggered4, hasTriggered5, 
+    hasCloudMoved, tempSpike = false;
 
     void LateUpdate()
     {
@@ -57,27 +48,34 @@ public class Level4 : MonoBehaviour
                     case "Trap Trigger 2":
                     if (!hasTriggered2)
                     {
-                        if (!hasCloudMoved)
-                        {
-                            hasCloudMoved = true;
-                            await rockScript.PermanentMoveTrap();
-                            _ = rockScript.MoveAndGrowRock();
-                            hasTriggered2 = true;
-                            
-                        }
+                        _ = rockScript.MoveAndGrowRockLevel3();
+                        hasTriggered2 = true;
+                        
                     }
+
+                    //? move trap if player jump over death hole
                     if (Player.shouldJump && !tempSpike)
                     {
-                        _ = trapScripts[1].TemporaryMoveTrap();
+                        _ = trapScripts[0].TemporaryMoveTrap();
                         tempSpike = true;
                     }
                     break;
 
                     case "Trap Trigger 3":
-                    if (Player.shouldJump)
+                    if (!hasTriggered3)
                     {
-                        //StartCoroutine(trapScripts[1].TemporaryMoveTrap());
+                        _ = trapScripts[2].PermanentMoveTrap();
+                        hasTriggered3 = true;
                     }
+                    break;
+
+                    case "Trap Trigger 4":
+                    if (hasTriggered3 && !hasTriggered4)
+                    {
+                        _ = trapScripts[1].PermanentMoveTrap();
+                        hasTriggered4 = true;
+                    }
+                    
                     break;
                 }
 
