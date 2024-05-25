@@ -15,10 +15,10 @@ public class Level4 : MonoBehaviour
     [SerializeField] private Lightning lightningScripts;
     [SerializeField] private Rock rockScript;
 
-    [SerializeField]private GameObject[] trapTriggers;
+    [SerializeField] private GameObject[] trapTriggers;
 
     private bool hasTriggered1, hasTriggered2, hasTriggered3, hasTriggered4, hasTriggered5, 
-    hasCloudMoved, tempSpike = false;
+    hasTriggered6, hasTriggered7 , pitTrigger, tempSpike = false;
 
     void LateUpdate()
     {
@@ -75,10 +75,44 @@ public class Level4 : MonoBehaviour
                         _ = trapScripts[1].PermanentMoveTrap();
                         hasTriggered4 = true;
                     }
-                    
+                    break;
+
+                    //? heavy metal object
+                    case "Trap Trigger 5":
+                    if (!hasTriggered5)
+                    {
+                        _ = trapScripts[3].TemporaryMoveTrap();
+                        hasTriggered5 = true;
+                    }
+                    break;
+
+                    //? if player tries to run from heavy metal object
+                    case "Trap Trigger 6":
+                    if (!hasTriggered6 && hasTriggered5)
+                    {
+                        _ = trapScripts[4].PermanentMoveTrap();
+                        hasTriggered6 = true;
+                    }
+                    break;
+
+                    //? safe pit
+                    case "Pit Trigger":
+                    if (!pitTrigger)
+                    {
+                        _ = trapScripts[5].PermanentMoveTrap();
+                        pitTrigger = true;
+                    }
+                    break;
+
+                    //? gate trap
+                    case "Trap Trigger 7":
+                    if (!hasTriggered7)
+                    {
+                        _ = trapScripts[6].PermanentMoveTrap();
+                        hasTriggered7 = true;
+                    }
                     break;
                 }
-
             }
         }
     }
