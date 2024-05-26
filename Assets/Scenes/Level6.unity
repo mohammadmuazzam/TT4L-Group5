@@ -435,7 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformSpeedX: 5
   platformSpeedY: 0
-  platformMaxPositionX: 10
+  platformMaxPositionX: 15
   platformMaxPositionY: -7
   platformMinPositionX: -20
   platformMinPositionY: -7
@@ -1452,10 +1452,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a955ca843ace516489309bc8c8521f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minX: 0
+  minX: 5
   maxX: 19.2
-  minY: -5
-  maxY: 0
+  minY: -2
+  maxY: -2
   moveOnY: 1
 --- !u!1 &919547860
 GameObject:
