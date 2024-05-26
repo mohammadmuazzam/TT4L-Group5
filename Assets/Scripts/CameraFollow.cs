@@ -7,7 +7,10 @@ public class CameraFollow : MonoBehaviour
     private Transform player;
     private Vector3 tempPos;
     [SerializeField]
-    private float minX, maxX;
+    private float minX, maxX, minY, maxY;
+
+    [SerializeField]
+    private bool moveOnY;
 
     void Awake()
     {
@@ -18,13 +21,19 @@ public class CameraFollow : MonoBehaviour
     {   
         // if player is null
         if (!player) return;
-
         
         tempPos = transform.position;
         tempPos.x = player.position.x;
+        if (moveOnY)
+        {
+            print("copying players temp");
+            tempPos.y = player.position.y;
+        }
 
-        // move camera if camera is in the range
-        if (tempPos.x > minX && tempPos.x < maxX) transform.position = tempPos;
+        // move camera if camera is in X range
+        if (tempPos.x > minX && tempPos.x < maxX) transform.position = new (tempPos.x, transform.position.y, transform.position.z);
+
+        if (player.position.y > minY && player.position.y < maxY) transform.position = new (transform.position.x, tempPos.y, transform.position.z);
         
     }
 }
