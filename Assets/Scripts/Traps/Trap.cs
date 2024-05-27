@@ -196,10 +196,6 @@ public class Trap : MonoBehaviour
         transform.localPosition = tempPos;
         print("After ActivateTrap - position: " + transform.localPosition);
     }
-    private void ActivateTrap()
-    {
-        ActivateTrap(finalXPos, finalYPos);
-    }
     // move trap back to initial position
     private void DeactivateTrap(float startX, float startY)
     {
@@ -214,10 +210,5 @@ public class Trap : MonoBehaviour
         tempPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY * Time.deltaTime;
 
         transform.localPosition = tempPos;
-    }
-
-    private void DeactivateTrap()
-    {
-        DeactivateTrap(initialXPos, initialYPos);
     }
 }
