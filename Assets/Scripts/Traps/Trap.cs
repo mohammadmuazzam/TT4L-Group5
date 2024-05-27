@@ -23,13 +23,12 @@ public class Trap : MonoBehaviour
         try
         {
             trap = GetComponent<Trap>();
-            print($"trap = {trap.gameObject.name}");
         }
         catch (Exception)
         {
             print("no trap script");
         }
-        print($"returning from Trap awake, gettype is {GetType()}, typeof(Trap) is {typeof(Trap)}");
+        //print($"returning from Trap awake, gettype is {GetType()}, typeof(Trap) is {typeof(Trap)}");
         if (GetType() != typeof(Trap))
         {
             print("no trap script");

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -79,10 +80,16 @@ public class Player : MonoBehaviour
         }
 
         // jump
-        if (isOnGround && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
         {
-            isOnGround = false;
-            shouldJump = true;
+            print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
+            if (isOnGround)
+            {
+                isOnGround = false;
+                shouldJump = true;
+            }
+            else
+                print("CAN'T JUMP: PLAYER ISN'T ON GROUND: " + DateTime.Now.TimeOfDay);
         }
     }
 
