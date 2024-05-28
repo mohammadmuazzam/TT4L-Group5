@@ -12,17 +12,21 @@ public class Player : MonoBehaviour
     private Rigidbody2D playerBody;
     private Animator playerAnimator;
     private SpriteRenderer sr;
+    private GameObject movingPlatform;
 
     private float movementX;
-    private bool isOnGround = false;
+    private bool isOnGround, isOnMovingPlatform = false;
     public static bool isPlayerAlive;
     public static bool shouldJump = false;
     private bool isCrouch = false;
 
+
+    //? CONSTANTS
     private const string CROUCH_ANIMATION_CONDITION = "Crouch";
     private const string IDLE_ANIMATION_CONDITION = "IdleStand";
 
     PlatformMovement movingPlatformScript;
+    Vector3 tempPos;
 
     [SerializeField] private float minX, maxX;
     [SerializeField] bool canPlayerDie;
@@ -39,6 +43,9 @@ public class Player : MonoBehaviour
     {
         PlayerMovement();
         AnimatePlayer();
+
+        if (isOnMovingPlatform)
+            MoveXPlayerWithPlatform(movingPlatform);
     }
 
     void FixedUpdate()
@@ -79,7 +86,7 @@ public class Player : MonoBehaviour
         }
 
         // jump
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             //print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
             if (isOnGround)
@@ -113,7 +120,8 @@ public class Player : MonoBehaviour
             isOnGround = true;
             if (collision.gameObject.CompareTag("Moving Platform"))
             {
-                MoveXPlayerWithPlatform(collision.gameObject);
+                isOnMovingPlatform = true;
+                movingPlatform = collision.gameObject;
             }
         }
     }
@@ -124,13 +132,21 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("Moving Platform"))
         {   
             isOnGround = false;
+            if (collision.gameObject.CompareTag("Moving Platform"))
+            {
+                isOnMovingPlatform = false;
+                movingPlatform = null;
+            }
         }
     }
 
+    //? move player with platform in X direction
     void MoveXPlayerWithPlatform(GameObject platformObject)
     {
         movingPlatformScript = platformObject.GetComponent<PlatformMovement>();
-        transform.position = platformObject.transform.position;
+        tempPos = transform.position;
+        tempPos.x += movingPlatformScript.moveAmountPos.x;
+        transform.position = tempPos;   
     }
 
     void AnimatePlayer()
