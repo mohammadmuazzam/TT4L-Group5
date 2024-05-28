@@ -64,7 +64,7 @@ public class Trap : MonoBehaviour
         Stopwatch watch = Stopwatch.StartNew();
         bool hasFinishedMoving = false;
         watch.Start();
-        print("Starting PermanentMoveTrap");
+        //print("Starting PermanentMoveTrap");
 
         if (stopX < startX) negativeX = true;
         else negativeX = false;
@@ -82,7 +82,7 @@ public class Trap : MonoBehaviour
                 if ((!negativeY && transform.localPosition.y >= stopY) || (negativeY && transform.localPosition.y <= stopY))
                 {
                     if (startX != stopX)
-                            tempPos.x = stopX;
+                        tempPos.x = stopX;
 
                     if (startY != stopY)
                         tempPos.y = stopY;
@@ -93,7 +93,7 @@ public class Trap : MonoBehaviour
             await Task.Yield();
         }
         watch.Stop();
-        print($"elapsed time: {watch.ElapsedMilliseconds}");
+        //print($"elapsed time: {watch.ElapsedMilliseconds}");
     }
     public async Task PermanentMoveTrap()
     {
@@ -123,11 +123,16 @@ public class Trap : MonoBehaviour
                     if ((!negativeY && transform.localPosition.y >= stopY) || (negativeY && transform.localPosition.y <= stopY))
                     {
                         if (startX != stopX)
+                        {
                             tempPos.x = stopX;
+                        }
+                            
 
                         if (startY != stopY)
+                        {
                             tempPos.y = stopY;
-                        print($"temp move trap activate final pos: {transform.localPosition}");
+                        }
+                        //print($"temp move trap activate final pos: {transform.localPosition}");
                         transform.localPosition = tempPos;
                         hasFinishedMoving1 = true;
                     }
@@ -151,12 +156,12 @@ public class Trap : MonoBehaviour
                     if ((!negativeY && transform.localPosition.y <= startY) || (negativeY && transform.localPosition.y >= startY))
                     {
                         if (startX != stopX)
-                            tempPos.x = stopX;
+                            tempPos.x = startX;
 
                         if (startY != stopY)
-                            tempPos.y = stopY;
+                            tempPos.y = startY;
                         transform.localPosition = tempPos;
-                        print($"temp move trap deactivate final pos: {transform.localPosition}");
+                        //print($"temp move trap deactivate final pos: {transform.localPosition}");
                         hasFinishedMoving2 = true;
                     }
                 }
@@ -221,7 +226,7 @@ public class Trap : MonoBehaviour
 
         transform.localPosition = tempPos;
     }
-
+    
     protected async Task PositiveScaleRock()
     {
         try

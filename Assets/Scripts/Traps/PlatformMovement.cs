@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlatformMovement : MonoBehaviour
@@ -27,6 +28,14 @@ public class PlatformMovement : MonoBehaviour
     void Start()
     {
         Movement();
+    }
+
+    void OnCollisionStay2D(UnityEngine.Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+
+        }
     }
 
     private async void Movement()
@@ -146,7 +155,7 @@ public class PlatformMovement : MonoBehaviour
         //* (negativeX ? 1 : -1) returns 1 if negativeX is true and -1 if negativeX is false
         if (moveX)
         {
-            if ((!negativeX && transform.localPosition.x >= startXPos) || (negativeX && transform.localPosition.x <= startXPos))
+            if ((!negativeX && transform.localPosition.x > startXPos) || (negativeX && transform.localPosition.x < startXPos))
             {
                 moveAmountPos.x = (negativeX ? 1 : -1) * 0.1f * moveSpeedX * Time.deltaTime;
                 tempPos.x += moveAmountPos.x; 
@@ -155,7 +164,7 @@ public class PlatformMovement : MonoBehaviour
         
         if (moveY)
         {
-            if ((!negativeY && transform.localPosition.y >= startYPos) || (negativeY && transform.localPosition.y <= startYPos))
+            if ((!negativeY && transform.localPosition.y > startYPos) || (negativeY && transform.localPosition.y < startYPos))
             {
                 moveAmountPos.y = (negativeY ? 1 : -1) * 0.1f * moveSpeedY * Time.deltaTime;
                 tempPos.y += moveAmountPos.y;
