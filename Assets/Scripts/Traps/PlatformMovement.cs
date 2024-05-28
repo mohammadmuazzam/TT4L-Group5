@@ -31,40 +31,48 @@ public class PlatformMovement : MonoBehaviour
 
     private async void Movement()
     {
+        bool firstTime = true;
         try
         {
             while(true)
             {
+                if (firstTime)
+                {
+                    firstTime = false;
+                }
                 // move from start to end
                 if (startToEnd)
                 {
                     StartToEnd();
-                    print("start to end");
                 
                     // if trap has reached final position, then stop moving and stop coroutine
                     if ((!negativeX && transform.localPosition.x >= endXPos) || (negativeX && transform.localPosition.x <= endXPos) || !moveX)
                     {
                         if ((!negativeY && transform.localPosition.y >= endYPos) || (negativeY && transform.localPosition.y <= endYPos) || !moveY)
                         {
-                            print("DONE - start to end");
                             if (moveX)
-                            tempPos.x = endXPos;
+                                tempPos.x = endXPos;
 
                             if (moveY)
-                            tempPos.y = endYPos;
+                                tempPos.y = endYPos;
 
                             transform.localPosition = tempPos;
+                            //print($"{gameObject.name.ToUpper()} reached end position: {tempPos}");
+                            
                             startToEnd = false;
+                            firstTime = true;
                         }
                     }
                     await Task.Yield();
                 }
-
                 // move from end to start   
                 else
                 {
+                    if (firstTime)
+                    {
+                        firstTime = false;
+                    }
                     EndToStart();
-                    print("end to start");
 
                     if ((!negativeX && transform.localPosition.x <= startXPos) || (negativeX && transform.localPosition.x >= startXPos) || !moveX)
                     {
@@ -77,7 +85,10 @@ public class PlatformMovement : MonoBehaviour
                             tempPos.y = startYPos;
 
                             transform.localPosition = tempPos;
+                            //print($"{gameObject.name.ToUpper()} reached start position: {tempPos}");
+                            
                             startToEnd = true;
+                            firstTime = true;
                         }
                     }
 
@@ -98,7 +109,7 @@ public class PlatformMovement : MonoBehaviour
         
         if (moveX)
         {
-            if ((!negativeX && transform.localPosition.x <= endXPos) || (negativeX && transform.localPosition.x >= endXPos))
+            if ((!negativeX && transform.localPosition.x < endXPos) || (negativeX && transform.localPosition.x > endXPos))
             {
                 //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
                 moveAmountPos.x = (negativeX ? -1 : 1) * 0.1f * moveSpeedX * Time.deltaTime;
@@ -113,7 +124,7 @@ public class PlatformMovement : MonoBehaviour
 
         if (moveY)
         {
-            if ((!negativeY && transform.localPosition.y <= endYPos) || (negativeY && transform.localPosition.y >= endYPos))
+            if ((!negativeY && transform.localPosition.y < endYPos) || (negativeY && transform.localPosition.y > endYPos))
             {
                 moveAmountPos.y = (negativeY ? -1 : 1) * 0.1f * moveSpeedY * Time.deltaTime;
                 tempPos.y += moveAmountPos.y;

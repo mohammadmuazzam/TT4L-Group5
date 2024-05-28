@@ -24,7 +24,6 @@ public class Trap : MonoBehaviour
     
     protected virtual void Awake()
     {
-        print("initialization in trap");
         Initialization();   
     }
 
@@ -77,13 +76,16 @@ public class Trap : MonoBehaviour
         {
             ActivateTrap(stopX, stopY);
             
-            // if trap has reached final position, then stop moving and stop coroutine
+            // if trap has reached final position
             if ((!negativeX && transform.localPosition.x >= stopX) || (negativeX && transform.localPosition.x <= stopX))
             {
                 if ((!negativeY && transform.localPosition.y >= stopY) || (negativeY && transform.localPosition.y <= stopY))
                 {
-                    tempPos.x = stopX;
-                    tempPos.y = stopY;
+                    if (startX != stopX)
+                            tempPos.x = stopX;
+
+                    if (startY != stopY)
+                        tempPos.y = stopY;
                     transform.localPosition = tempPos;
                     hasFinishedMoving = true;
                 }
@@ -120,8 +122,12 @@ public class Trap : MonoBehaviour
                 {
                     if ((!negativeY && transform.localPosition.y >= stopY) || (negativeY && transform.localPosition.y <= stopY))
                     {
-                        tempPos.x = stopX;
-                        tempPos.y = stopY;
+                        if (startX != stopX)
+                            tempPos.x = stopX;
+
+                        if (startY != stopY)
+                            tempPos.y = stopY;
+                        print($"temp move trap activate final pos: {transform.localPosition}");
                         transform.localPosition = tempPos;
                         hasFinishedMoving1 = true;
                     }
@@ -144,13 +150,16 @@ public class Trap : MonoBehaviour
                 {
                     if ((!negativeY && transform.localPosition.y <= startY) || (negativeY && transform.localPosition.y >= startY))
                     {
-                        tempPos.x = startX;
-                        tempPos.y = startY;
+                        if (startX != stopX)
+                            tempPos.x = stopX;
+
+                        if (startY != stopY)
+                            tempPos.y = stopY;
                         transform.localPosition = tempPos;
+                        print($"temp move trap deactivate final pos: {transform.localPosition}");
                         hasFinishedMoving2 = true;
                     }
                 }
-
                 await Task.Yield();  
             }
             watch.Stop();
@@ -195,7 +204,7 @@ public class Trap : MonoBehaviour
             
         
         transform.localPosition = tempPos;
-        print("After ActivateTrap - position: " + transform.localPosition);
+        //print("After ActivateTrap - position: " + transform.localPosition);
     }
     // move trap back to initial position
     private void DeactivateTrap(float startX, float startY)
