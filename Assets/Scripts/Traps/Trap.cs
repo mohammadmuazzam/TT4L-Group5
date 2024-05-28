@@ -8,39 +8,29 @@ using UnityEngine;
 
 public class Trap : MonoBehaviour
 {
-    //public static bool hasTrapMoved;
-    [SerializeField]
-    protected float moveAmountX, moveAmountY, moveSpeedX, moveSpeedY;
+    //? movement data
+    [SerializeField] protected float moveAmountX, moveAmountY, moveSpeedX, moveSpeedY;
     [SerializeField] private int waitTime;
-    [SerializeField] Vector3[] stopPoints;
-
     protected float finalXPos, finalYPos, initialXPos, initialYPos;
     protected bool negativeX, negativeY;
     Vector3 tempPos;
+
+    //? scale data
+    [SerializeField] float finalScaleX, finalScaleY, scaleSpeedX, scaleSpeedY, offsetInitialYPos, offsetInitialXPos;
+    private float tempCurrentScaleX, tempCurrentScaleY, initialScaleX, initialScaleY;
+    private bool doneScaling, doneScaling2;
+    
+    protected bool isScaleUpX, isScaleUpY;
+    
     protected virtual void Awake()
-    {//!GET COMPONENT OF TRAP
-        Trap trap;
-        try
-        {
-            trap = GetComponent<Trap>();
-        }
-        catch (Exception)
-        {
-            print("no trap script");
-        }
-        //print($"returning from Trap awake, gettype is {GetType()}, typeof(Trap) is {typeof(Trap)}");
-        if (GetType() != typeof(Trap))
-        {
-            print("no trap script");
-            return;
-        }
-        else
-            Initialization();
-        
+    {
+        print("initialization in trap");
+        Initialization();   
     }
 
     protected void Initialization()
     {
+        //? initialize movement
         initialXPos = gameObject.transform.localPosition.x;
         initialYPos = gameObject.transform.localPosition.y; 
         //UnityEngine.Debug.Log($"Trap - initial pos: ({transform.localPosition.x}, {transform.localPosition.y})");
@@ -48,13 +38,25 @@ public class Trap : MonoBehaviour
         finalXPos = initialXPos + moveAmountX;
         finalYPos = initialYPos + moveAmountY;
         //UnityEngine.Debug.Log($"Trap - final pos: ({finalXPos}, {finalYPos})");
-
-        //* check if final position is less than initial position
         if (finalXPos < initialXPos) negativeX = true;
         else negativeX = false;
 
         if (finalYPos < initialYPos) negativeY = true;
         else negativeY = false;
+
+        //? initialize scale
+        if (finalScaleX > transform.localScale.x)
+            isScaleUpX = true;
+        else
+            isScaleUpX = false;
+        
+        if (finalScaleY > transform.localScale.y)
+            isScaleUpY = true;
+        else
+            isScaleUpY = false;   
+
+        initialScaleX = transform.localScale.x;
+        initialScaleY = transform.localScale.y;
     }
 
     // move trap
@@ -209,5 +211,74 @@ public class Trap : MonoBehaviour
         tempPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY * Time.deltaTime;
 
         transform.localPosition = tempPos;
+    }
+
+    protected async Task PositiveScaleRock()
+    {
+        try
+        {
+            doneScaling = false;
+            while (!doneScaling)
+            {
+
+                tempCurrentScaleX = transform.localScale.x;
+                tempCurrentScaleX += (isScaleUpX? 1 : -1) * scaleSpeedX * 0.01f;
+
+                tempCurrentScaleY = transform.localScale.y;
+                tempCurrentScaleY += (isScaleUpY? 1 : -1) * scaleSpeedY * 0.01f;
+
+
+                // stop scaling condition
+                if ((isScaleUpX && tempCurrentScaleX >= finalScaleX) || (!isScaleUpX && tempCurrentScaleX <= finalScaleX))
+                {
+                    if ((isScaleUpY && tempCurrentScaleY >= finalScaleY) || (!isScaleUpY && tempCurrentScaleY <= finalScaleY))
+                    {
+                        doneScaling = true;
+                    }
+                }
+                transform.localScale = new Vector3(tempCurrentScaleX, tempCurrentScaleY, transform.localScale.z);   
+                await Task.Yield();
+            }
+        }
+        catch (System.Exception)
+        {
+            return;
+        }
+        
+        
+    }
+
+
+    protected async void NegativeScaleRock()
+    {
+        try
+        {
+            doneScaling2 = false;
+            while (!doneScaling2)
+            {
+                tempCurrentScaleX = transform.localScale.x;
+                tempCurrentScaleX += (isScaleUpX? -1 : 1) * scaleSpeedX * 0.01f;
+
+                tempCurrentScaleY = transform.localScale.y;
+                tempCurrentScaleY += (isScaleUpY? -1 : 1) * scaleSpeedY * 0.01f;
+
+                // stop scaling condition
+                if ((isScaleUpX && tempCurrentScaleX <= initialScaleX) || (!isScaleUpX && tempCurrentScaleX >= initialScaleX))
+                {
+                    if ((isScaleUpY && tempCurrentScaleY <= initialScaleX) || (!isScaleUpY && tempCurrentScaleY >= initialScaleY))
+                    {
+                        doneScaling2 = true;
+                    }
+                }
+
+                transform.localScale = new Vector3(tempCurrentScaleX, tempCurrentScaleY, transform.localScale.z);   
+                await Task.Yield();
+            }
+        }
+        catch (Exception)
+        {
+            return;
+        }
+            
     }
 }

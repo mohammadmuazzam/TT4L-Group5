@@ -13,7 +13,7 @@ public class Level4 : MonoBehaviour
 
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private Lightning lightningScripts;
-    [SerializeField] private Rock rockScript;
+    [SerializeField] private LevelSpecificTrap rockScript;
 
     [SerializeField] private GameObject[] trapTriggers;
 
@@ -25,7 +25,7 @@ public class Level4 : MonoBehaviour
         CheckForTrapTrigger();
     }
 
-    async void CheckForTrapTrigger()
+    void CheckForTrapTrigger()
     {
         // check if any trap trigger has been triggered
         foreach (GameObject triggerGameObject in trapTriggers)

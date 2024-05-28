@@ -373,7 +373,12 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 200
   waitTime: 500
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!212 &284385135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -719,7 +724,12 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 1000
   waitTime: 0
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!212 &553163143
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -922,7 +932,12 @@ MonoBehaviour:
   moveSpeedX: 400
   moveSpeedY: 0
   waitTime: 0
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!1 &655637137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,7 +1230,12 @@ MonoBehaviour:
   moveSpeedX: 600
   moveSpeedY: 450
   waitTime: 0
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!1 &690185181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,8 +1464,6 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 50
   waitTime: 1000
-  stopPoints: []
-  isDefaultActive: 1
   finalScaleX: 1.6
   finalScaleY: 0.8
   scaleSpeedX: 2
@@ -1533,7 +1551,12 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 25
   waitTime: 500
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!61 &791803447
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2408,7 +2431,12 @@ MonoBehaviour:
   moveSpeedX: 1000
   moveSpeedY: 0
   waitTime: 0
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!1 &1157972731
 GameObject:
   m_ObjectHideFlags: 0
@@ -3795,7 +3823,12 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 200
   waitTime: 0
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!212 &1667428798
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3836,7 +3869,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1062078955
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 781b9f9733232bc44a48fcaa13f9468d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4239,7 +4272,12 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 600
   waitTime: 0
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!212 &1917830218
 SpriteRenderer:
   m_ObjectHideFlags: 0

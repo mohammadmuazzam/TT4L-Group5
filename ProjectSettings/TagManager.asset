@@ -8,6 +8,7 @@ TagManager:
   - Trap
   - Trap Trigger
   - Gate
+  - Moving Platform
   layers:
   - Default
   - TransparentFX
