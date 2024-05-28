@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!61 &169465427
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -522,6 +523,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minX: 0
   maxX: 19.2
+  minY: 0
+  maxY: 0
+  moveOnY: 0
 --- !u!1 &314280845
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,8 +761,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 19.39, y: 3.98, z: 0.09355348}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 931914126}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -774,11 +778,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7786bcfbc97534cae987ddd6b0fa10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAmountX: -3
+  moveAmountX: -7
   moveAmountY: 0
   moveSpeedX: 300
   moveSpeedY: 0
-  waitTime: 3000
+  waitTime: 1000
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!212 &448733091
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -820,9 +830,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 664d44f8f22b99c47b4a281f7520a5a2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9bdf3b1913723384c906d2cdbc4b2006, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4.55, y: 10.35}
@@ -863,18 +873,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.042821407, y: 0.0000052452087}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.55, y: 10.35}
+    oldSize: {x: 12.92, y: 20}
     newSize: {x: 4.55, y: 10.35}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.55, y: 10.35}
+  m_Size: {x: 12.857457, y: 19.770828}
   m_EdgeRadius: 0
 --- !u!1001 &659621888
 PrefabInstance:
@@ -1800,6 +1810,12 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 300
   waitTime: 0
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!212 &1245273130
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1898,6 +1914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!61 &1291101712
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2230,6 +2247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!1 &1618887389
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,6 +2616,12 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 300
   waitTime: 1000
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!212 &1881624874
 SpriteRenderer:
   m_ObjectHideFlags: 0

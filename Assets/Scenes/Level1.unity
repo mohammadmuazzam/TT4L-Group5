@@ -356,6 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!1 &423173229
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +641,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minX: 0
   maxX: 19.2
+  minY: 0
+  maxY: 0
+  moveOnY: 0
 --- !u!1 &785697760
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +825,12 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 300
   waitTime: 500
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!60 &824383606
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1012,6 +1021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!61 &1051514058
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1093,7 +1103,12 @@ MonoBehaviour:
   moveSpeedX: 600
   moveSpeedY: 0
   waitTime: 500
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!60 &1173512444
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2125,7 +2140,12 @@ MonoBehaviour:
   moveSpeedX: 200
   moveSpeedY: 100
   waitTime: 0
-  stopPoints: []
+  finalScaleX: 0
+  finalScaleY: 0
+  scaleSpeedX: 0
+  scaleSpeedY: 0
+  offsetInitialYPos: 0
+  offsetInitialXPos: 0
 --- !u!1 &1778214269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,6 +2225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!61 &1809662501
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2509,11 +2530,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2064397292 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 745825157001680196, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
-  m_PrefabInstance: {fileID: 5362603565584989262}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &774053790569357154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2583,10 +2599,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 461793534672564787, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
-      propertyPath: m_Name
-      value: Scene Transition Image
-      objectReference: {fileID: 0}
     - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.80615914
@@ -2627,34 +2639,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2962314727928258367, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2962314727928258367, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5237522632024391710, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 5237522632024391710, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1062078955
-      objectReference: {fileID: 0}
-    - target: {fileID: 5237522632024391710, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
-      propertyPath: m_VertexColorAlwaysGammaSpace
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6778376793218841900, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 6793114483388157272, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
-      propertyPath: transitionAnim
-      value: 
-      objectReference: {fileID: 2064397292}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
