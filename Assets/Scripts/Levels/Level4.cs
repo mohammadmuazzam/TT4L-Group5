@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class Level4 : MonoBehaviour
 {
-    public class CoroutineStatus
-    {
-        public bool IsCompleted;   
-    }
-    public CoroutineStatus cloudMovementCoroutineStatus = new CoroutineStatus();
-
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private Lightning lightningScripts;
     [SerializeField] private LevelSpecificTrap rockScript;

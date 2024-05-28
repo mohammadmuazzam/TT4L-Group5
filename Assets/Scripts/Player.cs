@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D playerBody;
     private Animator playerAnimator;
     private SpriteRenderer sr;
-    private GameObject movingPlatform;
+    private GameObject movingPlatformObject;
 
     private float movementX;
     private bool isOnGround, isOnMovingPlatform = false;
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         AnimatePlayer();
 
         if (isOnMovingPlatform)
-            MoveXPlayerWithPlatform(movingPlatform);
+            MoveXPlayerWithPlatform(movingPlatformObject);
     }
 
     void FixedUpdate()
@@ -121,7 +121,8 @@ public class Player : MonoBehaviour
             if (collision.gameObject.CompareTag("Moving Platform"))
             {
                 isOnMovingPlatform = true;
-                movingPlatform = collision.gameObject;
+                //? get parents gameObject
+                movingPlatformObject = collision.gameObject.transform.parent.gameObject;
             }
         }
     }
@@ -135,12 +136,12 @@ public class Player : MonoBehaviour
             if (collision.gameObject.CompareTag("Moving Platform"))
             {
                 isOnMovingPlatform = false;
-                movingPlatform = null;
+                movingPlatformObject = null;
             }
         }
     }
 
-    //? move player with platform in X direction
+    //? move player with platform's parent in X direction
     void MoveXPlayerWithPlatform(GameObject platformObject)
     {
         movingPlatformScript = platformObject.GetComponent<PlatformMovement>();
