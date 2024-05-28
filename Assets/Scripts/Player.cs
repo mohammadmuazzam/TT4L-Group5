@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -21,9 +22,8 @@ public class Player : MonoBehaviour
     private const string CROUCH_ANIMATION_CONDITION = "Crouch";
     private const string IDLE_ANIMATION_CONDITION = "IdleStand";
 
-    //! get minX, maxX from level manager
+    PlatformMovement movingPlatformScript;
 
-    //! use events that trigger should jump
     [SerializeField] private float minX, maxX;
     [SerializeField] bool canPlayerDie;
     void Awake()
@@ -79,10 +79,19 @@ public class Player : MonoBehaviour
         }
 
         // jump
-        if (isOnGround && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
         {
-            isOnGround = false;
-            shouldJump = true;
+            //print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
+            if (isOnGround)
+            {
+                isOnGround = false;
+                shouldJump = true;
+            }
+            else
+            {
+                //print("CAN'T JUMP: PLAYER ISN'T ON GROUND: " + DateTime.Now.TimeOfDay);
+            }
+                
         }
     }
 
@@ -99,19 +108,29 @@ public class Player : MonoBehaviour
     void OnCollisionStay2D(Collision2D collision)
     {
         // collision with ground or platform
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("Moving Platform"))
         {
             isOnGround = true;
+            if (collision.gameObject.CompareTag("Moving Platform"))
+            {
+                MoveXPlayerWithPlatform(collision.gameObject);
+            }
         }
     }
 
     // checks when 2 object stops colliding
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("Moving Platform"))
         {   
             isOnGround = false;
         }
+    }
+
+    void MoveXPlayerWithPlatform(GameObject platformObject)
+    {
+        movingPlatformScript = platformObject.GetComponent<PlatformMovement>();
+        transform.position = platformObject.transform.position;
     }
 
     void AnimatePlayer()

@@ -996,7 +996,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1474230989
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 27fa3ffbba9795245a6596022fa2ec89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1793,6 +1793,7 @@ MonoBehaviour:
   moveSpeedX: 0
   moveSpeedY: 500
   waitTime: 500
+  stopPoints: []
 --- !u!1 &654021083
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,7 +2079,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04572487, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2089,7 +2090,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 19.06, y: 1.31}
+  m_Size: {x: 19.15145, y: 1.31}
   m_EdgeRadius: 0
 --- !u!1 &767320068
 GameObject:
@@ -2221,6 +2222,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2714737541122718302, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2962314727928258367, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5237522632024391710, guid: 5c861f2e2eda2f04f931f9a4a2403890, type: 3}
@@ -3907,6 +3912,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minX: 0
   maxX: 116
+  minY: 0
+  maxY: 0
+  moveOnY: 0
 --- !u!1 &1481047642
 GameObject:
   m_ObjectHideFlags: 0
