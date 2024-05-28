@@ -11,6 +11,7 @@ public class PlatformMovement : MonoBehaviour
     bool negativeX, negativeY;
 
     public UnityEngine.Vector3 moveAmountPos;
+    private UnityEngine.Vector3 tempPos;
 
     // Start is called before the first frame update
     void Awake()
@@ -47,12 +48,12 @@ public class PlatformMovement : MonoBehaviour
                         {
                             print("DONE - start to end");
                             if (moveX)
-                            moveAmountPos.x = endXPos;
+                            tempPos.x = endXPos;
 
                             if (moveY)
-                            moveAmountPos.y = endYPos;
+                            tempPos.y = endYPos;
 
-                            transform.localPosition = moveAmountPos;
+                            transform.localPosition = tempPos;
                             startToEnd = false;
                         }
                     }
@@ -70,12 +71,12 @@ public class PlatformMovement : MonoBehaviour
                         if ((!negativeY && transform.localPosition.y <= startYPos) || (negativeY && transform.localPosition.y >= startYPos) || !moveY)
                         {
                             if (moveX)
-                            moveAmountPos.x = startXPos;
+                            tempPos.x = startXPos;
 
                             if (moveY)
-                            moveAmountPos.y = startYPos;
+                            tempPos.y = startYPos;
 
-                            transform.localPosition = moveAmountPos;
+                            transform.localPosition = tempPos;
                             startToEnd = true;
                         }
                     }
@@ -93,14 +94,15 @@ public class PlatformMovement : MonoBehaviour
 
     private void StartToEnd()
     {
-        moveAmountPos = transform.localPosition;
+        tempPos = transform.localPosition;
         
         if (moveX)
         {
             if ((!negativeX && transform.localPosition.x <= endXPos) || (negativeX && transform.localPosition.x >= endXPos))
             {
                 //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
-                moveAmountPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX * Time.deltaTime;
+                moveAmountPos.x = (negativeX ? -1 : 1) * 0.1f * moveSpeedX * Time.deltaTime;
+                tempPos.x += moveAmountPos.x;
                 //print("ActivatingTrap in X");
             }
             else
@@ -113,7 +115,8 @@ public class PlatformMovement : MonoBehaviour
         {
             if ((!negativeY && transform.localPosition.y <= endYPos) || (negativeY && transform.localPosition.y >= endYPos))
             {
-                moveAmountPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY * Time.deltaTime;
+                moveAmountPos.y = (negativeY ? -1 : 1) * 0.1f * moveSpeedY * Time.deltaTime;
+                tempPos.y += moveAmountPos.y;
                 //print("ActivatingTrap in Y");
             }
             else
@@ -122,27 +125,33 @@ public class PlatformMovement : MonoBehaviour
             }
         }    
         
-        transform.localPosition = moveAmountPos;
+        transform.localPosition = tempPos;
     }
 
     private void EndToStart()
     {
-        moveAmountPos = transform.localPosition;
+        tempPos = transform.localPosition;
 
         //* (negativeX ? 1 : -1) returns 1 if negativeX is true and -1 if negativeX is false
         if (moveX)
         {
             if ((!negativeX && transform.localPosition.x >= startXPos) || (negativeX && transform.localPosition.x <= startXPos))
-            moveAmountPos.x += (negativeX ? 1 : -1) * 0.1f * moveSpeedX * Time.deltaTime;
+            {
+                moveAmountPos.x = (negativeX ? 1 : -1) * 0.1f * moveSpeedX * Time.deltaTime;
+                tempPos.x += moveAmountPos.x; 
+            }
         }
         
         if (moveY)
         {
             if ((!negativeY && transform.localPosition.y >= startYPos) || (negativeY && transform.localPosition.y <= startYPos))
-            moveAmountPos.y += (negativeY ? 1 : -1) * 0.1f * moveSpeedY * Time.deltaTime;
+            {
+                moveAmountPos.y = (negativeY ? 1 : -1) * 0.1f * moveSpeedY * Time.deltaTime;
+                tempPos.y += moveAmountPos.y;
+            }
         }
         
 
-        transform.localPosition = moveAmountPos;
+        transform.localPosition = tempPos;
     }
 }
