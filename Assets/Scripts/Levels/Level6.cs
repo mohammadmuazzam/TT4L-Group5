@@ -53,7 +53,7 @@ public class Level6 : MonoBehaviour
                     break;
 
                     case "Trap Trigger 2":
-                    if(!trap2Activated && Player.shouldJump)
+                    if(!trap2Activated)
                     {
                         _= trapScripts[1].PermanentMoveTrap();
                         trap2Activated = true;
