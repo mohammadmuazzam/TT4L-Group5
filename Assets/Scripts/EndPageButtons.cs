@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class EndPageButtons : MonoBehaviour
 {
     GameObject gameManager;
+    GeneralSounds generalSounds;
     private string currentLevelName;
     private string nextLevelName;
     private string currentLevelNumChar;
@@ -14,8 +16,8 @@ public class EndPageButtons : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("In awake");
         gameManager = GameObject.Find("Game Manager");
+        generalSounds = GameObject.Find("Sound Manager").GetComponent<GeneralSounds>();
         
         if (gameManager != null)
         {
@@ -23,21 +25,18 @@ public class EndPageButtons : MonoBehaviour
             currentLevelNumChar = currentLevelName[currentLevelName.Length - 1].ToString();
             nextLevelInt = int.Parse(currentLevelNumChar) + 1;
             nextLevelName = "Level" + nextLevelInt.ToString();
-
-            Debug.Log("Game Manager exists");
         }
-        
-        Debug.Log("next level is " + nextLevelName);
-
     }
-    public void NextLevel()
+    public async void NextLevel()
     {
         Debug.Log("going to " + nextLevelName);
+        await Task.Delay(generalSounds.clickSoundInMs);
         SceneManager.LoadScene(nextLevelName);
     }
 
-    public void BackToMainMenu()
+    public async void BackToMainMenu()
     {
+        await Task.Delay(generalSounds.clickSoundInMs);
         SceneManager.LoadScene("MainMenu");
         if (gameManager != null)
             Destroy(gameManager);
