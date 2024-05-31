@@ -15,7 +15,7 @@ public class Trap : MonoBehaviour
     protected bool negativeX, negativeY;
     Vector3 tempPos;
 
-    //? scale data
+    //* scale data
     [SerializeField] float finalScaleX, finalScaleY, scaleSpeedX, scaleSpeedY, offsetInitialYPos, offsetInitialXPos;
     private float tempCurrentScaleX, tempCurrentScaleY, initialScaleX, initialScaleY;
     private bool doneScaling, doneScaling2;
@@ -26,7 +26,6 @@ public class Trap : MonoBehaviour
     {
         Initialization();   
     }
-
     protected void Initialization()
     {
         //? initialize movement
@@ -56,9 +55,11 @@ public class Trap : MonoBehaviour
 
         initialScaleX = transform.localScale.x;
         initialScaleY = transform.localScale.y;
+
+        
     }
 
-    // move trap
+    //* move trap
     public async Task PermanentMoveTrap(float startX, float startY, float stopX, float stopY)
     {
         Stopwatch watch = Stopwatch.StartNew();
@@ -175,12 +176,12 @@ public class Trap : MonoBehaviour
         }
         
     }
-
     public async Task TemporaryMoveTrap()
     {
         await TemporaryMoveTrap(initialXPos, initialYPos, finalXPos, finalYPos);
     }
-    // move trap out of initial position
+    
+    //* move trap out of initial position
     private void ActivateTrap(float stopX, float stopY)
     {
         tempPos = transform.localPosition;
@@ -211,7 +212,8 @@ public class Trap : MonoBehaviour
         transform.localPosition = tempPos;
         //print("After ActivateTrap - position: " + transform.localPosition);
     }
-    // move trap back to initial position
+    
+    //* move trap back to initial position
     private void DeactivateTrap(float startX, float startY)
     {
         tempPos = transform.localPosition;
@@ -227,6 +229,7 @@ public class Trap : MonoBehaviour
         transform.localPosition = tempPos;
     }
     
+    //*Scale
     protected async Task PositiveScaleRock()
     {
         try
@@ -261,8 +264,6 @@ public class Trap : MonoBehaviour
         
         
     }
-
-
     protected async void NegativeScaleRock()
     {
         try
@@ -295,4 +296,6 @@ public class Trap : MonoBehaviour
         }
             
     }
+
+
 }
