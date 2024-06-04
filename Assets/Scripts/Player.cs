@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float speed = 15f;
-    private float jumpForce = 25f;
+    private const float speed = 15f;
+    private const float jumpForce = 25f;
 
-    private Rigidbody2D playerBody;
+    public static Rigidbody2D playerBody;
+    public static int lastXMovement;
+
     private Animator playerAnimator;
     private SpriteRenderer sr;
     private GameObject movingPlatformObject;
@@ -76,10 +78,12 @@ public class Player : MonoBehaviour
             Vector2 tempPos = transform.position;
             tempPos.x = minX;
             transform.position = tempPos;
+            lastXMovement = -1;
         }
         //right
         else if (transform.position.x >= maxX)
         {
+            lastXMovement = 1;
             Vector2 tempPos = transform.position;
             tempPos.x = maxX;
             transform.position = tempPos;

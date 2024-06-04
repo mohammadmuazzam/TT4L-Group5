@@ -8,6 +8,7 @@ public class Lightning : MonoBehaviour
     Renderer lightningRenderer;
     Color color;
     private AudioSource audioSource;
+    [SerializeField] private float waitTime;
     void Awake()
     {
         lightningRenderer = GetComponent<Renderer>();
@@ -23,8 +24,9 @@ public class Lightning : MonoBehaviour
     public IEnumerator SpawnLightning()
     {
         AddLightning();
-        audioSource.Play();
-        yield return new WaitForSeconds(2f);
+        if (audioSource != null)
+            audioSource.Play();
+        yield return new WaitForSeconds(waitTime);
         RemoveLightning();
     }
 
