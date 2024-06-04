@@ -23,6 +23,7 @@ public class Lightning : MonoBehaviour
     public IEnumerator SpawnLightning()
     {
         AddLightning();
+        print("audio source: " + audioSource); 
         audioSource.Play();
         yield return new WaitForSeconds(2f);
         RemoveLightning();
@@ -44,6 +45,7 @@ public class Lightning : MonoBehaviour
         {
             color.a -= 0.01f;
             lightningRenderer.material.color = color;
+            print("color.a: " + color.a);
         }
         gameObject.SetActive(false);
     }
