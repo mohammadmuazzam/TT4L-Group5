@@ -8,7 +8,13 @@ public class Level7 : MonoBehaviour
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private GameObject[] trapTriggers;
     
-    private bool closeTrapTriggered1 = false;
+    private bool closeTrapTriggered1, platformMoved;
+
+    void Awake()
+    {
+        closeTrapTriggered1 = false;
+        platformMoved = false;
+    }
 
     // Update is called once per frame
     void LateUpdate()
@@ -33,6 +39,14 @@ public class Level7 : MonoBehaviour
                     {
                         _ = trapScripts[0].TemporaryMoveTrap();
                         closeTrapTriggered1 = true;
+                    }
+                    break;
+
+                    case "Platform Trigger":
+                    if (!platformMoved)
+                    {
+                        _= trapScripts[1].PermanentMoveTrap();
+                        platformMoved = true;
                     }
                     break;
                 }
