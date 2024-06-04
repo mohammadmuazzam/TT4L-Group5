@@ -13,7 +13,7 @@ public class Level8 : MonoBehaviour
 
     [SerializeField] private Lightning lightningScripts;
 
-    private bool trap1Activated,trap2Activated,trap3Activated;
+    private bool trap1Activated,trap2Activated,trap3Activated,trap4Activated,trap5Activated;
 
     public float playerMinX, playerMaxX;
 
@@ -24,6 +24,8 @@ public class Level8 : MonoBehaviour
         trap1Activated = false;
         trap2Activated = false;
         trap3Activated = false;
+        trap4Activated = false;
+        trap5Activated = false;
     }
 
     // Update is called once per frame
@@ -64,6 +66,22 @@ public class Level8 : MonoBehaviour
                     {
                         StartCoroutine(lightningScripts.SpawnLightning());
                         trap3Activated = true;
+                    }
+                    break;
+
+                    case "Trap Trigger 4":
+                    if(!trap4Activated )
+                    {
+                        _ = trapScripts[2].PermanentMoveTrap();
+                        trap4Activated = true;
+                    }
+                    break;
+
+                    case "Trap Trigger 5":
+                    if(!trap5Activated && trap4Activated )
+                    {
+                        _ = trapScripts[3].PermanentMoveTrap();
+                        trap5Activated = true;
                     }
                     break;
 
