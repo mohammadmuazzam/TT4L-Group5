@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     private const float jumpForce = 25f;
 
     public static Rigidbody2D playerBody;
-    public static int lastXMovement;
+    public static float lastXMovement;
 
     private Animator playerAnimator;
     private SpriteRenderer sr;
@@ -63,6 +63,9 @@ public class Player : MonoBehaviour
     {
         // horizontal movement
         movementX = Input.GetAxisRaw("Horizontal");
+        if (movementX != 0f)
+            lastXMovement = movementX;
+
         transform.position += new Vector3(movementX, 0f) * speed * Time.deltaTime;
 
         // crouch
@@ -72,18 +75,17 @@ public class Player : MonoBehaviour
         }
         else isCrouch = false;
 
-        //left
+        //left limit
         if (transform.position.x <= minX)
         {
             Vector2 tempPos = transform.position;
             tempPos.x = minX;
             transform.position = tempPos;
-            lastXMovement = -1;
         }
-        //right
+        //right limit
         else if (transform.position.x >= maxX)
         {
-            lastXMovement = 1;
+            print("going rights");
             Vector2 tempPos = transform.position;
             tempPos.x = maxX;
             transform.position = tempPos;

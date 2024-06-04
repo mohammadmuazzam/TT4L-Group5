@@ -379,6 +379,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!212 &284385135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -730,6 +732,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!212 &553163143
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -938,6 +942,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &655637137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,6 +1242,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &690185181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,6 +1369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!1 &733293739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,6 +1479,8 @@ MonoBehaviour:
   scaleSpeedY: 1
   offsetInitialYPos: 16.43
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!61 &733293743
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1557,6 +1568,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!61 &791803447
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2079,6 +2092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!61 &955227616
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2215,6 +2229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!1 &1021060474
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,6 +2452,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &1157972731
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,6 +2553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b8ac0009fecc74da273755f4e88d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitTime: 1.5
 --- !u!60 &1157972735
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3295,6 +3313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!1 &1545449824
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,6 +3438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!1 &1602025852
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,6 +3744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!1 &1667428794
 GameObject:
   m_ObjectHideFlags: 0
@@ -3829,6 +3850,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!212 &1667428798
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4091,6 +4114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!61 &1839277231
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4278,6 +4302,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!212 &1917830218
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4421,6 +4447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsInTrigger: 0
+  movingPlatformIsInTrigger: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

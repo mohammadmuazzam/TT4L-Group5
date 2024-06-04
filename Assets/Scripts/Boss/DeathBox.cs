@@ -23,9 +23,21 @@ public class DeathBox : MonoBehaviour
     {
         if (playerJumpOnBoss)
         {
-            print("PUSHING PLAYER UP");
             playerJumpOnBoss = false;
-            Player.playerBody.AddForce(new Vector2(Player.lastXMovement, 35), ForceMode2D.Impulse);
+            ApplyJumpForce();
+        }
+    }
+
+        private void ApplyJumpForce()
+    {
+        if (Player.playerBody != null)
+        {
+            // Reset the player's vertical velocity to zero
+            Player.playerBody.velocity = new Vector2(Player.playerBody.velocity.x, 0);
+
+            // Apply a consistent force
+            Player.playerBody.AddForce(new Vector2(Player.lastXMovement*4, 30), ForceMode2D.Impulse);
+            Debug.Log("PUSHING PLAYER UP, lastX: " + Player.lastXMovement);
         }
     }
 }
