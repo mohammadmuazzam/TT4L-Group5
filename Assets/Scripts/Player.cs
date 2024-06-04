@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float speed = 15f;
-    private float jumpForce = 25f;
+    private const float speed = 15f;
+    private const float jumpForce = 25f;
 
-    private Rigidbody2D playerBody;
+    public static Rigidbody2D playerBody;
+    public static float lastXMovement;
+
     private Animator playerAnimator;
     private SpriteRenderer sr;
     private GameObject movingPlatformObject;
@@ -61,6 +63,9 @@ public class Player : MonoBehaviour
     {
         // horizontal movement
         movementX = Input.GetAxisRaw("Horizontal");
+        if (movementX != 0f)
+            lastXMovement = movementX;
+
         transform.position += new Vector3(movementX, 0f) * speed * Time.deltaTime;
 
         // crouch
@@ -70,16 +75,17 @@ public class Player : MonoBehaviour
         }
         else isCrouch = false;
 
-        //left
+        //left limit
         if (transform.position.x <= minX)
         {
             Vector2 tempPos = transform.position;
             tempPos.x = minX;
             transform.position = tempPos;
         }
-        //right
+        //right limit
         else if (transform.position.x >= maxX)
         {
+            print("going rights");
             Vector2 tempPos = transform.position;
             tempPos.x = maxX;
             transform.position = tempPos;
