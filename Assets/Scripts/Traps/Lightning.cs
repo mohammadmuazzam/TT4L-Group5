@@ -46,6 +46,7 @@ public class Lightning : MonoBehaviour
         {
             color.a -= 0.01f;
             lightningRenderer.material.color = color;
+            print("color.a: " + color.a);
         }
         gameObject.SetActive(false);
     }
