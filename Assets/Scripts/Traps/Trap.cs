@@ -15,18 +15,19 @@ public class Trap : MonoBehaviour
     protected bool negativeX, negativeY;
     Vector3 tempPos;
 
-    //? scale data
+    //* scale data
     [SerializeField] float finalScaleX, finalScaleY, scaleSpeedX, scaleSpeedY, offsetInitialYPos, offsetInitialXPos;
     private float tempCurrentScaleX, tempCurrentScaleY, initialScaleX, initialScaleY;
     private bool doneScaling, doneScaling2;
-    
     protected bool isScaleUpX, isScaleUpY;
+
+    //* sfx
+    [SerializeField] string sfxNameOut, sfxNameIn;
     
     protected virtual void Awake()
     {
         Initialization();   
     }
-
     protected void Initialization()
     {
         //? initialize movement
@@ -58,7 +59,7 @@ public class Trap : MonoBehaviour
         initialScaleY = transform.localScale.y;
     }
 
-    // move trap
+    //* move trap
     public async Task PermanentMoveTrap(float startX, float startY, float stopX, float stopY)
     {
         Stopwatch watch = Stopwatch.StartNew();
@@ -71,6 +72,11 @@ public class Trap : MonoBehaviour
 
         if (stopY < startY) negativeY = true;
         else negativeY = false;
+
+        
+        if (sfxNameOut != null && sfxNameOut != "")
+            AudioManager.Instance.PlaySound(sfxNameOut);
+
 
         while(!hasFinishedMoving)
         {
@@ -110,6 +116,11 @@ public class Trap : MonoBehaviour
         if (stopY < startY) negativeY = true;
         else negativeY = false;
 
+        
+        
+        if (sfxNameOut != null && sfxNameOut != "")
+            AudioManager.Instance.PlaySound(sfxNameOut);
+
         // trap activating 
         try
         {
@@ -143,6 +154,11 @@ public class Trap : MonoBehaviour
             // wait
             bool hasFinishedMoving2 = false;
             await Task.Delay(waitTime);
+            //* play in sound
+
+            
+            if (sfxNameIn != null && sfxNameIn != "")
+            AudioManager.Instance.PlaySound(sfxNameIn);
 
             Stopwatch watch = Stopwatch.StartNew();
             watch.Start();
@@ -175,12 +191,12 @@ public class Trap : MonoBehaviour
         }
         
     }
-
     public async Task TemporaryMoveTrap()
     {
         await TemporaryMoveTrap(initialXPos, initialYPos, finalXPos, finalYPos);
     }
-    // move trap out of initial position
+    
+    //* move trap out of initial position
     private void ActivateTrap(float stopX, float stopY)
     {
         tempPos = transform.localPosition;
@@ -211,7 +227,8 @@ public class Trap : MonoBehaviour
         transform.localPosition = tempPos;
         //print("After ActivateTrap - position: " + transform.localPosition);
     }
-    // move trap back to initial position
+    
+    //* move trap back to initial position
     private void DeactivateTrap(float startX, float startY)
     {
         tempPos = transform.localPosition;
@@ -227,6 +244,7 @@ public class Trap : MonoBehaviour
         transform.localPosition = tempPos;
     }
     
+    //*Scale
     protected async Task PositiveScaleRock()
     {
         try
@@ -261,8 +279,6 @@ public class Trap : MonoBehaviour
         
         
     }
-
-
     protected async void NegativeScaleRock()
     {
         try
@@ -295,4 +311,6 @@ public class Trap : MonoBehaviour
         }
             
     }
+
+
 }

@@ -24,7 +24,8 @@ public class PointsDisplay : MonoBehaviour
             playerAttempts = GameManager.attempts;
             showAttempts.text = playerAttempts.ToString();
 
-            calculatePoints = (int)(10000 /((elapsedTime)*(playerAttempts/2)));
+            calculatePoints = (int)(10000 /(elapsedTime*(playerAttempts/2)));
+            print($"elapsed time: {elapsedTime}");
             if (calculatePoints > 10000)
             calculatePoints = 10000;
             showPoints.text = calculatePoints.ToString();

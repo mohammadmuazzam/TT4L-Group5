@@ -14,7 +14,7 @@ public class PlayerSound : MonoBehaviour
     // Update is called once per frame
     void PlayerFootsteps()
     {
-        AudioClip clip = footsteps[(int) Random.Range(0, footsteps.Length)];
+        AudioClip clip = footsteps[Random.Range(0, footsteps.Length)];
         source.clip = clip;
         source.Play();
     }
