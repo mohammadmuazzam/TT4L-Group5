@@ -11,7 +11,7 @@ public class Level6 : MonoBehaviour
     [SerializeField]
     private GameObject[] trapTriggers;
 
-    private bool trap1Activated, trap2Activated, trap3Activated,trap4Activated, trap5Activated,trap6Activated ;
+    private bool trap1Activated, trap2Activated, trap3Activated,trap4Activated ;
 
     public float playerMinX, playerMaxX;
 
@@ -22,9 +22,7 @@ public class Level6 : MonoBehaviour
         trap1Activated = false;
         trap2Activated = false;
         trap3Activated = false;
-        trap4Activated = false;
-        trap5Activated = false;
-        trap6Activated = false;
+        trap4Activated = false;;
     }
 
     // Update is called once per frame
@@ -70,6 +68,14 @@ public class Level6 : MonoBehaviour
                         }
                         
                         trap3Activated = true;
+                    }
+                    break;
+
+                    case "Trap Trigger 4":
+                    if(!trap4Activated)
+                    {
+                        _= trapScripts[6].TemporaryMoveTrap();
+                        trap4Activated = true;
                     }
                     break;
                 }
