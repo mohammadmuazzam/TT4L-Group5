@@ -19,8 +19,10 @@ public class Trap : MonoBehaviour
     [SerializeField] float finalScaleX, finalScaleY, scaleSpeedX, scaleSpeedY, offsetInitialYPos, offsetInitialXPos;
     private float tempCurrentScaleX, tempCurrentScaleY, initialScaleX, initialScaleY;
     private bool doneScaling, doneScaling2;
-    
     protected bool isScaleUpX, isScaleUpY;
+
+    //* sfx
+    [SerializeField] string sfxNameOut, sfxNameIn;
     
     protected virtual void Awake()
     {
@@ -55,8 +57,6 @@ public class Trap : MonoBehaviour
 
         initialScaleX = transform.localScale.x;
         initialScaleY = transform.localScale.y;
-
-        
     }
 
     //* move trap
@@ -72,6 +72,11 @@ public class Trap : MonoBehaviour
 
         if (stopY < startY) negativeY = true;
         else negativeY = false;
+
+        
+        if (sfxNameOut != null && sfxNameOut != "")
+            AudioManager.Instance.PlaySound(sfxNameOut);
+
 
         while(!hasFinishedMoving)
         {
@@ -111,6 +116,11 @@ public class Trap : MonoBehaviour
         if (stopY < startY) negativeY = true;
         else negativeY = false;
 
+        
+        
+        if (sfxNameOut != null && sfxNameOut != "")
+            AudioManager.Instance.PlaySound(sfxNameOut);
+
         // trap activating 
         try
         {
@@ -144,6 +154,11 @@ public class Trap : MonoBehaviour
             // wait
             bool hasFinishedMoving2 = false;
             await Task.Delay(waitTime);
+            //* play in sound
+
+            
+            if (sfxNameIn != null && sfxNameIn != "")
+            AudioManager.Instance.PlaySound(sfxNameIn);
 
             Stopwatch watch = Stopwatch.StartNew();
             watch.Start();
