@@ -48,7 +48,7 @@ public class Level8 : MonoBehaviour
                     case "Trap Trigger 1":
                     if (!trap1Activated)
                     {
-                        _ = trapScripts[0].PermanentMoveTrap();
+                        _ = trapScripts[0].TemporaryMoveTrap();
                         trap1Activated = true;
                     }
                     break;
