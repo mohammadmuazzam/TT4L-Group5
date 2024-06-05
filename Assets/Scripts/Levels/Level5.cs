@@ -60,7 +60,7 @@ public class Level5 : MonoBehaviour
                     case "Trap Trigger 3":
                     if (!trap3Activated)
                     {
-                        _ = trapScripts[1].PermanentMoveTrap();
+                        _ = trapScripts[2].PermanentMoveTrap();
                         trap3Activated = true;
                     }
                     break;
