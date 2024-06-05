@@ -411,6 +411,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &54810621
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,6 +470,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!212 &54810624
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1253,7 +1257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 739047056036975620, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.18
+      value: 63.4
       objectReference: {fileID: 0}
     - target: {fileID: 739047056036975620, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1566,6 +1570,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!61 &494969585
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1769,6 +1775,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &528192190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,6 +2428,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &738323515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2666,6 +2676,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &797320158
 GameObject:
   m_ObjectHideFlags: 0
@@ -4090,6 +4102,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!212 &1248721039
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4758,6 +4772,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!61 &1372678986
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5208,6 +5224,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &1610183041
 GameObject:
   m_ObjectHideFlags: 0
@@ -6024,6 +6042,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &2068895982
 GameObject:
   m_ObjectHideFlags: 0

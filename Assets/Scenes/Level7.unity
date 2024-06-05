@@ -617,8 +617,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1062078955
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 781b9f9733232bc44a48fcaa13f9468d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -707,11 +707,10 @@ GameObject:
   - component: {fileID: 567773105}
   - component: {fileID: 567773107}
   - component: {fileID: 567773106}
-  - component: {fileID: 567773109}
   - component: {fileID: 567773108}
   m_Layer: 0
   m_Name: Platform1 (1)
-  m_TagString: Moving Platform
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -841,9 +840,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmountX: 0
-  moveAmountY: 0
+  moveAmountY: 4
   moveSpeedX: 0
-  moveSpeedY: 0
+  moveSpeedY: 200
   waitTime: 0
   finalScaleX: 0
   finalScaleY: 0
@@ -851,28 +850,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
---- !u!114 &567773109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567773104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9ee3f6df46e0c648b4ed437f98319c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startXPos: 0
-  endXPos: 0
-  startYPos: -1.35
-  endYPos: 2.9
-  moveSpeedX: 0
-  moveSpeedY: 0
-  moveX: 0
-  moveY: 0
-  startToEnd: 0
-  moveAmountPos: {x: 0, y: 0, z: 0}
+  sfxNameOut: 
+  sfxNameIn: 
 --- !u!1 &573583034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,8 +1325,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1062078955
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 781b9f9733232bc44a48fcaa13f9468d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -12362,3 +12341,4 @@ SceneRoots:
   - {fileID: 431029387}
   - {fileID: 629942059}
   - {fileID: 1110822501}
+  - {fileID: 1998163029}
