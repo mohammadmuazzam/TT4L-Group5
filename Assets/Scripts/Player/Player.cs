@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();   
         isPlayerAlive = true; 
+        playerBody.velocity = new Vector2(playerBody.velocity.x, 0);
     }
 
     // Update is called once per frame
@@ -111,6 +112,11 @@ public class Player : MonoBehaviour
     //check for collision
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Trap"))
+        {
+            print("collide with trap");
+        }
+
         // collision with trap
         if (collision.gameObject.CompareTag("Trap") && canPlayerDie)
         {
