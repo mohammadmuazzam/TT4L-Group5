@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     
     [Range(0, 1)][SerializeField] float volume;
 
-    [SerializeField] private float minX, maxX;
+    [SerializeField] public float minX, maxX;
     [SerializeField] bool canPlayerDie;
     void Awake()
     {
@@ -122,6 +122,7 @@ public class Player : MonoBehaviour
         // collision with trap
         if (collision.gameObject.CompareTag("Trap") && canPlayerDie)
         {
+            SoundFxManager.Instance.PlayRandomSoundFxClip(deathSoundFx, transform, volume);
             isPlayerAlive = false;
         }
     }
@@ -135,7 +136,7 @@ public class Player : MonoBehaviour
             if (collision.gameObject.CompareTag("Moving Platform"))
             {
                 isOnMovingPlatform = true;
-                //? get parents gameObject
+                //* get parents gameObject
                 movingPlatformObject = collision.gameObject.transform.parent.gameObject;
             }
         }

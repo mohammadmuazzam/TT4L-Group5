@@ -8,8 +8,9 @@ public class Boss : MonoBehaviour
     [SerializeField] bool shoot;
     [SerializeField] private GameObject bulletObject;
     [SerializeField] private AudioClip[] gunshotAudioClip;
+    [Range(0,1)] [SerializeField] private float volume;
 
-    private AudioSource audioSource;
+    public int bossHealth = 4;
     private Animator bossAnimator;
     private GameObject bulletObjectClone;
     private Bullets bulletObjectCloneScript;
@@ -19,14 +20,7 @@ public class Boss : MonoBehaviour
     void Awake()
     {
         bossAnimator = GetComponent<Animator>();
-        bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
-
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);  
     }
 
     public  async void ShootNormalBullets()
@@ -36,14 +30,14 @@ public class Boss : MonoBehaviour
         bossAnimator.ResetTrigger(EMPTY_STANCE_TRIGGER);
 
         // gunshot sound
-        AudioClip clip = gunshotAudioClip[Random.Range(0, gunshotAudioClip.Length)];
-        audioSource.clip = clip;
-        audioSource.Play();
+        SoundFxManager.Instance.PlayRandomSoundFxClip(gunshotAudioClip, transform, volume);
 
         // shoot
         bulletObjectClone = Instantiate(bulletObject);
         bulletObjectCloneScript = bulletObjectClone.GetComponent<Bullets>();
         bulletObjectCloneScript.MoveBullet(gameObject.transform.position);
+
+        
 
         await Task.Delay(1000);
 

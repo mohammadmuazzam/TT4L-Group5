@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class DeathBox : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] Boss boss;
     public static bool playerJumpOnBoss;
-    [SerializeField] GameObject player;
+    
     private const string PLAYER_NAME = "Player";
 
     void OnTriggerEnter2D (Collider2D collision)
@@ -30,6 +30,7 @@ public class DeathBox : MonoBehaviour
         if (playerJumpOnBoss)
         {
             playerJumpOnBoss = false;
+            boss.bossHealth -=1;
             ApplyJumpForce();
         }
     }

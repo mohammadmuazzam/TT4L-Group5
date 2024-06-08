@@ -422,6 +422,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5571899885167726016, guid: ee6cdc47ce7183c4da220f4d575cd133, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 5571899885167726016, guid: ee6cdc47ce7183c4da220f4d575cd133, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6994621823903382638, guid: ee6cdc47ce7183c4da220f4d575cd133, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7138826298573933683, guid: ee6cdc47ce7183c4da220f4d575cd133, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -985,10 +997,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
-  trapIn: {fileID: 0}
-  volumeOut: 0
-  volumeIn: 0
+  trapOut: {fileID: 8300000, guid: 8c1eb934f1905194ba491905776b1d21, type: 3}
+  trapIn: {fileID: 8300000, guid: 7b1c20fea96e70e44b28cbd477582ced, type: 3}
+  volumeOut: 0.103
+  volumeIn: 0.115
 --- !u!60 &824383606
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1267,10 +1279,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
-  trapIn: {fileID: 0}
-  volumeOut: 0
-  volumeIn: 0
+  trapOut: {fileID: 8300000, guid: 729127ad096cd294390b4e23771e49d7, type: 3}
+  trapIn: {fileID: 8300000, guid: 0437fcc41a4d49049bf77db586390f99, type: 3}
+  volumeOut: 0.321
+  volumeIn: 0.321
 --- !u!60 &1173512444
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2310,8 +2322,8 @@ MonoBehaviour:
   offsetInitialXPos: 0
   trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 8300000, guid: ec1e99b19cbf70649ac4cb31e295ca0a, type: 3}
-  volumeOut: 0.5
-  volumeIn: 0.5
+  volumeOut: 0.285
+  volumeIn: 0
 --- !u!1 &1778214269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2704,10 +2716,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 500274060321632254, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
-      propertyPath: canPlayerDie
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 739047056036975620, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.11
@@ -2889,3 +2897,4 @@ SceneRoots:
   - {fileID: 5362603565584989262}
   - {fileID: 1577250081051370974}
   - {fileID: 63616141}
+  - {fileID: 327224142}

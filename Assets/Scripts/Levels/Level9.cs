@@ -23,6 +23,8 @@ public class Level9 : MonoBehaviour
     void LateUpdate()
     {
         CheckForTrapTrigger();
+
+        CheckAttemptAndBossHealth();
     }
 
     void CheckForTrapTrigger()
@@ -46,6 +48,17 @@ public class Level9 : MonoBehaviour
                     break;
                 }
             }
+        }
+    }
+
+    void CheckAttemptAndBossHealth()
+    {
+        // traps leading to first kill
+        if (GameManager.attempts == 1 || catBoss.bossHealth == 3)
+        {
+            catBoss.bossHealth = 3;
+
+            
         }
     }
 }

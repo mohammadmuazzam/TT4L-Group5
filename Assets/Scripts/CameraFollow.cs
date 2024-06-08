@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     private Transform player;
     private Vector3 tempPos;
     [SerializeField]
-    private float minX, maxX, minY, maxY;
+    public float minX, maxX, minY, maxY;
 
     [SerializeField]
     private bool moveOnY;

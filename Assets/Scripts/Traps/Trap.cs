@@ -58,7 +58,7 @@ public class Trap : MonoBehaviour
         initialScaleY = transform.localScale.y;
     }
 
-    //* move trap
+    //* move trap await Task.Delay(timer)
     public async Task PermanentMoveTrap(float startX, float startY, float stopX, float stopY)
     {
         Stopwatch watch = Stopwatch.StartNew();
@@ -73,7 +73,7 @@ public class Trap : MonoBehaviour
         else negativeY = false;
 
         //* play sound
-        if (trapOut != null)
+        if (trapOut != null && Player.isPlayerAlive)
             SoundFxManager.Instance.PlaySoundFxClip(trapOut, transform, volumeOut);
 
 
@@ -116,7 +116,7 @@ public class Trap : MonoBehaviour
         else negativeY = false;
 
         //* play out sound
-        if (trapOut != null)
+        if (trapOut != null && Player.isPlayerAlive)
             SoundFxManager.Instance.PlaySoundFxClip(trapOut, transform, volumeOut);
 
 
@@ -155,7 +155,7 @@ public class Trap : MonoBehaviour
             await Task.Delay(waitTime);
 
             //* play in sound
-            if (trapIn != null)
+            if (trapIn != null && Player.isPlayerAlive)
             SoundFxManager.Instance.PlaySoundFxClip(trapIn, transform, volumeIn);
 
             Stopwatch watch = Stopwatch.StartNew();
