@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer sr;
     private GameObject movingPlatformObject;
 
+    //* movement 
     private float movementX;
     private bool isOnGround, isOnMovingPlatform = false;
     public static bool isPlayerAlive;
@@ -23,12 +24,17 @@ public class Player : MonoBehaviour
     private bool isCrouch = false;
 
 
-    //? CONSTANTS
+    //* CONSTANTS
     private const string CROUCH_ANIMATION_CONDITION = "Crouch";
     private const string IDLE_ANIMATION_CONDITION = "IdleStand";
 
     PlatformMovement movingPlatformScript;
     Vector3 tempPos;
+
+    //* sound
+    [SerializeField] AudioClip[] deathSoundFx;
+    
+    [Range(0, 1)][SerializeField] float volume;
 
     [SerializeField] private float minX, maxX;
     [SerializeField] bool canPlayerDie;

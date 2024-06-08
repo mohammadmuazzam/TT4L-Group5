@@ -88,9 +88,10 @@ public class GameManager : MonoBehaviour
         isRestarting = true;
         while (SoundFxManager.Instance.IsSoundFxPlaying())
         {
+            Time.timeScale = 0f;
             await Task.Yield();
         }
-        
+        Time.timeScale = 1f;
         SceneManager.LoadScene(currentLevelName);
         isRestarting = false;
 
