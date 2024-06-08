@@ -1,19 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor;
+using UnityEditor.AssetImporters;
 using UnityEngine;
 
 public class Level7 : MonoBehaviour
 {
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private GameObject[] trapTriggers;
+    [SerializeField] private ParticleSystem explosionParticles;
+    [Range (100,1500)][SerializeField] int bombTimer;
     
-    private bool closeTrapTriggered1, platformMoved;
+    private bool closeTrapTriggered1, platformMoved, notExploded;
+    [SerializeField] private GameObject explodingPlatform;
 
     void Awake()
     {
         closeTrapTriggered1 = false;
         platformMoved = false;
+        notExploded = false;
     }
 
     // Update is called once per frame
@@ -49,9 +58,35 @@ public class Level7 : MonoBehaviour
                         platformMoved = true;
                     }
                     break;
+
+                    case "Explosion Trigger":
+                    if (!notExploded && trapTriggerScript.movingPlatformIsInTrigger)
+                    {
+                        await Task.Delay(bombTimer);
+                        try
+                        {
+                            explosionParticles.Play();
+                            explodingPlatform.SetActive(false);
+                            trapScripts[0].gameObject.SetActive(false);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                        
+
+                    }
+                    break;
                 }
             }
         }
+    }
+
+    private async void TimeToExplode()
+    {
+        Debug.Log ("Timehas started");
+        await Task.Delay(bombTimer);
+        explodingPlatform.SetActive(false);
     }
 
 }
