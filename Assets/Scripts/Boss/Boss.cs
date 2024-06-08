@@ -6,8 +6,11 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     [SerializeField] bool shoot;
-    private Animator bossAnimator;
     [SerializeField] private GameObject bulletObject;
+    [SerializeField] private AudioClip[] gunshotAudioClip;
+
+    private AudioSource audioSource;
+    private Animator bossAnimator;
     private GameObject bulletObjectClone;
     private Bullets bulletObjectCloneScript;
 
@@ -17,35 +20,40 @@ public class Boss : MonoBehaviour
     {
         bossAnimator = GetComponent<Animator>();
         bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
-        bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (shoot)
-        {
-            ShootNormalBullets();
-            shoot = false;
-        }
-            
-        else 
-        {
-            bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
-            bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
-        }
     }
 
-    private void ShootNormalBullets()
+    public  async void ShootNormalBullets()
     {
         //animation
         bossAnimator.SetTrigger(USE_PISTOL_TRIGGER);
         bossAnimator.ResetTrigger(EMPTY_STANCE_TRIGGER);
 
+        // gunshot sound
+        AudioClip clip = gunshotAudioClip[Random.Range(0, gunshotAudioClip.Length)];
+        audioSource.clip = clip;
+        audioSource.Play();
+
         // shoot
         bulletObjectClone = Instantiate(bulletObject);
         bulletObjectCloneScript = bulletObjectClone.GetComponent<Bullets>();
         bulletObjectCloneScript.MoveBullet(gameObject.transform.position);
+
+        await Task.Delay(1000);
+
+        //reset animation
+        if (bossAnimator != null)
+        {
+            bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
+            bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
+        }
+        
         
     }
 }

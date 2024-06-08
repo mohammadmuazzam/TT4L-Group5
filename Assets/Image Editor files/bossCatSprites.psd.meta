@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1a6ec0e858a74e043b53f455619e2268
+guid: 9f2c296e2df33f445a9c5848a1c24647
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -121,91 +121,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Stand_0
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 206
-        width: 1932
-        height: 1596
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f93bfd41d2c95a64e971f528d312735d
-      internalID: 1029372901
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stand_1
-      rect:
-        serializedVersion: 2
-        x: 2188
-        y: 206
-        width: 1932
-        height: 1596
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 83f7a97d38b6899409f9978eac7ef381
-      internalID: 685978121
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stand_2
-      rect:
-        serializedVersion: 2
-        x: 4330
-        y: 201
-        width: 1932
-        height: 1596
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b8b01c52fe1192642962c1362dc76f49
-      internalID: 583788824
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stand_3
-      rect:
-        serializedVersion: 2
-        x: 6424
-        y: 201
-        width: 2142
-        height: 1596
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 212, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 67d2f94d4ff2ec441b4cd2dbe1a87e3f
-      internalID: 674391049
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -216,11 +132,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Stand_0: 1029372901
-      Stand_1: 685978121
-      Stand_2: 583788824
-      Stand_3: 674391049
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
