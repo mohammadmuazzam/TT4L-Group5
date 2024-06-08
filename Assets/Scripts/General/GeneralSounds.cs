@@ -6,8 +6,8 @@ using UnityEngine;
 public class GeneralSounds : MonoBehaviour
 {
     public AudioSource clickSound;
-
     public int clickSoundInMs;
+    
     void Awake()
     {
         clickSoundInMs = (int) Math.Ceiling(clickSound.clip.length * 1000);

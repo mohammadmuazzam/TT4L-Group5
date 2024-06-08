@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Trap : MonoBehaviour
@@ -22,7 +19,9 @@ public class Trap : MonoBehaviour
     protected bool isScaleUpX, isScaleUpY;
 
     //* sfx
-    [SerializeField] string sfxNameOut, sfxNameIn;
+    [SerializeField] AudioClip trapOut, trapIn;
+    
+    [Range(0, 1)][SerializeField] float volumeOut, volumeIn;
     
     protected virtual void Awake()
     {
@@ -73,9 +72,9 @@ public class Trap : MonoBehaviour
         if (stopY < startY) negativeY = true;
         else negativeY = false;
 
-        
-        if (sfxNameOut != null && sfxNameOut != "")
-            AudioManager.Instance.PlaySound(sfxNameOut);
+        //* play sound
+        if (trapOut != null)
+            SoundFxManager.Instance.PlaySoundFxClip(trapOut, transform, volumeOut);
 
 
         while(!hasFinishedMoving)
@@ -116,10 +115,10 @@ public class Trap : MonoBehaviour
         if (stopY < startY) negativeY = true;
         else negativeY = false;
 
-        
-        
-        if (sfxNameOut != null && sfxNameOut != "")
-            AudioManager.Instance.PlaySound(sfxNameOut);
+        //* play out sound
+        if (trapOut != null)
+            SoundFxManager.Instance.PlaySoundFxClip(trapOut, transform, volumeOut);
+
 
         // trap activating 
         try
@@ -154,11 +153,10 @@ public class Trap : MonoBehaviour
             // wait
             bool hasFinishedMoving2 = false;
             await Task.Delay(waitTime);
-            //* play in sound
 
-            
-            if (sfxNameIn != null && sfxNameIn != "")
-            AudioManager.Instance.PlaySound(sfxNameIn);
+            //* play in sound
+            if (trapIn != null)
+            SoundFxManager.Instance.PlaySoundFxClip(trapIn, transform, volumeIn);
 
             Stopwatch watch = Stopwatch.StartNew();
             watch.Start();

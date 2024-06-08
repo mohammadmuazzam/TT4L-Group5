@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
 {
     
     private static GameManager instance;
-    
+
     public static string currentLevelName;
 
     public static TimeSpan elapsedTime;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     TimeSpan endTime;
 
     private float deltaTime = 0.0f;
+    private bool isRestarting;
 
     void Awake()
     {
@@ -34,7 +36,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Application.targetFrameRate = 60;
+        isRestarting = false;
     }
 
     void Update()
@@ -52,9 +54,9 @@ public class GameManager : MonoBehaviour
     void LateUpdate()
     {
         // if player dies
-        if (!Player.isPlayerAlive)
+        if (!Player.isPlayerAlive && !isRestarting)
         {
-            SceneManager.LoadScene(currentLevelName);
+            RestartLevel();
         }
     }
 
@@ -78,6 +80,20 @@ public class GameManager : MonoBehaviour
             elapsedTime = endTime - startTime;
         
         SceneManager.LoadScene("EndPage");
+    }
+
+    //* wait for soundfx to finish playing before restarting level
+    public async void RestartLevel()
+    {
+        isRestarting = true;
+        while (SoundFxManager.Instance.IsSoundFxPlaying())
+        {
+            await Task.Yield();
+        }
+        
+        SceneManager.LoadScene(currentLevelName);
+        isRestarting = false;
+
     }
 
     void OnSceneLoaded (Scene scene, LoadSceneMode mode)

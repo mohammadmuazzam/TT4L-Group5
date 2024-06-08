@@ -15,8 +15,14 @@ public class DeathBox : MonoBehaviour
         if (collision.gameObject.name == PLAYER_NAME)
         {
             playerJumpOnBoss = true;
+            gameObject.transform.parent.tag = "Untagged";
             //print("player jump on boss");
         }      
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        gameObject.transform.parent.tag = "Trap";
     }
 
     void FixedUpdate()
@@ -37,7 +43,7 @@ public class DeathBox : MonoBehaviour
 
             // Apply a consistent force
             Player.playerBody.AddForce(new Vector2(Player.lastXMovement*4, 30), ForceMode2D.Impulse);
-            Debug.Log("PUSHING PLAYER UP, lastX: " + Player.lastXMovement);
+            //Debug.Log("PUSHING PLAYER UP, lastX: " + Player.lastXMovement);
         }
     }
 }

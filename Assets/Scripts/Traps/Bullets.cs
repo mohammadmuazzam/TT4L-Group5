@@ -11,12 +11,7 @@ public class Bullets : MonoBehaviour
     void Awake()
     {
         bulletBody = GetComponent<Rigidbody2D>();
-        speed = -20;
-    }
-
-    private void FixedUpdate()
-    {
-        
+        speed = -10;
     }
 
     public async void MoveBullet(Vector3 startPos)
@@ -28,16 +23,13 @@ public class Bullets : MonoBehaviour
             try
             {
                 print("moving" + gameObject.name);
-                bulletBody.velocity = new Vector2(-4, bulletBody.velocity.y);
+                bulletBody.velocity = new Vector2(speed, bulletBody.velocity.y);
                 await Task.Yield();
             }
             catch (Exception)
             {
                 return;
             }
-
-
-            
         }   
     }
 }

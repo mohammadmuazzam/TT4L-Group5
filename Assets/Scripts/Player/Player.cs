@@ -37,7 +37,9 @@ public class Player : MonoBehaviour
         playerBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();   
-        isPlayerAlive = true; 
+        isPlayerAlive = true;
+        Time.timeScale = 1f;
+        playerBody.velocity = new Vector2(playerBody.velocity.x, 0);
     }
 
     // Update is called once per frame
