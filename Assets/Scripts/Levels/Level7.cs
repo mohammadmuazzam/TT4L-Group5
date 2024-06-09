@@ -22,7 +22,7 @@ public class Level7 : MonoBehaviour
         CheckForTrapTrigger();
     }
 
-    async void CheckForTrapTrigger()
+    void CheckForTrapTrigger()
     {
         // check if any trap trigger has been triggered
         foreach (GameObject triggerGameObject in trapTriggers)

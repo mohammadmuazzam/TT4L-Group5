@@ -22,7 +22,6 @@ public class Bullets : MonoBehaviour
         {
             try
             {
-                print("moving" + gameObject.name);
                 bulletBody.velocity = new Vector2(speed, bulletBody.velocity.y);
                 await Task.Yield();
             }

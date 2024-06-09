@@ -18,10 +18,10 @@ public class Player : MonoBehaviour
 
     //* movement 
     private float movementX;
-    private bool isOnGround, isOnMovingPlatform = false;
+    private bool isOnGround, isCrouch, isOnMovingPlatform = false;
     public static bool isPlayerAlive;
     public static bool shouldJump = false;
-    private bool isCrouch = false;
+    public static bool canPlayerMove = true;
 
 
     //* CONSTANTS
@@ -70,50 +70,54 @@ public class Player : MonoBehaviour
     void PlayerMovement()
     {
         // horizontal movement
-        movementX = Input.GetAxisRaw("Horizontal");
-        if (movementX != 0f)
-            lastXMovement = movementX;
-
-        transform.position += new Vector3(movementX, 0f) * speed * Time.deltaTime;
-
-        // crouch
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+        if (canPlayerMove)
         {
-            isCrouch = true;
-        }
-        else isCrouch = false;
+            movementX = Input.GetAxisRaw("Horizontal");
+            if (movementX != 0f)
+                lastXMovement = movementX;
 
-        //left limit
-        if (transform.position.x <= minX)
-        {
-            Vector2 tempPos = transform.position;
-            tempPos.x = minX;
-            transform.position = tempPos;
-        }
-        //right limit
-        else if (transform.position.x >= maxX)
-        {
-            print("going rights");
-            Vector2 tempPos = transform.position;
-            tempPos.x = maxX;
-            transform.position = tempPos;
-        }
+            transform.position += new Vector3(movementX, 0f) * speed * Time.deltaTime;
 
-        // jump
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-        {
-            //print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
-            if (isOnGround)
+            // crouch
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
-                isOnGround = false;
-                shouldJump = true;
+                isCrouch = true;
             }
-            else
+            else isCrouch = false;
+
+            //left limit
+            if (transform.position.x <= minX)
             {
-                //print("CAN'T JUMP: PLAYER ISN'T ON GROUND: " + DateTime.Now.TimeOfDay);
+                Vector2 tempPos = transform.position;
+                tempPos.x = minX;
+                transform.position = tempPos;
             }
-                
+            //right limit
+            else if (transform.position.x >= maxX)
+            {
+                print("going rights");
+                Vector2 tempPos = transform.position;
+                tempPos.x = maxX;
+                transform.position = tempPos;
+            }
+
+            // jump
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            {
+                //print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
+                if (isOnGround)
+                {
+                    isOnGround = false;
+                    shouldJump = true;
+                }
+                else
+                {
+                    //print("CAN'T JUMP: PLAYER ISN'T ON GROUND: " + DateTime.Now.TimeOfDay);
+                }
+                    
+            }
         }
+        
     }
 
     //check for collision

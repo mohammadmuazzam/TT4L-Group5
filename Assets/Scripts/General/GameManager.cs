@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
             // reset attempt if not in the same level
             if (currentLevelName != scene.name)
             {
-                print("resetting attempt");
                 attempts = 0;
             }
             currentLevelName = scene.name;

@@ -426,14 +426,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 5571899885167726016, guid: ee6cdc47ce7183c4da220f4d575cd133, type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6994621823903382638, guid: ee6cdc47ce7183c4da220f4d575cd133, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7138826298573933683, guid: ee6cdc47ce7183c4da220f4d575cd133, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -709,9 +701,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 519420032}
-  - component: {fileID: 519420031}
-  - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420031}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -719,14 +710,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &519420029
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -806,7 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minX: 0
-  maxX: 19.2
+  maxX: 19.09
   minY: 0
   maxY: 0
   moveOnY: 0
@@ -2322,8 +2305,8 @@ MonoBehaviour:
   offsetInitialXPos: 0
   trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 8300000, guid: ec1e99b19cbf70649ac4cb31e295ca0a, type: 3}
-  volumeOut: 0.285
-  volumeIn: 0
+  volumeOut: 0.112
+  volumeIn: 0.135
 --- !u!1 &1778214269
 GameObject:
   m_ObjectHideFlags: 0

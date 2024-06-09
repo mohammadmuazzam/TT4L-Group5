@@ -9,7 +9,7 @@ public class SoundFxManager : MonoBehaviour
     public static SoundFxManager Instance;
 
     private AudioSource audioSource;
-    private bool fadingOut;
+    //private bool fadingOut;
 
     void Awake()
     {
@@ -21,7 +21,7 @@ public class SoundFxManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        fadingOut = false;
+        //fadingOut = false;
     }
 
     void Update()
