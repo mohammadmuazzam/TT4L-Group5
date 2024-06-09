@@ -129,8 +129,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba53744309051b418c435e601a82f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathSoundFx:
+  - {fileID: 8300000, guid: daf0ff59c10673744a8645deb24e73b6, type: 3}
+  - {fileID: 8300000, guid: 0818d5d92261d6840a021a626e682a39, type: 3}
+  - {fileID: 8300000, guid: d5920292b2deef04fb263f74af4dda52, type: 3}
+  volume: 0.691
   minX: -8.66
   maxX: 28.18
+  canPlayerDie: 1
 --- !u!95 &520696975027316752
 Animator:
   serializedVersion: 5

@@ -129,9 +129,9 @@ TextureImporter:
         x: 8
         y: 206
         width: 1932
-        height: 1594
+        height: 1596
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: Stand_1
       rect:
         serializedVersion: 2
-        x: 2194
+        x: 2188
         y: 206
         width: 1932
-        height: 1594
+        height: 1596
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,7 +173,7 @@ TextureImporter:
         width: 1932
         height: 1596
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,6 +181,27 @@ TextureImporter:
       bones: []
       spriteID: b8b01c52fe1192642962c1362dc76f49
       internalID: 583788824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_3
+      rect:
+        serializedVersion: 2
+        x: 6424
+        y: 201
+        width: 2142
+        height: 1596
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 212, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d2f94d4ff2ec441b4cd2dbe1a87e3f
+      internalID: 674391049
       vertices: []
       indices: 
       edges: []
@@ -199,6 +220,7 @@ TextureImporter:
       Stand_0: 1029372901
       Stand_1: 685978121
       Stand_2: 583788824
+      Stand_3: 674391049
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

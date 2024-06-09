@@ -1,23 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    [HideInInspector] public float speed;
+    private Rigidbody2D bulletBody;
+    void Awake()
     {
-        gameObject.SetActive(false);
+        bulletBody = GetComponent<Rigidbody2D>();
+        speed = -10;
     }
 
-    // Update is called once per frame
-    void Update()
+    public async void MoveBullet(Vector3 startPos)
     {
-        
-    }
-
-    public void ShootBullet()
-    {
-        gameObject.SetActive(true);
+        gameObject.transform.position = new Vector3 (startPos.x-1.3f, startPos.y, startPos.z);
+        print(gameObject.name);
+        while (true)
+        {
+            try
+            {
+                bulletBody.velocity = new Vector2(speed, bulletBody.velocity.y);
+                await Task.Yield();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }   
     }
 }
