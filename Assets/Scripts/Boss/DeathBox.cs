@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class DeathBox : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] Boss boss;
     public static bool playerJumpOnBoss;
-    [SerializeField] GameObject player;
+    
     private const string PLAYER_NAME = "Player";
 
     void OnTriggerEnter2D (Collider2D collision)
@@ -15,8 +15,14 @@ public class DeathBox : MonoBehaviour
         if (collision.gameObject.name == PLAYER_NAME)
         {
             playerJumpOnBoss = true;
+            gameObject.transform.parent.tag = "Untagged";
             //print("player jump on boss");
         }      
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        gameObject.transform.parent.tag = "Trap";
     }
 
     void FixedUpdate()
@@ -24,6 +30,7 @@ public class DeathBox : MonoBehaviour
         if (playerJumpOnBoss)
         {
             playerJumpOnBoss = false;
+            boss.bossHealth -=1;
             ApplyJumpForce();
         }
     }
@@ -37,7 +44,7 @@ public class DeathBox : MonoBehaviour
 
             // Apply a consistent force
             Player.playerBody.AddForce(new Vector2(Player.lastXMovement*4, 30), ForceMode2D.Impulse);
-            Debug.Log("PUSHING PLAYER UP, lastX: " + Player.lastXMovement);
+            //Debug.Log("PUSHING PLAYER UP, lastX: " + Player.lastXMovement);
         }
     }
 }

@@ -6,22 +6,32 @@ public class CameraFollow : MonoBehaviour
 {
     private Transform player;
     private Vector3 tempPos;
-    [SerializeField]
-    private float minX, maxX, minY, maxY;
+    
+    [SerializeField] public float minX, maxX, minY, maxY;
 
-    [SerializeField]
-    private bool moveOnY;
+    [SerializeField] private bool moveOnY;
+    public bool playerDependant;
 
     void Awake()
     {
         player = GameObject.FindWithTag("Player").transform;
+        playerDependant = true;
     }
 
     void LateUpdate()
     {   
+        if (playerDependant)
+            MoveCameraWithPlayer();
+    }
+
+    void MoveCameraWithPlayer()
+    {
         // if player is null
-        if (!player) return;
-        
+        if (!player) 
+        {
+            print("can't find player");
+            return;
+        }
         tempPos = transform.position;
         tempPos.x = player.position.x;
         if (moveOnY)
@@ -29,10 +39,12 @@ public class CameraFollow : MonoBehaviour
             tempPos.y = player.position.y;
         }
 
-        // move camera if camera is in X range
-        if (tempPos.x > minX && tempPos.x < maxX) transform.position = new (tempPos.x, transform.position.y, transform.position.z);
+        // move camera if camera is in range
+        if (tempPos.x > minX && tempPos.x < maxX) 
+            transform.position = new (tempPos.x, transform.position.y, transform.position.z);
 
-        if (player.position.y > minY && player.position.y < maxY) transform.position = new (transform.position.x, tempPos.y, transform.position.z);
+        if (player.position.y > minY && player.position.y < maxY) 
+            transform.position = new (transform.position.x, tempPos.y, transform.position.z);
         
     }
 }
