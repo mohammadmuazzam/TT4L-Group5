@@ -36,7 +36,6 @@ public class CameraFollow : MonoBehaviour
         tempPos.x = player.position.x;
         if (moveOnY)
         {
-            print("copying players temp");
             tempPos.y = player.position.y;
         }
 
