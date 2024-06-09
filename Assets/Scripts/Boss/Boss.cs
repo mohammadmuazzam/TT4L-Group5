@@ -26,27 +26,33 @@ public class Boss : MonoBehaviour
     public  async void ShootNormalBullets()
     {
         //animation
-        bossAnimator.SetTrigger(USE_PISTOL_TRIGGER);
-        bossAnimator.ResetTrigger(EMPTY_STANCE_TRIGGER);
+        try
+        {
+            bossAnimator.SetTrigger(USE_PISTOL_TRIGGER);
+            bossAnimator.ResetTrigger(EMPTY_STANCE_TRIGGER);
+            // gunshot sound
+            SoundFxManager.Instance.PlayRandomSoundFxClip(gunshotAudioClip, transform, volume);
 
-        // gunshot sound
-        SoundFxManager.Instance.PlayRandomSoundFxClip(gunshotAudioClip, transform, volume);
+            // shoot
+            bulletObjectClone = Instantiate(bulletObject);
+            bulletObjectCloneScript = bulletObjectClone.GetComponent<Bullets>();
+            bulletObjectCloneScript.MoveBullet(gameObject.transform.position);
 
-        // shoot
-        bulletObjectClone = Instantiate(bulletObject);
-        bulletObjectCloneScript = bulletObjectClone.GetComponent<Bullets>();
-        bulletObjectCloneScript.MoveBullet(gameObject.transform.position);
+            await Task.Delay(1000);
 
+            //reset animation
+            if (bossAnimator != null)
+            {
+                bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
+                bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
+            }
+        }
+        catch (System.Exception )
+        {
+        }
         
 
-        await Task.Delay(1000);
-
-        //reset animation
-        if (bossAnimator != null)
-        {
-            bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
-            bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
-        }
+        
         
         
     }

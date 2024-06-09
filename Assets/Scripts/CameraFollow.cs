@@ -40,7 +40,7 @@ public class CameraFollow : MonoBehaviour
             tempPos.y = player.position.y;
         }
 
-        // move camera if camera is in range
+        // move camera if camera is in rangea
         if (tempPos.x > minX && tempPos.x < maxX) 
             transform.position = new (tempPos.x, transform.position.y, transform.position.z);
 

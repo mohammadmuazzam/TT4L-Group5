@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     private bool isOnGround, isCrouch, isOnMovingPlatform = false;
     public static bool isPlayerAlive;
     public static bool shouldJump = false;
-    public static bool canPlayerMove = true;
+    public static bool canPlayerMove;
 
 
     //* CONSTANTS
@@ -40,10 +40,14 @@ public class Player : MonoBehaviour
     [SerializeField] bool canPlayerDie;
     void Awake()
     {
+        //* get component
         playerBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();   
+        sr = GetComponent<SpriteRenderer>();
+
+        //* default value
         isPlayerAlive = true;
+        canPlayerMove = true;
         Time.timeScale = 1f;
         playerBody.velocity = new Vector2(playerBody.velocity.x, 0);
     }
@@ -56,6 +60,8 @@ public class Player : MonoBehaviour
 
         if (isOnMovingPlatform)
             MoveXPlayerWithPlatform(movingPlatformObject);
+
+        
     }
 
     void FixedUpdate()
@@ -95,7 +101,6 @@ public class Player : MonoBehaviour
             //right limit
             else if (transform.position.x >= maxX)
             {
-                print("going rights");
                 Vector2 tempPos = transform.position;
                 tempPos.x = maxX;
                 transform.position = tempPos;

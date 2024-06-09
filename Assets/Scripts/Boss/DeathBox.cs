@@ -6,6 +6,9 @@ using UnityEngine;
 public class DeathBox : MonoBehaviour
 {
     [SerializeField] Boss boss;
+    [SerializeField] Rigidbody2D playerBody;
+    [SerializeField] AudioClip[] damageSound;
+    [Range(0,1)] [SerializeField] float volume;
     public static bool playerJumpOnBoss;
     
     private const string PLAYER_NAME = "Player";
@@ -14,8 +17,14 @@ public class DeathBox : MonoBehaviour
     {
         if (collision.gameObject.name == PLAYER_NAME)
         {
-            playerJumpOnBoss = true;
-            gameObject.transform.parent.tag = "Untagged";
+            print("velocity: " + playerBody.velocity);
+            
+            if (playerBody.velocity.y < 0)
+            {
+                playerJumpOnBoss = true;
+                gameObject.transform.parent.tag = "Untagged";
+            }
+            
             //print("player jump on boss");
         }      
     }
@@ -31,19 +40,20 @@ public class DeathBox : MonoBehaviour
         {
             playerJumpOnBoss = false;
             boss.bossHealth -=1;
+            SoundFxManager.Instance.PlayRandomSoundFxClip(damageSound, transform, volume);
             ApplyJumpForce();
         }
     }
 
         private void ApplyJumpForce()
     {
-        if (Player.playerBody != null)
+        if (playerBody != null)
         {
             // Reset the player's vertical velocity to zero
-            Player.playerBody.velocity = new Vector2(Player.playerBody.velocity.x, 0);
+            playerBody.velocity = new Vector2(Player.playerBody.velocity.x, 0);
 
             // Apply a consistent force
-            Player.playerBody.AddForce(new Vector2(Player.lastXMovement*4, 30), ForceMode2D.Impulse);
+            playerBody.AddForce(new Vector2(Player.lastXMovement*4, 30), ForceMode2D.Impulse);
             //Debug.Log("PUSHING PLAYER UP, lastX: " + Player.lastXMovement);
         }
     }
