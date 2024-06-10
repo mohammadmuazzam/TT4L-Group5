@@ -9,10 +9,10 @@ using UnityEngine;
 
 public class Level9 : MonoBehaviour
 {
-    [SerializeField] private GameObject[] trapTriggers;
+    [SerializeField] private VanishingPlatform vanishingPlatformScript;
     [SerializeField] private Trap[] trapScripts;
-    [SerializeField] private GameObject mainCamera;
-    [SerializeField] private GameObject playerObject;
+    [SerializeField] private GameObject[] trapTriggers;
+    [SerializeField] private GameObject mainCamera, playerObject;
     [SerializeField] private bool[] hasTriggered;
     [SerializeField] private float speed;
 
@@ -20,8 +20,9 @@ public class Level9 : MonoBehaviour
     private GameObject catOnlyObject;
     private Boss catBossScript;
     private Player playerScript;
+    private Renderer playerRenderer;
     private CameraFollow cameraScript;
-    private bool fallingPlatformActivated;
+    private bool fallingPlatformActivated, shootBullets;
     private bool zeroCondition = false;
     Vector3 defaultCatScale;
 
@@ -37,8 +38,10 @@ public class Level9 : MonoBehaviour
         cameraScript.playerDependant = true;
 
         playerScript = playerObject.GetComponent<Player>();
+        playerRenderer = playerScript.GetComponent<Renderer>();
 
         fallingPlatformActivated = false;
+        shootBullets = false;
 
         //* reset all trap trigger to "hasn't triggered"
         for (int i = 0; i < hasTriggered.Length; i++)
@@ -46,9 +49,6 @@ public class Level9 : MonoBehaviour
             hasTriggered[i] = false;
         }
         print("zero condition: " + zeroCondition + ", bossHealth: " + BossParent.bossHealth);
-
-        
-        
 
         //TODO: set player spawn position and cat starting position based on bosshealth
         //* boss at 4 health
@@ -75,12 +75,14 @@ public class Level9 : MonoBehaviour
             playerScript.maxX = 57.91f;
 
             //* boss cat position
+            catOnlyObject.transform.localScale = new Vector3 (-0.14f, 0.14f, 0.14f);
             bossCatObject.transform.position = new Vector3 (70.2f, 3, 0);
 
             //* camera
             cameraScript.minX = 18.34f;
             cameraScript.maxX = 47.9f;
             mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
+            shootBullets = true;
         }
     }
 
@@ -107,7 +109,7 @@ public class Level9 : MonoBehaviour
                     case "Cat Trigger 1":
                     if (!hasTriggered[0])
                     {
-                        catBossScript.ShootNormalBullets();
+                        _ = catBossScript.ShootNormalBullets();
                         hasTriggered[0] = true;
                     }
                     break;
@@ -136,6 +138,38 @@ public class Level9 : MonoBehaviour
                         hasTriggered[2] = true;
                     }
                     break;
+                    
+                    case "Vanishing Platform Trigger":
+                    if (!hasTriggered[3])
+                    {
+                        vanishingPlatformScript.RemovePlatform();
+                        hasTriggered[3] = true;
+                    }
+                    break;
+
+                    case "Telekinesis Trigger 1":
+                    if (!hasTriggered[4])
+                    {
+                        hasTriggered[4] = true;
+                    }
+                    break;
+
+                    case "Telekinesis Trigger 2":
+                    if (!hasTriggered[5] && hasTriggered[4])
+                    {
+                        hasTriggered[5] = true;
+                        TelekinesisPlayer();
+                    }
+                    break;
+
+                    case "Wall Trigger":
+                    if (!hasTriggered[6])
+                    {
+                        hasTriggered[6] = true;
+                        await trapScripts[3].PermanentMoveTrap();
+                        _ = trapScripts[4].PermanentMoveTrap();
+                    }
+                    break;
                 }
             }
         }
@@ -149,6 +183,7 @@ public class Level9 : MonoBehaviour
         if (BossParent.bossHealth == 3 && !BossParent.hasDamagedBoss[0])
         {
             zeroCondition = true;
+            shootBullets = true;
             BossParent.hasDamagedBoss[0] = true;
 
             //* boss teleport animation
@@ -156,6 +191,13 @@ public class Level9 : MonoBehaviour
 
             //* boss shoots randomly
             BossShootAtRandomTime();
+        }
+
+        if (BossParent.bossHealth == 2 && !BossParent.hasDamagedBoss[1])
+        {
+            BossParent.hasDamagedBoss[1] = true;
+
+            await PlayerSlowMoAfterBossKill(96.5f, 104.63f, new Vector3(114.96f, 2.08f, 0));
         }
     }
 
@@ -167,8 +209,8 @@ public class Level9 : MonoBehaviour
             await Task.Delay(300);
 
             //* slow player and dont accept movement input
-            Player.playerBody.gravityScale = 0.1f;
-            Player.playerBody.velocity = new Vector2 (0, 0.1f);
+            Player.playerBody.gravityScale = 0.05f;
+            Player.playerBody.velocity = new Vector2 (0, 0.05f);
             Player.canPlayerMove = false;
 
             await TeleportBossAndMoveCamera(cameraMaxX, playerMaxX, bosFinalPos);
@@ -221,6 +263,7 @@ public class Level9 : MonoBehaviour
             await ShrinkAndGrowCat(1);
 
             cameraScript.playerDependant = true;
+            mainCamera.transform.position = new Vector3(playerObject.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
         }
         catch (System.Exception)
         {
@@ -296,15 +339,86 @@ public class Level9 : MonoBehaviour
 
     private async void BossShootAtRandomTime()
     {
-        while (BossParent.bossHealth == 3)
+        while (BossParent.bossHealth == 3 && shootBullets)
         {
             //* random time to shoot
-            int randomTime = Random.Range (1300, 3400);
+            int randomTime = Random.Range (1400, 3400);
             await Task.Delay (randomTime);
 
-            catBossScript.ShootNormalBullets();
-            await Task.Yield();
-
+            if (shootBullets)
+            await catBossScript.ShootNormalBullets();
         }
+    }
+
+    private async void TelekinesisPlayer()
+    {
+        shootBullets = false;
+        catBossScript.TelekinesisOnPlayer();
+
+        //* slow player and dont accept movement input
+        Player.playerBody.gravityScale = 0f;
+        Player.playerBody.velocity = new Vector2 (0, 0f);
+        Player.canPlayerMove = false;
+
+        await ChangePlayerColor();
+
+        await MovePlayer();
+    }
+
+    private async Task ChangePlayerColor()
+    {
+        float elapsedTime = 0f;
+        Color initialColor = playerRenderer.material.color;
+
+        while (elapsedTime < 1f)
+        {
+            elapsedTime += Time.deltaTime;
+            float blueGreen = Mathf.Lerp(initialColor.a, 0.78f, elapsedTime/1f);
+            playerRenderer.material.color = new Color(initialColor.r, blueGreen, blueGreen, initialColor.a);
+            await Task.Yield();
+        }
+        playerRenderer.material.color = new Color(initialColor.r, 0.78f, 0.78f, initialColor.a);
+        gameObject.SetActive(false);
+    }
+
+    private async Task MovePlayer()
+    {
+        Vector3 tempPos = playerObject.transform.position;
+        float finalXPos = 49.35f;
+        float finalYPos = 0;
+
+        bool negativeX = false;
+        bool negativeY = false;
+
+        if (tempPos.x - finalXPos < 0)
+            negativeX = true;
+
+        if (tempPos.y - finalYPos < 0)
+            negativeY = true;
+
+        //print($"tempPosY: {tempPos.y}, finalYPos: {finalYPos}, negativeY: {negativeY}");
+
+        //* move Y
+        while ((tempPos.y < finalYPos && negativeY) || (tempPos.y > finalYPos && !negativeY))
+        {
+            //print("moving player");
+            tempPos.y += (negativeY ? 1 : -1) * 2 * Time.deltaTime;
+            playerObject.transform.position = tempPos;
+            await Task.Yield();
+        }
+
+        await Task.Delay(200);
+        //* move X
+        while ((tempPos.x < finalXPos && negativeX) || (tempPos.x > finalXPos && !negativeX))
+        {
+            //print("moving player");
+            tempPos.x += (negativeX ? 1 : -1) * 10 * Time.deltaTime;
+            playerObject.transform.position = tempPos;
+            await Task.Yield();
+        }
+
+        tempPos.x = finalXPos;
+        playerObject.transform.position = tempPos;
+
     }
 }

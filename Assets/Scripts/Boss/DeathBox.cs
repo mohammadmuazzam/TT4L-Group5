@@ -17,10 +17,20 @@ public class DeathBox : MonoBehaviour
     {
         try
         {
-            if (collision.gameObject.name == PLAYER_NAME && playerBody.velocity.y < 0)
+            if (collision.gameObject.name == PLAYER_NAME)
             {
-                playerJumpOnBoss = true;
-                gameObject.transform.parent.tag = "Untagged";
+                print("deathbox collision on player");
+                if (playerBody.velocity.y < 0)
+                {
+                    playerJumpOnBoss = true;
+                    gameObject.transform.parent.tag = "Untagged";
+                    print("playerJumpOnBoss: " + playerJumpOnBoss);
+                }
+                else
+                {
+                    print("player's velocity >= 0. not counting as jump on boss");
+                }
+                    
             }      
         }
         catch (System.Exception)

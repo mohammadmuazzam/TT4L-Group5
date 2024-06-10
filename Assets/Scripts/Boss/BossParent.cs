@@ -12,7 +12,7 @@ public class BossParent : MonoBehaviour
     {
         if (instance == null)
         {
-            bossHealth = 4;
+            bossHealth = 3;
             instance = this;
             DontDestroyOnLoad(gameObject);
             
