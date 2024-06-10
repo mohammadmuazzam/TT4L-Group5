@@ -15,19 +15,20 @@ public class DeathBox : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D collision)
     {
-        if (collision.gameObject.name == PLAYER_NAME)
+        try
         {
-            print("velocity: " + playerBody.velocity);
-            
-            if (playerBody.velocity.y < 0)
+            if (collision.gameObject.name == PLAYER_NAME && playerBody.velocity.y < 0)
             {
                 playerJumpOnBoss = true;
                 gameObject.transform.parent.tag = "Untagged";
-            }
-            
-            //print("player jump on boss");
-        }      
+            }      
+        }
+        catch (System.Exception)
+        {
+            return;
+        }
     }
+        
 
     void OnTriggerExit2D(Collider2D collision)
     {
@@ -39,7 +40,7 @@ public class DeathBox : MonoBehaviour
         if (playerJumpOnBoss)
         {
             playerJumpOnBoss = false;
-            boss.bossHealth -=1;
+            BossParent.bossHealth -= 1;
             SoundFxManager.Instance.PlayRandomSoundFxClip(damageSound, transform, volume);
             ApplyJumpForce();
         }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
+using Unity.PlasticSCM.Editor;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -10,29 +12,76 @@ public class Level9 : MonoBehaviour
     [SerializeField] private GameObject[] trapTriggers;
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private GameObject mainCamera;
-    [SerializeField] private GameObject catOnlyObject, playerObject;
+    [SerializeField] private GameObject playerObject;
     [SerializeField] private bool[] hasTriggered;
     [SerializeField] private float speed;
 
+    private GameObject bossCatObject;
+    private GameObject catOnlyObject;
     private Boss catBossScript;
     private Player playerScript;
+    private CameraFollow cameraScript;
     private bool fallingPlatformActivated;
     private bool zeroCondition = false;
     Vector3 defaultCatScale;
 
     void Awake()
     {
-        fallingPlatformActivated = false;
         //* initialization
+        bossCatObject = GameObject.Find("Boss");
+        catOnlyObject = GameObject.Find("Cat");
         catBossScript = catOnlyObject.GetComponent<Boss>();
         defaultCatScale = catOnlyObject.transform.localScale;
+
+        cameraScript = mainCamera.GetComponent<CameraFollow>();
+        cameraScript.playerDependant = true;
+
         playerScript = playerObject.GetComponent<Player>();
 
+        fallingPlatformActivated = false;
+
+        //* reset all trap trigger to "hasn't triggered"
         for (int i = 0; i < hasTriggered.Length; i++)
         {
             hasTriggered[i] = false;
         }
-        print("zero condition: " + zeroCondition);
+        print("zero condition: " + zeroCondition + ", bossHealth: " + BossParent.bossHealth);
+
+        
+        
+
+        //TODO: set player spawn position and cat starting position based on bosshealth
+        //* boss at 4 health
+        if (BossParent.bossHealth == 4)
+        {
+            //* player position
+            playerObject.transform.position = new Vector3(-7.31f, 0, 0);
+            playerScript.minX = -8.66f;
+            playerScript.maxX = 14.71f;
+
+            //* camera
+            cameraScript.minX = 0f;
+            cameraScript.maxX = 6.77f;            
+
+            //* bossCat position
+            bossCatObject.transform.position = new Vector3(19.95f, 1, 0);
+        }
+        //* boss at 3 health
+        else if (BossParent.bossHealth == 3)
+        {
+            //* player position
+            playerObject.transform.position = new Vector3(12f, 0, 0);
+            playerScript.minX = 10.2f;
+            playerScript.maxX = 57.91f;
+
+            //* boss cat position
+            bossCatObject.transform.position = new Vector3 (70.2f, 3, 0);
+
+            //* camera
+            cameraScript.minX = 18.34f;
+            cameraScript.maxX = 47.9f;
+            mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        }
     }
 
     // Update is called once per frame
@@ -64,12 +113,27 @@ public class Level9 : MonoBehaviour
                     break;
 
                     case "Floor Fall Trigger":
+                    if (!fallingPlatformActivated)
                     {
-                        if (!fallingPlatformActivated)
-                        {
-                            await Task.Delay(500);
-                            _ = trapScripts[0].PermanentMoveTrap();
-                        }
+                        await Task.Delay(500);
+                        _ = trapScripts[0].PermanentMoveTrap();
+                        fallingPlatformActivated = true;
+                    }
+                    break;
+
+                    case "Spike Up Trigger":
+                    if (!hasTriggered[1])
+                    {
+                        _ = trapScripts[1].PermanentMoveTrap();
+                        hasTriggered[1] = true;
+                    }
+                    break;
+
+                    case "Spike Right Trigger":
+                    if (!hasTriggered[2])
+                    {
+                        _ = trapScripts[2].PermanentMoveTrap();
+                        hasTriggered[2] = true;
                     }
                     break;
                 }
@@ -82,10 +146,10 @@ public class Level9 : MonoBehaviour
         //* traps leading to first kill
         //print("attempt: " + GameManager.attempts + ", boss health: " + catBossScript.bossHealth);
 
-        if (catBossScript.bossHealth == 3 && !zeroCondition)
+        if (BossParent.bossHealth == 3 && !BossParent.hasDamagedBoss[0])
         {
             zeroCondition = true;
-            catBossScript.bossHealth = 3;
+            BossParent.hasDamagedBoss[0] = true;
 
             //* boss teleport animation
             await PlayerSlowMoAfterBossKill(47.9f, 57.91f, new Vector3 (70.2f, 3, 0));
@@ -99,8 +163,10 @@ public class Level9 : MonoBehaviour
     {
         try
         {
+            //* initial delay
             await Task.Delay(300);
 
+            //* slow player and dont accept movement input
             Player.playerBody.gravityScale = 0.1f;
             Player.playerBody.velocity = new Vector2 (0, 0.1f);
             Player.canPlayerMove = false;
@@ -109,6 +175,7 @@ public class Level9 : MonoBehaviour
 
             await Task.Delay(300);
 
+            //* set player back to normal speed and accept movement input
             Player.playerBody.gravityScale = 10f;
             Player.canPlayerMove = true;
         }
@@ -121,38 +188,45 @@ public class Level9 : MonoBehaviour
 
     private async Task TeleportBossAndMoveCamera(float cameraMaxX, float playerMaxX, Vector3 bosFinalPos)
     {
-        //* initialization
-        CameraFollow cameraScript = mainCamera.GetComponent<CameraFollow>();
-        Vector3 tempPos = mainCamera.transform.position;
-        cameraScript.maxX = cameraMaxX;
-        playerScript.maxX = playerMaxX;
-        cameraScript.playerDependant = false;
-        
-        //* move camera to cat and shrink cat
-        tempPos.x = catOnlyObject.transform.position.x;
-        await ShrinkAndGrowCat(0);
-
-        //* move camera
-        bool doneMoving = false;
-        while (!doneMoving)
+        try
         {
-            //print("moving camera");
-            tempPos.x += speed*Time.deltaTime;
+            //* initialization
+            Vector3 tempPos = mainCamera.transform.position;
+            cameraScript.maxX = cameraMaxX;
+            playerScript.maxX = playerMaxX;
+            cameraScript.playerDependant = false;
             
-            if (mainCamera.transform.position.x >= cameraScript.maxX)
+            //* move camera to cat and shrink cat
+            tempPos.x = catOnlyObject.transform.position.x;
+            await ShrinkAndGrowCat(0);
+
+            //* move camera
+            bool doneMoving = false;
+            while (!doneMoving)
             {
-                tempPos.x = cameraScript.maxX;
-                doneMoving = true;
+                //print("moving camera");
+                tempPos.x += speed*Time.deltaTime;
+                
+                if (mainCamera.transform.position.x >= cameraScript.maxX)
+                {
+                    tempPos.x = cameraScript.maxX;
+                    doneMoving = true;
+                }
+                mainCamera.transform.position = tempPos;
+                await Task.Yield();
             }
-            mainCamera.transform.position = tempPos;
-            await Task.Yield();
+            
+            //* move and grow cat
+            catOnlyObject.transform.parent.transform.position = bosFinalPos;
+            await ShrinkAndGrowCat(1);
+
+            cameraScript.playerDependant = true;
+        }
+        catch (System.Exception)
+        {
+            return;
         }
         
-        //* move and grow cat
-        catOnlyObject.transform.parent.transform.position = bosFinalPos;
-        await ShrinkAndGrowCat(1);
-
-        cameraScript.playerDependant = true;
     }
 
     private async Task ShrinkAndGrowCat(int i)
@@ -222,10 +296,10 @@ public class Level9 : MonoBehaviour
 
     private async void BossShootAtRandomTime()
     {
-        while (catBossScript.bossHealth == 3)
+        while (BossParent.bossHealth == 3)
         {
             //* random time to shoot
-            int randomTime = Random.Range (700, 2200);
+            int randomTime = Random.Range (1300, 3400);
             await Task.Delay (randomTime);
 
             catBossScript.ShootNormalBullets();

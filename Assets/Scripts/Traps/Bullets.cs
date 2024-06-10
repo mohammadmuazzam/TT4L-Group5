@@ -17,7 +17,6 @@ public class Bullets : MonoBehaviour
     public async void MoveBullet(Vector3 startPos)
     {
         gameObject.transform.position = new Vector3 (startPos.x-1.3f, startPos.y, startPos.z);
-        print(gameObject.name);
         while (true)
         {
             try

@@ -10,7 +10,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private AudioClip[] gunshotAudioClip;
     [Range(0,1)] [SerializeField] private float volume;
 
-    public int bossHealth = 4;
+    
     private Animator bossAnimator;
     private GameObject bulletObjectClone;
     private Bullets bulletObjectCloneScript;
@@ -49,11 +49,7 @@ public class Boss : MonoBehaviour
         }
         catch (System.Exception )
         {
+            return;
         }
-        
-
-        
-        
-        
     }
 }
