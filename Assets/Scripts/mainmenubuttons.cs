@@ -15,6 +15,13 @@ public class NewBehaviourScript : MonoBehaviour
         SceneManager.LoadSceneAsync ("Level1");
     }
 
+    public async void LoadGame()
+    {
+        await Task.Delay(generalSounds.clickSoundInMs);
+
+        SceneManager.LoadSceneAsync ("LoadScene");
+    }
+
     public IEnumerator QuitGame() 
     {
         yield return new WaitForSeconds(generalSounds.clickSound.clip.length);

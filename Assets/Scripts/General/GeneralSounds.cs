@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class GeneralSounds : MonoBehaviour
 {
-    public AudioSource clickSound;
+    [HideInInspector] public AudioSource clickSound;
+
     public int clickSoundInMs;
     
     void Awake()

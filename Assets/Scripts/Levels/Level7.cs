@@ -12,19 +12,23 @@ public class Level7 : MonoBehaviour
 {
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private GameObject[] trapTriggers;
-    [SerializeField] private ParticleSystem explosionParticles;
+    [SerializeField] private ParticleSystem explosionParticles1;
+    [SerializeField] private ParticleSystem explosionParticles2;
     [Range (100,1500)][SerializeField] int bombTimer;
     
-    private bool closeTrapTriggered1, platform1Moved, notExploded, platform2Moved, gateMoved;
-    [SerializeField] private GameObject explodingPlatform;
+    private bool closeTrapTriggered1, platform1Moved, notExploded1, platform2Moved, gateMoved, spikeActivated, notExploded2;
+    [SerializeField] private GameObject explodingPlatform1;
+    [SerializeField] private GameObject explodingPlatform2;
 
     void Awake()
     {
         closeTrapTriggered1 = false;
         platform1Moved = false;
-        notExploded = false;
+        notExploded1 = false;
         platform2Moved = false;
         gateMoved = false;
+        spikeActivated = false;
+        notExploded2 = false;
     }
 
     // Update is called once per frame
@@ -63,14 +67,14 @@ public class Level7 : MonoBehaviour
                     }
                     break;
 
-                    case "Explosion Trigger":
-                    if (!notExploded && trapTriggerScript.movingPlatformIsInTrigger)
+                    case "Explosion Trigger 1":
+                    if (!notExploded1 && trapTriggerScript.movingPlatformIsInTrigger)
                     {
                         await Task.Delay(bombTimer);
                         try
                         {
-                            explosionParticles.Play();
-                            explodingPlatform.SetActive(false);
+                            explosionParticles1.Play();
+                            explodingPlatform1.SetActive(false);
                             trapScripts[0].gameObject.SetActive(false);
                         }
                         catch (Exception)
@@ -95,16 +99,31 @@ public class Level7 : MonoBehaviour
                         gateMoved = true;
                     }
                     break;
+
+                    case "Spike Trigger":
+                    if (!spikeActivated)
+                    {
+                        _= trapScripts[4].PermanentMoveTrap();
+                        spikeActivated = true;
+                    }
+                    break;
+
+                    case "Explosion Trigger 2":
+                    if (!notExploded2 && Player.shouldJump)
+                    {
+                        await Task.Delay (bombTimer);
+                        try
+                        {
+                            explosionParticles2.Play ();
+                            explodingPlatform2.SetActive(false);
+                        }
+                        catch(Exception)
+                        {}
+                    }
+                    break;
                 }
             }
         }
-    }
-
-    private async void TimeToExplode()
-    {
-        Debug.Log ("Timehas started");
-        await Task.Delay(bombTimer);
-        explodingPlatform.SetActive(false);
     }
 
 }
