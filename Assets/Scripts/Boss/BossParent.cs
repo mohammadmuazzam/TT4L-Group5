@@ -12,7 +12,7 @@ public class BossParent : MonoBehaviour
     {
         if (instance == null)
         {
-            bossHealth = 2;
+            bossHealth = 4;
             instance = this;
             DontDestroyOnLoad(gameObject);
             
@@ -27,11 +27,5 @@ public class BossParent : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

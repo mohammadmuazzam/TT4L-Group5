@@ -10,6 +10,7 @@ using UnityEngine;
 public class Level9 : MonoBehaviour
 {
     [SerializeField] private VanishingPlatform vanishingPlatformScript;
+    private Laser laserScript;
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private GameObject[] trapTriggers;
     [SerializeField] private GameObject mainCamera, playerObject;
@@ -39,6 +40,9 @@ public class Level9 : MonoBehaviour
         playerScript = playerObject.GetComponent<Player>();
         playerRenderer = playerScript.GetComponent<Renderer>();
 
+        laserScript = GameObject.Find("Laser Mask").GetComponent<Laser>();
+        print("found laser: " + laserScript.name);
+
         fallingPlatformActivated = false;
         shootBullets = false;
 
@@ -47,9 +51,7 @@ public class Level9 : MonoBehaviour
         {
             hasTriggered[i] = false;
         }
-        //print("zero condition: " + zeroCondition + ", bossHealth: " + BossParent.bossHealth);
-
-        //TODO: set player spawn position and cat starting position based on bosshealth
+        
         //* boss at 4 health
         if (BossParent.bossHealth == 4)
         {
@@ -88,15 +90,15 @@ public class Level9 : MonoBehaviour
             //* player position
             playerObject.transform.position = new Vector3(53f, 0, 0);
             playerScript.minX = 51.7f;
-            playerScript.maxX = 104f;
+            playerScript.maxX = 124f;
 
             //* boss cat position
             catOnlyObject.transform.localScale = new Vector3 (-0.14f, 0.14f, 0.14f);
-            bossCatObject.transform.position = new Vector3 (113f, 3, 0);
+            bossCatObject.transform.position = new Vector3 (135f, 3, 0);
 
             //* camera
             cameraScript.minX = 59.82f;
-            cameraScript.maxX = 96f;
+            cameraScript.maxX = 115.6f;
             mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
         }
     }
@@ -187,7 +189,6 @@ public class Level9 : MonoBehaviour
                     break;
 
                     case "Tubi Tubi Trigger 1":
-                    print("tubi2");
                     if (!hasTriggered[7])
                     {
                         hasTriggered[7] = true;
@@ -197,6 +198,15 @@ public class Level9 : MonoBehaviour
                             await trapScripts[i].PermanentMoveTrap();
                             await Task.Delay (150);
                         }
+                    }
+                    break;
+
+                    case "Laser Trigger":
+                    if (!hasTriggered[8])
+                    {
+                        print("shooting laser in level9");
+                        hasTriggered[8] = true;
+                        laserScript.ShootLaser();
                     }
                     break;
                 }
@@ -225,7 +235,7 @@ public class Level9 : MonoBehaviour
         {
             BossParent.hasDamagedBoss[1] = true;
 
-            await PlayerSlowMoAfterBossKill(96.5f, 104.63f, new Vector3(114.96f, 2.08f, 0));
+            await PlayerSlowMoAfterBossKill(115.6f, 124, new Vector3(135f, 3, 0));
         }
     }
 

@@ -227,6 +227,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Stand_5
+      rect:
+        serializedVersion: 2
+        x: 11329
+        y: 206
+        width: 1932
+        height: 1794
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3633f540adb5df64189f61ce33c70ded
+      internalID: -1311828117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -243,6 +264,7 @@ TextureImporter:
       Stand_2: 583788824
       Stand_3: 674391049
       Stand_4: -1928304610
+      Stand_5: -1311828117
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

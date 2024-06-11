@@ -16,7 +16,6 @@ public class DeathBox : MonoBehaviour
     void Awake()
     {
         playerBody = GameObject.FindGameObjectWithTag(PLAYER_NAME).GetComponent<Rigidbody2D>();
-        print("DeathBox awake, playerBody: " + playerBody.name);
     }
 
     void OnTriggerEnter2D (Collider2D collision)
