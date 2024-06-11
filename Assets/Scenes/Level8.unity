@@ -1497,7 +1497,7 @@ Transform:
   m_GameObject: {fileID: 235144846}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.17, y: -0.94, z: -0.030664477}
+  m_LocalPosition: {x: 1.17, y: -1.14, z: -0.030664477}
   m_LocalScale: {x: 0.23827681, y: 0.23827681, z: 0.23827681}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1526,6 +1526,8 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
+  sfxNameOut: 
+  sfxNameIn: 
   sfxNameOut: 
   sfxNameIn: 
 --- !u!212 &235144850
@@ -3724,7 +3726,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b8ac0009fecc74da273755f4e88d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 0
 --- !u!212 &478775046
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4639,7 +4640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 500274060321632254, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
       propertyPath: canPlayerDie
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 739047056036975620, guid: 45bb009a2f6434b4c8df22ca407f0062, type: 3}
       propertyPath: m_LocalPosition.x

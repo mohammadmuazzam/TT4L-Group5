@@ -1,28 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    [SerializeField] bool shoot;
+    [SerializeField] private GameObject bulletObject;
+    [SerializeField] private AudioClip[] gunshotAudioClip;
+    [SerializeField] private AudioClip telekinesisAudioClip;
+    [Range(0,1)] [SerializeField] private float volumeGun, volumeTelekinesis;
+
+    
     private Animator bossAnimator;
+    private GameObject bulletObjectClone;
+    private Bullets bulletObjectCloneScript;
+    public bool hasntTelekinesis;
 
     private const string EMPTY_STANCE_TRIGGER = "Empty Stance";
     private const string USE_PISTOL_TRIGGER = "Use Pistol";
+    private const string TELEKINESIS_TRIGGER = "Telekinesis";
     void Awake()
     {
+        hasntTelekinesis = true;
         bossAnimator = GetComponent<Animator>();
-        bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
-        bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
+        bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);  
     }
 
-    // Update is called once per frame
-    void Update()
+    public async Task ShootNormalBullets()
     {
-        ShootNormalBullets();
+        //animation
+        try
+        {
+            bossAnimator.SetTrigger(USE_PISTOL_TRIGGER);
+            bossAnimator.ResetTrigger(EMPTY_STANCE_TRIGGER);
+            // gunshot sound
+            SoundFxManager.Instance.PlayRandomSoundFxClip(gunshotAudioClip, transform, volumeGun);
+
+            // shoot
+            bulletObjectClone = Instantiate(bulletObject);
+            bulletObjectCloneScript = bulletObjectClone.GetComponent<Bullets>();
+            bulletObjectCloneScript.MoveBullet(gameObject.transform.position);
+            
+            // wait after shooting
+            await Task.Delay(500);
+
+            //reset animation
+            if (bossAnimator != null && hasntTelekinesis)
+            {
+                bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
+                bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
+            }
+            
+            
+        }
+        catch (System.Exception)
+        {
+            return;
+        }
     }
 
-    private void ShootNormalBullets()
+    public void TelekinesisOnPlayer()
     {
-        bossAnimator.SetTrigger(USE_PISTOL_TRIGGER);
+        try
+        {
+            hasntTelekinesis = false;
+            bossAnimator.SetTrigger(TELEKINESIS_TRIGGER);
+            bossAnimator.ResetTrigger(EMPTY_STANCE_TRIGGER);
+            bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
+
+            SoundFxManager.Instance.PlaySoundFxClip(telekinesisAudioClip, transform, volumeTelekinesis);
+        }
+        catch (System.Exception)
+        {
+            return;
+        }
     }
 }

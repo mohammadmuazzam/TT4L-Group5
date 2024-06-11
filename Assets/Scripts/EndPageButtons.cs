@@ -18,6 +18,9 @@ public class EndPageButtons : MonoBehaviour
     {
         gameManager = GameObject.Find("Game Manager");
         generalSounds = GameObject.Find("Sound Manager").GetComponent<GeneralSounds>();
+
+        //TODO: destroy boss cat in level9
+
         
         if (gameManager != null)
         {
