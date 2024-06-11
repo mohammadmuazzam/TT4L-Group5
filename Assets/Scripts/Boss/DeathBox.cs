@@ -34,7 +34,7 @@ public class DeathBox : MonoBehaviour
         }
     }
 
-        private void ApplyJumpForce()
+    private void ApplyJumpForce()
     {
         if (Player.playerBody != null)
         {
