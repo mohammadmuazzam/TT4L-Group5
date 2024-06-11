@@ -547,6 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerReachesGate: 0
+  levelMenuControllers: []
 --- !u!61 &423173231
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -793,6 +794,7 @@ MonoBehaviour:
   minY: 0
   maxY: 0
   moveOnY: 0
+  playerDependant: 0
 --- !u!1 &785697760
 GameObject:
   m_ObjectHideFlags: 0

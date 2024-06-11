@@ -1836,6 +1836,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cdcd4699939eeeb41a6128c2bb352f88, type: 3}
   - {fileID: 8300000, guid: 123f42c7ad944b14597080d42df364be, type: 3}
   laserVolume: 0.284
+  laserCollider: {fileID: 0}
 --- !u!331 &339584072
 SpriteMask:
   m_ObjectHideFlags: 0

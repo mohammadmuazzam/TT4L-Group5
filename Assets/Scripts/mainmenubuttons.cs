@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NewBehaviourScript : MonoBehaviour
+public class mainmenubuttons : MonoBehaviour
 {
     [SerializeField] private GeneralSounds generalSounds;
     public async void StartGame() 
