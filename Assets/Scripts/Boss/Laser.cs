@@ -23,14 +23,13 @@ public class Laser : MonoBehaviour
         // hide laser
         gameObject.transform.localScale = new Vector3(initialXScale, 6f, 1);
 
-        print("initialized laser's mask");
     }
 
     public async void ShootLaser()
     {
         try
         {
-            print("shoot laser is laser");
+            print("shooting laser");
             float elapsedTime = 0f;
             SoundFxManager.Instance.PlayRandomSoundFxClip(laserShootFx, transform, laserVolume);
 

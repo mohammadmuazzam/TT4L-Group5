@@ -23,7 +23,8 @@ public class Level9 : MonoBehaviour
     private Player playerScript;
     private Renderer playerRenderer;
     private CameraFollow cameraScript;
-    private bool fallingPlatformActivated, shootBullets;
+    private bool fallingPlatformActivated;
+    private volatile bool bossShootLevel9Control;
     Vector3 defaultCatScale;
 
     void Awake()
@@ -41,10 +42,9 @@ public class Level9 : MonoBehaviour
         playerRenderer = playerScript.GetComponent<Renderer>();
 
         laserScript = GameObject.Find("Laser Mask").GetComponent<Laser>();
-        print("found laser: " + laserScript.name);
 
         fallingPlatformActivated = false;
-        shootBullets = false;
+        bossShootLevel9Control = false;
 
         //* reset all trap trigger to "hasn't triggered"
         for (int i = 0; i < hasTriggered.Length; i++)
@@ -78,18 +78,19 @@ public class Level9 : MonoBehaviour
             //* boss cat position
             catOnlyObject.transform.localScale = new Vector3 (-0.14f, 0.14f, 0.14f);
             bossCatObject.transform.position = new Vector3 (70.2f, 3, 0);
+            if (!catBossScript.hasntTelekinesis) //? BUG fixed? boss shoot twice
+            {
+                print("Level9, Awake:\n (calling BossShootAt) hasn't telekinesis, " + catBossScript.hasntTelekinesis);
+                catBossScript.hasntTelekinesis = true;
+                bossShootLevel9Control = true;  
+                BossShootAtRandomTime();
+            }
 
             //* camera
             cameraScript.minX = 18.34f;
             cameraScript.maxX = 47.9f;
             mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
-            if (!catBossScript.hasntTelekinesis)
-            {
-                BossShootAtRandomTime();
-            }
-            shootBullets = true;
-            catBossScript.hasntTelekinesis = true;
-            
+                      
         }
         else if (BossParent.bossHealth == 2)
         {
@@ -232,7 +233,7 @@ public class Level9 : MonoBehaviour
 
         if (BossParent.bossHealth == 3 && !BossParent.hasDamagedBoss[0])
         {
-            shootBullets = true;
+            bossShootLevel9Control = true;
             BossParent.hasDamagedBoss[0] = true;
 
             //* boss teleport animation
@@ -389,22 +390,24 @@ public class Level9 : MonoBehaviour
 
     private async void BossShootAtRandomTime()
     {
-        while (BossParent.bossHealth == 3 && shootBullets)
+        while (BossParent.bossHealth == 3 && bossShootLevel9Control && catBossScript.hasntTelekinesis)
         {
             //* random time to shoot
             int randomTime = Random.Range (1400, 3400);
             await Task.Delay (randomTime);
-
-            if (shootBullets)
+            
+            print("Level9 in BossShootAtRandomTime, if bossShootLevel9Control is true, we shoot:\nbossShootLevel9Control: " + bossShootLevel9Control);
+            if (catBossScript.hasntTelekinesis && !PauseMenu.isPaused) //? BUG fixed? player shoots while telekinesis
                 await catBossScript.ShootNormalBullets();
             else
-                print("not shooting because shootBullets is false");
+                print("not shooting because bossShootLevel9Control is false");
         }
     }
 
     private async void TelekinesisPlayer()
     {
-        shootBullets = false;
+        bossShootLevel9Control = false;
+        print("Level9 in TelekinesisPlayer:\nbossShootLevel9Control: " + bossShootLevel9Control);
         catBossScript.TelekinesisOnPlayer();
 
         //* slow player and dont accept movement input
@@ -435,42 +438,48 @@ public class Level9 : MonoBehaviour
 
     private async Task MovePlayer()
     {
-        Vector3 tempPos = playerObject.transform.position;
-        float finalXPos = 49.35f;
-        float finalYPos = 0;
-
-        bool negativeX = false;
-        bool negativeY = false;
-
-        if (tempPos.x - finalXPos < 0)
-            negativeX = true;
-
-        if (tempPos.y - finalYPos < 0)
-            negativeY = true;
-
-        //print($"tempPosY: {tempPos.y}, finalYPos: {finalYPos}, negativeY: {negativeY}");
-
-        //* move Y
-        while ((tempPos.y < finalYPos && negativeY) || (tempPos.y > finalYPos && !negativeY))
+        try
         {
-            //print("moving player");
-            tempPos.y += (negativeY ? 1 : -1) * 2 * Time.deltaTime;
-            playerObject.transform.position = tempPos;
-            await Task.Yield();
-        }
+            Vector3 tempPos = playerObject.transform.position;
+            float finalXPos = 49.35f;
+            float finalYPos = 0;
 
-        await Task.Delay(200);
-        //* move X
-        while ((tempPos.x < finalXPos && negativeX) || (tempPos.x > finalXPos && !negativeX))
+            bool negativeX = false;
+            bool negativeY = false;
+
+            if (tempPos.x - finalXPos < 0)
+                negativeX = true;
+
+            if (tempPos.y - finalYPos < 0)
+                negativeY = true;
+
+            //print($"tempPosY: {tempPos.y}, finalYPos: {finalYPos}, negativeY: {negativeY}");
+
+            //* move Y
+            while ((tempPos.y < finalYPos && negativeY) || (tempPos.y > finalYPos && !negativeY))
+            {
+                //print("moving player");
+                tempPos.y += (negativeY ? 1 : -1) * 2 * Time.deltaTime;
+                playerObject.transform.position = tempPos;
+                await Task.Yield();
+            }
+
+            await Task.Delay(200);
+            //* move X
+            while ((tempPos.x < finalXPos && negativeX) || (tempPos.x > finalXPos && !negativeX))
+            {
+                //print("moving player");
+                tempPos.x += (negativeX ? 1 : -1) * 10 * Time.deltaTime;
+                playerObject.transform.position = tempPos;
+                await Task.Yield();
+            }
+
+            tempPos.x = finalXPos;
+            playerObject.transform.position = tempPos;
+        }
+        catch (System.Exception)
         {
-            //print("moving player");
-            tempPos.x += (negativeX ? 1 : -1) * 10 * Time.deltaTime;
-            playerObject.transform.position = tempPos;
-            await Task.Yield();
+            return;
         }
-
-        tempPos.x = finalXPos;
-        playerObject.transform.position = tempPos;
-
     }
 }

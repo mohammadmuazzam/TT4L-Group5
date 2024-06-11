@@ -132,6 +132,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap") && canPlayerDie)
         {
             SoundFxManager.Instance.PlayRandomSoundFxClip(deathSoundFx, transform, volume);
+            print("PLAYER KILLED");
             isPlayerAlive = false;
         }
     }

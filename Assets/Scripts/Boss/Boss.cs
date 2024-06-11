@@ -44,15 +44,14 @@ public class Boss : MonoBehaviour
             
             // wait after shooting
             await Task.Delay(500);
-
+            print("Boss. reset animation?\ncheck hasn't telekinesis: " + hasntTelekinesis);
             //reset animation
             if (bossAnimator != null && hasntTelekinesis)
             {
                 bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
                 bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
+                hasntTelekinesis = true;
             }
-            
-            
         }
         catch (System.Exception)
         {
@@ -65,6 +64,7 @@ public class Boss : MonoBehaviour
         try
         {
             hasntTelekinesis = false;
+            print("TelekinesisOnPlayer called:\nhasn't telekinesis, " + hasntTelekinesis);
             bossAnimator.SetTrigger(TELEKINESIS_TRIGGER);
             bossAnimator.ResetTrigger(EMPTY_STANCE_TRIGGER);
             bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
