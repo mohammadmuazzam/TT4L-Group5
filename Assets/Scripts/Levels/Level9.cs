@@ -83,7 +83,13 @@ public class Level9 : MonoBehaviour
             cameraScript.minX = 18.34f;
             cameraScript.maxX = 47.9f;
             mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
+            if (!catBossScript.hasntTelekinesis)
+            {
+                BossShootAtRandomTime();
+            }
             shootBullets = true;
+            catBossScript.hasntTelekinesis = true;
+            
         }
         else if (BossParent.bossHealth == 2)
         {
@@ -95,11 +101,16 @@ public class Level9 : MonoBehaviour
             //* boss cat position
             catOnlyObject.transform.localScale = new Vector3 (-0.14f, 0.14f, 0.14f);
             bossCatObject.transform.position = new Vector3 (135f, 3, 0);
+            laserScript.laserCollider.enabled = false;
 
             //* camera
             cameraScript.minX = 59.82f;
             cameraScript.maxX = 115.6f;
             mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
+
+            //* destroy moving spike
+            
+            
         }
     }
 
@@ -236,6 +247,7 @@ public class Level9 : MonoBehaviour
             BossParent.hasDamagedBoss[1] = true;
 
             await PlayerSlowMoAfterBossKill(115.6f, 124, new Vector3(135f, 3, 0));
+            
         }
     }
 

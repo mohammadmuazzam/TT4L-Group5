@@ -15,7 +15,7 @@ public class Boss : MonoBehaviour
     private Animator bossAnimator;
     private GameObject bulletObjectClone;
     private Bullets bulletObjectCloneScript;
-    private bool hasntTelekinesis;
+    public bool hasntTelekinesis;
 
     private const string EMPTY_STANCE_TRIGGER = "Empty Stance";
     private const string USE_PISTOL_TRIGGER = "Use Pistol";

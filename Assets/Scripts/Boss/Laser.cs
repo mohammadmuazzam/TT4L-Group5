@@ -8,7 +8,7 @@ public class Laser : MonoBehaviour
     [SerializeField] private AudioClip[] laserShootFx;
     [Range(0, 1)] [SerializeField] private float laserVolume;
     private GameObject laserObject;
-    private BoxCollider2D laserCollider;
+    public BoxCollider2D laserCollider;
 
     private float initialXScale, finalXScale, tempXScale;
     void Awake()
@@ -39,27 +39,48 @@ public class Laser : MonoBehaviour
             {
                 //* move temp values
                 elapsedTime += Time.deltaTime;
+                if (elapsedTime >= 1)
+                {
+                    laserCollider.enabled = true;
+                }
                 tempXScale = Mathf.Lerp(initialXScale, finalXScale, elapsedTime/2.3f);
+
+                //* reset laser if player dies
+                if (Player.isPlayerAlive == false)
+                {
+                    gameObject.transform.localScale = new Vector3(initialXScale, 6f, 1);
+                    return;
+                }
 
                 //* assign temp values to object
                 gameObject.transform.localScale = new Vector3(tempXScale, 6f, 1);
                 await Task.Yield();
             }
             gameObject.transform.localScale = new Vector3(finalXScale, 6f, 1);
-            laserCollider.enabled = true;
+            
 
             //* unshoot laser
             while (elapsedTime < 2.3)
             {
                 elapsedTime += Time.deltaTime;
                 tempXScale = Mathf.Lerp(finalXScale, initialXScale, elapsedTime/2.3f);
-                
+                if (elapsedTime <= 1.3)
+                {
+                    laserCollider.enabled = false;
+                }
+
+                //* reset laser if player dies
+                if (Player.isPlayerAlive == false)
+                {
+                    gameObject.transform.localScale = new Vector3(initialXScale, 6f, 1);
+                    return;
+                }
+
                 //* assign temp values to object
                 gameObject.transform.localScale = new Vector3(tempXScale, 6f, 1);
                 await Task.Yield();
             }
             gameObject.transform.localScale = new Vector3(initialXScale, 6f, 1);
-            laserCollider.enabled = true;
 
         }
         catch (System.Exception)
