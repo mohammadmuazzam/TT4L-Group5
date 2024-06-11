@@ -12,7 +12,7 @@ public class BossParent : MonoBehaviour
     {
         if (instance == null)
         {
-            bossHealth = 3;
+            bossHealth = 2;
             instance = this;
             DontDestroyOnLoad(gameObject);
             
@@ -25,7 +25,6 @@ public class BossParent : MonoBehaviour
         }
         else
         {
-            print("destroying this bossparent, an instance exists");
             Destroy(gameObject);
         }
     }

@@ -6,12 +6,18 @@ using UnityEngine;
 public class DeathBox : MonoBehaviour
 {
     [SerializeField] Boss boss;
-    [SerializeField] Rigidbody2D playerBody;
+    Rigidbody2D playerBody;
     [SerializeField] AudioClip[] damageSound;
     [Range(0,1)] [SerializeField] float volume;
     public static bool playerJumpOnBoss;
     
     private const string PLAYER_NAME = "Player";
+
+    void Awake()
+    {
+        playerBody = GameObject.FindGameObjectWithTag(PLAYER_NAME).GetComponent<Rigidbody2D>();
+        print("DeathBox awake, playerBody: " + playerBody.name);
+    }
 
     void OnTriggerEnter2D (Collider2D collision)
     {
@@ -19,12 +25,12 @@ public class DeathBox : MonoBehaviour
         {
             if (collision.gameObject.name == PLAYER_NAME)
             {
-                print("deathbox collision on player");
+                playerBody = GameObject.FindGameObjectWithTag(PLAYER_NAME).GetComponent<Rigidbody2D>();
                 if (playerBody.velocity.y < 0)
                 {
                     playerJumpOnBoss = true;
                     gameObject.transform.parent.tag = "Untagged";
-                    print("playerJumpOnBoss: " + playerJumpOnBoss);
+                    //print("playerJumpOnBoss: " + playerJumpOnBoss);
                 }
                 else
                 {
@@ -35,6 +41,7 @@ public class DeathBox : MonoBehaviour
         }
         catch (System.Exception)
         {
+            print("an exception occurred while trying to detect players collision with death box");
             return;
         }
     }

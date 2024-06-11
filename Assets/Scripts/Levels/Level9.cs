@@ -23,7 +23,6 @@ public class Level9 : MonoBehaviour
     private Renderer playerRenderer;
     private CameraFollow cameraScript;
     private bool fallingPlatformActivated, shootBullets;
-    private bool zeroCondition = false;
     Vector3 defaultCatScale;
 
     void Awake()
@@ -48,7 +47,7 @@ public class Level9 : MonoBehaviour
         {
             hasTriggered[i] = false;
         }
-        print("zero condition: " + zeroCondition + ", bossHealth: " + BossParent.bossHealth);
+        //print("zero condition: " + zeroCondition + ", bossHealth: " + BossParent.bossHealth);
 
         //TODO: set player spawn position and cat starting position based on bosshealth
         //* boss at 4 health
@@ -83,6 +82,22 @@ public class Level9 : MonoBehaviour
             cameraScript.maxX = 47.9f;
             mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
             shootBullets = true;
+        }
+        else if (BossParent.bossHealth == 2)
+        {
+            //* player position
+            playerObject.transform.position = new Vector3(53f, 0, 0);
+            playerScript.minX = 51.7f;
+            playerScript.maxX = 104f;
+
+            //* boss cat position
+            catOnlyObject.transform.localScale = new Vector3 (-0.14f, 0.14f, 0.14f);
+            bossCatObject.transform.position = new Vector3 (113f, 3, 0);
+
+            //* camera
+            cameraScript.minX = 59.82f;
+            cameraScript.maxX = 96f;
+            mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
         }
     }
 
@@ -170,6 +185,20 @@ public class Level9 : MonoBehaviour
                         _ = trapScripts[4].PermanentMoveTrap();
                     }
                     break;
+
+                    case "Tubi Tubi Trigger 1":
+                    print("tubi2");
+                    if (!hasTriggered[7])
+                    {
+                        hasTriggered[7] = true;
+                        await Task.Delay(1000);
+                        for (int i = 5; i <= 11; i++)
+                        {
+                            await trapScripts[i].PermanentMoveTrap();
+                            await Task.Delay (150);
+                        }
+                    }
+                    break;
                 }
             }
         }
@@ -182,7 +211,6 @@ public class Level9 : MonoBehaviour
 
         if (BossParent.bossHealth == 3 && !BossParent.hasDamagedBoss[0])
         {
-            zeroCondition = true;
             shootBullets = true;
             BossParent.hasDamagedBoss[0] = true;
 
@@ -346,7 +374,9 @@ public class Level9 : MonoBehaviour
             await Task.Delay (randomTime);
 
             if (shootBullets)
-            await catBossScript.ShootNormalBullets();
+                await catBossScript.ShootNormalBullets();
+            else
+                print("not shooting because shootBullets is false");
         }
     }
 
