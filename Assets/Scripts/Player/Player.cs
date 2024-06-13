@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private float movementX;
     private bool isOnGround, isCrouch, isOnMovingPlatform = false;
     public static bool isPlayerAlive;
-    public static bool shouldJump = false;
+    public static bool shouldJump;
     public static bool canPlayerMove;
 
 
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
         //* default value
         isPlayerAlive = true;
         canPlayerMove = true;
+        shouldJump = false;
         Time.timeScale = 1f;
         playerBody.velocity = new Vector2(playerBody.velocity.x, 0);
     }

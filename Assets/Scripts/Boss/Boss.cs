@@ -11,20 +11,24 @@ public class Boss : MonoBehaviour
     [SerializeField] private AudioClip telekinesisAudioClip;
     [Range(0,1)] [SerializeField] private float volumeGun, volumeTelekinesis;
 
-    
+    private Laser laserScript;
     private Animator bossAnimator;
     private GameObject bulletObjectClone;
     private Bullets bulletObjectCloneScript;
-    public bool hasntTelekinesis;
+    public bool bossShootControl, bossShootLaserControl;
 
     private const string EMPTY_STANCE_TRIGGER = "Empty Stance";
     private const string USE_PISTOL_TRIGGER = "Use Pistol";
     private const string TELEKINESIS_TRIGGER = "Telekinesis";
+    private const string SHOOT_LASER_TRIGGER = "Shoot Laser";
     void Awake()
     {
-        hasntTelekinesis = true;
+        bossShootControl = true;
+        bossShootLaserControl = false;
         bossAnimator = GetComponent<Animator>();
         bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);  
+
+        laserScript = GameObject.Find("Laser Mask").GetComponent<Laser>();
     }
 
     public async Task ShootNormalBullets()
@@ -34,23 +38,23 @@ public class Boss : MonoBehaviour
         {
             bossAnimator.SetTrigger(USE_PISTOL_TRIGGER);
             bossAnimator.ResetTrigger(EMPTY_STANCE_TRIGGER);
-            // gunshot sound
+            //* gunshot sound
             SoundFxManager.Instance.PlayRandomSoundFxClip(gunshotAudioClip, transform, volumeGun);
 
-            // shoot
+            //* shoot
             bulletObjectClone = Instantiate(bulletObject);
             bulletObjectCloneScript = bulletObjectClone.GetComponent<Bullets>();
             bulletObjectCloneScript.MoveBullet(gameObject.transform.position);
             
-            // wait after shooting
+            //* wait after shooting
             await Task.Delay(500);
-            print("Boss. reset animation?\ncheck hasn't telekinesis: " + hasntTelekinesis);
-            //reset animation
-            if (bossAnimator != null && hasntTelekinesis)
+            print("Boss. reset animation?\ncheck hasn't telekinesis: " + bossShootControl);
+            //* reset animation
+            if (bossAnimator != null && bossShootControl)
             {
                 bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
                 bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
-                hasntTelekinesis = true;
+                bossShootControl = true;
             }
         }
         catch (System.Exception)
@@ -63,8 +67,8 @@ public class Boss : MonoBehaviour
     {
         try
         {
-            hasntTelekinesis = false;
-            print("TelekinesisOnPlayer called:\nhasn't telekinesis, " + hasntTelekinesis);
+            bossShootControl = false;
+            print("TelekinesisOnPlayer called:\nhasn't telekinesis, " + bossShootControl);
             bossAnimator.SetTrigger(TELEKINESIS_TRIGGER);
             bossAnimator.ResetTrigger(EMPTY_STANCE_TRIGGER);
             bossAnimator.ResetTrigger(USE_PISTOL_TRIGGER);
@@ -75,5 +79,31 @@ public class Boss : MonoBehaviour
         {
             return;
         }
+    }
+
+    public void BossDefaultAnimation()
+    {
+        bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
+    }
+
+    public async Task BossShootLaser()
+    {
+        try
+        {
+            if (bossShootLaserControl)
+            {
+                bossAnimator.SetTrigger(SHOOT_LASER_TRIGGER);
+                
+                await laserScript.ShootLaser();
+
+                bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
+            }
+            
+        }
+        catch (System.Exception)
+        {
+            return;
+        }
+        
     }
 }

@@ -18,36 +18,35 @@ public class Laser : MonoBehaviour
         laserCollider.enabled = false;
 
         initialXScale = 0.1f;
-        finalXScale = 400f;
+        finalXScale = 200f;
 
         // hide laser
         gameObject.transform.localScale = new Vector3(initialXScale, 6f, 1);
 
     }
 
-    public async void ShootLaser()
+    public async Task ShootLaser()
     {
         try
         {
-            print("shooting laser");
             float elapsedTime = 0f;
             SoundFxManager.Instance.PlayRandomSoundFxClip(laserShootFx, transform, laserVolume);
 
             //* shoot laser
-            while (elapsedTime < 2.3)
+            while (elapsedTime < 0.5f)
             {
                 //* move temp values
                 elapsedTime += Time.deltaTime;
-                if (elapsedTime >= 1)
+                if (elapsedTime >= 0.25f)
                 {
                     laserCollider.enabled = true;
                 }
-                tempXScale = Mathf.Lerp(initialXScale, finalXScale, elapsedTime/2.3f);
+                tempXScale = Mathf.Lerp(initialXScale, finalXScale, elapsedTime);
 
                 //* reset laser if player dies
                 if (Player.isPlayerAlive == false)
                 {
-                    gameObject.transform.localScale = new Vector3(initialXScale, 6f, 1);
+                    gameObject.transform.localScale = new Vector3(initialXScale, 6f, 0.5f);
                     return;
                 }
 
@@ -56,14 +55,15 @@ public class Laser : MonoBehaviour
                 await Task.Yield();
             }
             gameObject.transform.localScale = new Vector3(finalXScale, 6f, 1);
-            
+            await Task.Delay(500);
+            elapsedTime = 0;
 
             //* unshoot laser
-            while (elapsedTime < 2.3)
+            while (elapsedTime < 1)
             {
                 elapsedTime += Time.deltaTime;
-                tempXScale = Mathf.Lerp(finalXScale, initialXScale, elapsedTime/2.3f);
-                if (elapsedTime <= 1.3)
+                tempXScale = Mathf.Lerp(finalXScale, initialXScale, elapsedTime);
+                if (elapsedTime >= 0.5)
                 {
                     laserCollider.enabled = false;
                 }
@@ -86,8 +86,5 @@ public class Laser : MonoBehaviour
         {
             return;
         }
-
     }
-
-    
 }

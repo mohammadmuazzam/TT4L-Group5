@@ -14,6 +14,7 @@ public class BossParent : MonoBehaviour
         {
             bossHealth = 4;
             instance = this;
+            transform.position = new Vector3(19.95f, 1, 0);
             DontDestroyOnLoad(gameObject);
             
             //* starts game with no damage to boss
