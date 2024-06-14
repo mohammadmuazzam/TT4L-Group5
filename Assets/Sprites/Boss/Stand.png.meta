@@ -129,9 +129,9 @@ TextureImporter:
         x: 8
         y: 206
         width: 1932
-        height: 1594
+        height: 1794
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: Stand_1
       rect:
         serializedVersion: 2
-        x: 2194
+        x: 2188
         y: 206
         width: 1932
-        height: 1594
+        height: 1794
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -168,12 +168,12 @@ TextureImporter:
       name: Stand_2
       rect:
         serializedVersion: 2
-        x: 4330
+        x: 4329
         y: 201
         width: 1932
-        height: 1596
+        height: 1794
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,6 +181,69 @@ TextureImporter:
       bones: []
       spriteID: b8b01c52fe1192642962c1362dc76f49
       internalID: 583788824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_3
+      rect:
+        serializedVersion: 2
+        x: 6402
+        y: 192
+        width: 2142
+        height: 1794
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 212, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d2f94d4ff2ec441b4cd2dbe1a87e3f
+      internalID: 674391049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_4
+      rect:
+        serializedVersion: 2
+        x: 8834
+        y: 86
+        width: 2211
+        height: 1794
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 279, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fc316ece8364854482e885cf9d7c268
+      internalID: -1928304610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_5
+      rect:
+        serializedVersion: 2
+        x: 11329
+        y: 206
+        width: 1932
+        height: 1794
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3633f540adb5df64189f61ce33c70ded
+      internalID: -1311828117
       vertices: []
       indices: 
       edges: []
@@ -199,6 +262,9 @@ TextureImporter:
       Stand_0: 1029372901
       Stand_1: 685978121
       Stand_2: 583788824
+      Stand_3: 674391049
+      Stand_4: -1928304610
+      Stand_5: -1311828117
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

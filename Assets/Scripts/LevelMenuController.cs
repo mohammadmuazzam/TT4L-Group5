@@ -26,7 +26,7 @@ public class LevelMenuController : MonoBehaviour
 
         PlayerPrefs.DeleteAll();
     }
-    private async void Awake()
+    private void Awake()
     {
         int lockLevel = PlayerPrefs.GetInt ("LockLevel",1);
         for (int i=0; i < buttons.Length; i++)
