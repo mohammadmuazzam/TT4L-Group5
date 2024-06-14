@@ -77,7 +77,7 @@ public class Arrow1 : MonoBehaviour
         {
             audioSource.volume = maxVolume - (maxVolume*(distance-10)*(distance-10)/1000);
         }
-        print("volume: " + audioSource.volume);
+        //print("volume: " + audioSource.volume);
     }
 
     private void Update()

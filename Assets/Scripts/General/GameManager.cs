@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     public static TimeSpan elapsedTime;
     public static int attempts;
+    public static int coinCount;
     TimeSpan startTime;
     TimeSpan endTime;
 
@@ -92,6 +93,9 @@ public class GameManager : MonoBehaviour
             await Task.Yield();
         }
         Time.timeScale = 1f;
+
+        coinCount = 0;
+        Debug.Log ("Coun coin reset to 0");
         SceneManager.LoadScene(currentLevelName);
         isRestarting = false;
 
@@ -118,5 +122,11 @@ public class GameManager : MonoBehaviour
         {
             attempts += 1;
         }
+    }
+
+    public static void coinCounter()
+    {
+        coinCount += 1;
+        Debug.Log ("Coins collected " + coinCount);
     }
 }

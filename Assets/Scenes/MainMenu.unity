@@ -1335,9 +1335,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1273011858}
-        m_TargetAssemblyTypeName: mainmenubuttons, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 591793462}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: OnPlayButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
