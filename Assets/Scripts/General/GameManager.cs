@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            attempts = 1;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -86,13 +87,17 @@ public class GameManager : MonoBehaviour
     public async void RestartLevel()
     {
         isRestarting = true;
+        attempts = attempts + 1;
+        print("restarting level, attempt: " + attempts);
         while (SoundFxManager.Instance.IsSoundFxPlaying())
         {
             Time.timeScale = 0f;
             await Task.Yield();
         }
+        await Task.Delay(500);
         Time.timeScale = 1f;
         SceneManager.LoadScene(currentLevelName);
+        Player.isPlayerAlive = true;
         isRestarting = false;
 
     }
@@ -105,18 +110,13 @@ public class GameManager : MonoBehaviour
             // reset attempt if not in the same level
             if (currentLevelName != scene.name)
             {
-                attempts = 0;
+                print("resetting attempt");
+                attempts = 1;
             }
             currentLevelName = scene.name;
             
             // get current time
             startTime = DateTime.Now.TimeOfDay;
-        }
-
-        // calculate attempts
-        if (scene.name == currentLevelName)
-        {
-            attempts += 1;
         }
     }
 }

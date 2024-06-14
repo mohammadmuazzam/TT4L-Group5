@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -18,11 +20,12 @@ public class Level9 : MonoBehaviour
     private Renderer playerRenderer;
     private CameraFollow cameraScript;
     private bool fallingPlatformActivated;
-    private volatile bool bossShootLevel9Control;
-    Vector3 defaultCatScale;
+    private CancellationTokenSource cancellationTokenSource;
+    private Vector3 defaultCatScale;
 
     void Awake()
     {
+        print("LEVEL9 AWAKE CALLED");
         //* initialization
         bossCatObject = GameObject.Find("Boss");
         catOnlyObject = GameObject.Find("Cat");
@@ -37,8 +40,10 @@ public class Level9 : MonoBehaviour
 
         laserScript = GameObject.Find("Laser Mask").GetComponent<Laser>();
 
+        cancellationTokenSource = new CancellationTokenSource();
+
         fallingPlatformActivated = false;
-        bossShootLevel9Control = false;
+        //bossShootLevel9Control = false;
         catBossScript.bossShootLaserControl = false;
 
         //* reset all trap trigger to "hasn't triggered"
@@ -62,7 +67,7 @@ public class Level9 : MonoBehaviour
             //* bossCat position
             bossCatObject.transform.position = new Vector3(19.95f, 1, 0);
         }
-        //* boss at 3 health, shoot bullet
+        //? boss at 3 health, shoot bullet
         else if (BossParent.bossHealth == 3)
         {
             //* player position
@@ -75,14 +80,12 @@ public class Level9 : MonoBehaviour
             bossCatObject.transform.position = new Vector3 (70.2f, 3, 0);
             catBossScript.BossDefaultAnimation();
 
-            if (!catBossScript.bossShootControl)
-            {
-                print("Level9, Awake, calling BossShootAtRandomTime:\ncatBossScript.bossShootControl: " + catBossScript.bossShootControl);
-                catBossScript.bossShootControl = true;
-                bossShootLevel9Control = true;  
-                BossShootAtRandomTime();
-            }
-
+            //* boss shooting bullets
+            print("Level9, Awake, calling BossShootAtRandomTime:\ncatBossScript.bossShootControl: " + catBossScript.bossShootControl);
+            catBossScript.bossShootControl = true; 
+            BossShootAtRandomTime();
+        
+            
             //* camera
             cameraScript.minX = 18.34f;
             cameraScript.maxX = 47.9f;
@@ -108,6 +111,27 @@ public class Level9 : MonoBehaviour
             cameraScript.maxX = 115.6f;
             mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
 
+            //* destroy moving spike
+            if (movingSpike != null)
+                Destroy(movingSpike);
+        }
+        //* squid cat
+        else if (BossParent.bossHealth == 1)
+        {
+            //* player position
+            playerObject.transform.position = new Vector3(53f, 0, 0);
+            playerScript.minX = 124f;
+            playerScript.maxX = 162.23f;
+
+            //* boss cat position
+            catOnlyObject.transform.localScale = new Vector3 (-0.14f, 0.14f, 0.14f);
+            bossCatObject.transform.position = new Vector3(175, 2, 0);
+            laserScript.laserCollider.enabled = false;
+
+            //* camera
+            cameraScript.minX = 115.6f;
+            cameraScript.maxX = 154f;
+            mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
             //* destroy moving spike
             if (movingSpike != null)
                 Destroy(movingSpike);
@@ -257,13 +281,27 @@ public class Level9 : MonoBehaviour
                             _ = trapScripts[14].PermanentMoveTrap();
                             TrapTrigger pushPlayerUpTrigger = trapTriggers[13].GetComponent<TrapTrigger>();
 
-                            await Task.Delay(1000);
+                            await Task.Delay(1600);
 
                             if (pushPlayerUpTrigger.playerIsInTrigger)
                             {
                                 await trapScripts[15].PermanentMoveTrap();
                                 _ = trapScripts[16].PermanentMoveTrap();
                             }
+                        }
+                        break;
+
+                        case "Boss Platform Down Trigger":
+                        if (!hasTriggered[13])
+                        {
+                            //* cancel any laser shooting, lower platform and shoot laser for last time
+                            hasTriggered[13] = true;
+                            catBossScript.bossShootLaserControl = false;
+                            await Task.Delay(1500);
+                            await trapScripts[17].PermanentMoveTrap();
+                            catBossScript.bossShootLaserControl = true;
+
+                            _ = catBossScript.BossShootLaser();
                         }
                         break;
                     }
@@ -281,7 +319,7 @@ public class Level9 : MonoBehaviour
         //* traps leading to first kill, health: 3, bullet
         if (BossParent.bossHealth == 3 && !BossParent.hasDamagedBoss[0])
         {
-            bossShootLevel9Control = true;
+            //bossShootLevel9Control = true;
             BossParent.hasDamagedBoss[0] = true;
 
             //* boss teleport animation
@@ -449,39 +487,54 @@ public class Level9 : MonoBehaviour
 
     private async void BossShootAtRandomTime()
     {
-        while (BossParent.bossHealth == 3 && bossShootLevel9Control && catBossScript.bossShootControl)
+        while (BossParent.bossHealth == 3 && catBossScript.bossShootControl)
         {
             /*if (!Player.isPlayerAlive)
             {
                 print("BossShootAtRandom, RETURNING: player isn't alive, " + Player.isPlayerAlive);
                 return;
             }*/
-
-            print("level9 after waiting:\ncatBossScript.bossShootControl: " + catBossScript.bossShootControl);
-            if (catBossScript.bossShootControl && !PauseMenu.isPaused) //? BUG fixed? player shoots while telekinesis
-                await catBossScript.ShootNormalBullets();
-
-            print("Level9 start waiting");
             int beforeAttempt = GameManager.attempts;
-            //* random time to shoot
-            int randomTime = Random.Range (1400, 3400);
-            await Task.Delay (randomTime);
+
+            print("level9 shooting, attempt: " + GameManager.attempts);
+            Stopwatch watch = Stopwatch.StartNew();
+            watch.Start();
+            if (catBossScript.bossShootControl && !PauseMenu.isPaused)
+                await catBossScript.ShootNormalBullets();
+            watch.Stop();
+            print($"elapsed time for ShootNormalBullets in Boss: {watch.ElapsedMilliseconds}");
             if (beforeAttempt != GameManager.attempts)
             {
-                print("returning as attempt has changed");
                 return;
             }
             
-            
+            //* random time to shoot
+            float randomTime = Random.Range (1.4f, 3.4f);
+            float elapsedTime = 0;
+
+            //* waiting
+            while (elapsedTime < randomTime)
+            {
+                elapsedTime += Time.deltaTime;
+
+                //* return if player dies or cancellation is requested
+                if (beforeAttempt != GameManager.attempts || cancellationTokenSource.IsCancellationRequested)
+                {
+                    //print($"returning as attempt has changed, beforeAttempt: {beforeAttempt}, currentAttempt: {GameManager.attempts}" + " or cancellation requested");
+                    //catBossScript.bossShootControl = false;
+                    return;
+                }
+
+                await Task.Yield();
+            }
+            //await Task.Delay (randomTime);
         }
     }
 
     private async void TelekinesisPlayer()
     {
-        bossShootLevel9Control = false;
-        print("Level9 in TelekinesisPlayer:\nbossShootLevel9Control: " + bossShootLevel9Control);
         catBossScript.TelekinesisOnPlayer();
-        print("Level9 in TelekinesisPlayer AFTER TELEKINESISONPLAYER IN BOSS:\ncatBossScript.bossShootControl: " + catBossScript.bossShootControl);
+        //print("Level9 in TelekinesisPlayer AFTER TELEKINESISONPLAYER IN BOSS:\ncatBossScript.bossShootControl: " + catBossScript.bossShootControl);
 
         //* slow player and dont accept movement input
         Player.playerBody.gravityScale = 0f;
@@ -500,8 +553,22 @@ public class Level9 : MonoBehaviour
             await catBossScript.BossShootLaser();
 
             //* random time to shoot
-            int randomTime = Random.Range (800, 1500);
-            await Task.Delay (randomTime);
+            float randomTime = Random.Range (0.8f, 1.5f);
+            float elapsedTime = 0;
+
+            //* waiting
+            while (elapsedTime < randomTime)
+            {
+                elapsedTime += Time.deltaTime;
+
+                //* return if player dies or cancellation is requested
+                if (cancellationTokenSource.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                await Task.Yield();
+            }
         }
         
     }
@@ -573,6 +640,15 @@ public class Level9 : MonoBehaviour
         catch (System.Exception)
         {
             return;
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        if (cancellationTokenSource != null)
+        {
+            cancellationTokenSource.Cancel();
+            cancellationTokenSource.Dispose();
         }
     }
 }

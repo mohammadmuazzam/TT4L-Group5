@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
             transform.position += new Vector3(movementX, 0f) * speed * Time.deltaTime;
 
             // crouch
-            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.LeftControl))
             {
                 isCrouch = true;
             }
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
             }
 
             // jump
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
             {
                 //print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
                 if (isOnGround)

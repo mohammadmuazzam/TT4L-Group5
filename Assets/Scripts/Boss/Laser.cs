@@ -41,7 +41,7 @@ public class Laser : MonoBehaviour
                 {
                     laserCollider.enabled = true;
                 }
-                tempXScale = Mathf.Lerp(initialXScale, finalXScale, elapsedTime);
+                tempXScale = Mathf.Lerp(initialXScale, finalXScale, elapsedTime/0.5f);
 
                 //* reset laser if player dies
                 if (Player.isPlayerAlive == false)
@@ -59,11 +59,11 @@ public class Laser : MonoBehaviour
             elapsedTime = 0;
 
             //* unshoot laser
-            while (elapsedTime < 1)
+            while (elapsedTime < 0.5)
             {
                 elapsedTime += Time.deltaTime;
-                tempXScale = Mathf.Lerp(finalXScale, initialXScale, elapsedTime);
-                if (elapsedTime >= 0.5)
+                tempXScale = Mathf.Lerp(finalXScale, initialXScale, elapsedTime/0.5f);
+                if (elapsedTime >= 0.25)
                 {
                     laserCollider.enabled = false;
                 }

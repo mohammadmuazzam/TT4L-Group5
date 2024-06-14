@@ -48,7 +48,7 @@ public class Boss : MonoBehaviour
             
             //* wait after shooting
             await Task.Delay(500);
-            print("Boss. reset animation?\ncheck hasn't telekinesis: " + bossShootControl);
+            //print("Boss. reset animation?\ncheck hasn't telekinesis: " + bossShootControl);
             //* reset animation
             if (bossAnimator != null && bossShootControl)
             {
