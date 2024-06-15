@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     
-    private static GameManager instance;
+    public static GameManager instance;
 
     public static string currentLevelName;
 
@@ -104,19 +104,27 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded (Scene scene, LoadSceneMode mode)
     {
-        // get name of current level, not current scene name
-        if (scene.name.Substring(0,5).ToLower() == "level")
+        try
         {
-            // reset attempt if not in the same level
-            if (currentLevelName != scene.name)
+            // get name of current level, not current scene name
+            if (scene.name.Substring(0,5).ToLower() == "level")
             {
-                print("resetting attempt");
-                attempts = 1;
-            }
-            currentLevelName = scene.name;
-            
-            // get current time
-            startTime = DateTime.Now.TimeOfDay;
+                // reset attempt if not in the same level
+                if (currentLevelName != scene.name)
+                {
+                    print("resetting attempt");
+                    attempts = 1;
+                }
+                currentLevelName = scene.name;
+                
+                // get current time
+                startTime = DateTime.Now.TimeOfDay;
+            }  
         }
+        catch (Exception)
+        {
+            return;
+        }
+        
     }
 }

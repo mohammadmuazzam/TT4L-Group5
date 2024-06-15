@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class Boss : MonoBehaviour
     private Animator bossAnimator;
     private GameObject bulletObjectClone;
     private Bullets bulletObjectCloneScript;
+    private GameObject BossDamageBox;
     public bool bossShootControl, bossShootLaserControl, bossRLGLActiveCheck, bossRLGLControl;
 
     private const string EMPTY_STANCE_TRIGGER = "Empty Stance";
@@ -28,6 +30,7 @@ public class Boss : MonoBehaviour
         bossShootLaserControl = false;
         bossRLGLActiveCheck = false;
         bossAnimator = GetComponent<Animator>();
+        BossDamageBox = GameObject.Find("Death box");
         bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);  
 
         laserScript = GameObject.Find("Laser Mask").GetComponent<Laser>();
@@ -88,7 +91,7 @@ public class Boss : MonoBehaviour
         bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
     }
 
-    public async Task BossShootLaser()
+    public async Task BossShootLaser(CancellationTokenSource cancellationTokenSource)
     {
         try
         {
@@ -96,7 +99,7 @@ public class Boss : MonoBehaviour
             {
                 bossAnimator.SetTrigger(SHOOT_LASER_TRIGGER);
                 
-                await laserScript.ShootLaser();
+                await laserScript.ShootLaser(cancellationTokenSource);
 
                 bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);
             }
@@ -109,18 +112,22 @@ public class Boss : MonoBehaviour
         
     }
 
-    public async Task BossRedLightGreenLight()
+    public async Task BossRedLightGreenLight(CancellationTokenSource cancellationTokenSource)
     {
         try
         {
             //* start count down to watch player
             bossRLGLActiveCheck = false;
             transform.Rotate(0, 180, 0);
-            SoundFxManager.Instance.PlayRandomSoundFxClip(rLGLAudioClip, transform, volumeRLGL);
-            await Task.Delay(3500);
+            BossDamageBox.transform.Rotate(0, 180, 0);
+            print("starting sound");
+            await SoundFxManager.Instance.PlayRandomSoundFxClipAsync(rLGLAudioClip, transform, volumeRLGL, cancellationTokenSource);
+            
+            print("done counting, watching");
 
             //* watch player
             transform.Rotate(0, 180 , 0);
+            BossDamageBox.transform.Rotate(0, 180, 0);
             bossRLGLActiveCheck = true;
         }
         catch (System.Exception)

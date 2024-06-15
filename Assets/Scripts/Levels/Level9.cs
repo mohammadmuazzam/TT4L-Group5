@@ -23,17 +23,16 @@ public class Level9 : MonoBehaviour
     private Renderer playerRenderer;
     private CameraFollow cameraScript;
     private bool fallingPlatformActivated;
-    private CancellationTokenSource cancellationTokenSource;
+    private CancellationTokenSource cancellationTokenSource, cancellationTokenBossDefeated, cancellationTokenLaser;
     private Vector3 defaultCatScale;
 
     void Awake()
     {
-        print("LEVEL9 AWAKE CALLED");
         //* initialization
         bossCatObject = GameObject.Find("Boss");
         catOnlyObject = GameObject.Find("Cat");
         catBossScript = catOnlyObject.GetComponent<Boss>();
-        defaultCatScale = catOnlyObject.transform.localScale;
+        defaultCatScale = new Vector3 (-0.14f, 0.14f, 0.14f);
 
         cameraScript = mainCamera.GetComponent<CameraFollow>();
         cameraScript.playerDependant = true;
@@ -44,9 +43,10 @@ public class Level9 : MonoBehaviour
         laserScript = GameObject.Find("Laser Mask").GetComponent<Laser>();
 
         cancellationTokenSource = new CancellationTokenSource();
+        cancellationTokenBossDefeated = new CancellationTokenSource();
+        cancellationTokenLaser = new CancellationTokenSource();
 
         fallingPlatformActivated = false;
-        //bossShootLevel9Control = false;
         catBossScript.bossShootLaserControl = false;
 
         //* reset all trap trigger to "hasn't triggered"
@@ -129,7 +129,7 @@ public class Level9 : MonoBehaviour
 
             //* boss cat position
             catOnlyObject.transform.localScale = new Vector3 (-0.14f, 0.14f, 0.14f);
-            bossCatObject.transform.position = new Vector3(175, 2, 0);
+            bossCatObject.transform.position = new Vector3(175, 3, 0);
             laserScript.laserCollider.enabled = false;
 
             //* RLGL Control
@@ -236,7 +236,6 @@ public class Level9 : MonoBehaviour
                         if (!hasTriggered[11])
                         {
                             _ = trapScripts[13].PermanentMoveTrap();
-                            print("moving down metal");
                             hasTriggered[11] = true;
                         }
                         break;
@@ -310,7 +309,7 @@ public class Level9 : MonoBehaviour
                             await trapScripts[17].PermanentMoveTrap();
                             catBossScript.bossShootLaserControl = true;
 
-                            _ = catBossScript.BossShootLaser();
+                            _ = catBossScript.BossShootLaser(cancellationTokenLaser);
                         }
                         break;
 
@@ -324,6 +323,33 @@ public class Level9 : MonoBehaviour
                             }
                         }
                         break;
+
+                        case "3 Trap 2 Trigger": //* wall
+                        if (!hasTriggered[15])
+                        {
+                            hasTriggered[15] = true;
+                            _ = trapScripts[25].TemporaryMoveTrap();
+                        }
+                        break;
+
+                        case "Wall Move Right Trigger":
+                        if (!hasTriggered[16])
+                        {
+                            hasTriggered[16] = true;
+                            await Task.Delay(1000);
+                            await trapScripts[25].PermanentMoveTrap();
+                            _ = trapScripts[26].PermanentMoveTrap();
+                        }
+                        break;
+
+                        case "3 Trap 3 Trigger":
+                        if (!hasTriggered[17])
+                        {
+                            _ = trapScripts[27].TemporaryMoveTrap();
+                            hasTriggered[17] = true;
+                        }
+                        break;
+
                     }
                 }
             }
@@ -364,11 +390,48 @@ public class Level9 : MonoBehaviour
         {
             BossParent.hasDamagedBoss[2] = true;
             catBossScript.bossShootLaserControl = false;
+            catBossScript.bossRLGLControl = true;
             catBossScript.BossDefaultAnimation();
+            cancellationTokenLaser.Cancel();
+            cancellationTokenLaser.Dispose();
 
             await PlayerSlowMoAfterBossKill(154f, 162.23f, new Vector3(175, 2, 0));
 
+            await Task.Delay(1000);
+            
+            BossRLGL();
+        }
 
+        //* health 0, boss dead
+        if (BossParent.bossHealth == 0 && !BossParent.hasDamagedBoss[3])
+        {
+            try
+            {
+                BossParent.hasDamagedBoss[3] = true;
+                await Task.Delay(300);
+
+                //* slow player and dont accept movement input
+                Player.playerBody.gravityScale = 0.05f;
+                Player.playerBody.velocity = new Vector2 (0, 0.05f);
+                Player.canPlayerMove = false;
+                catBossScript.bossRLGLControl = false;
+                cancellationTokenBossDefeated.Cancel();
+                cancellationTokenBossDefeated.Dispose();
+
+                //* boss dies
+                await ShrinkAndGrowCat(0);
+                Destroy(catOnlyObject.transform.parent.gameObject);
+
+                await trapScripts[28].PermanentMoveTrap();
+
+                await Task.Delay(1000);
+                
+                GameManager.instance.LevelEnd();
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
     }
 
@@ -385,6 +448,7 @@ public class Level9 : MonoBehaviour
             Player.canPlayerMove = false;
 
             await TeleportBossAndMoveCamera(cameraMaxX, playerMaxX, bosFinalPos);
+            
 
             await Task.Delay(300);
 
@@ -561,19 +625,20 @@ public class Level9 : MonoBehaviour
     {
         while (catBossScript.bossShootLaserControl)
         {
-            await catBossScript.BossShootLaser();
-
+            await catBossScript.BossShootLaser(cancellationTokenLaser);
+            
             //* random time to shoot
             float randomTime = UnityEngine.Random.Range (0.8f, 1.5f);
             float elapsedTime = 0;
 
+            int beforeAttempt = GameManager.attempts;
             //* waiting
             while (elapsedTime < randomTime)
             {
                 elapsedTime += Time.deltaTime;
 
                 //* return if player dies or cancellation is requested
-                if (cancellationTokenSource.IsCancellationRequested)
+                if (beforeAttempt != GameManager.attempts || cancellationTokenSource.IsCancellationRequested || cancellationTokenLaser.IsCancellationRequested)
                 {
                     return;
                 }
@@ -592,13 +657,20 @@ public class Level9 : MonoBehaviour
             while (BossParent.bossHealth == 1 && catBossScript.bossRLGLControl)
             {
                 int beforeAttempt = GameManager.attempts;
+                print("RLGL in loop");
 
                 //* start count down
                 if (catBossScript.bossRLGLControl && !PauseMenu.isPaused)
-                    await catBossScript.BossRedLightGreenLight();
-
-                if (beforeAttempt != GameManager.attempts)
                 {
+                    print("calling in level9");
+                    await catBossScript.BossRedLightGreenLight(cancellationTokenBossDefeated);
+                    print("done calling in level9");
+                }
+                    
+
+                if (beforeAttempt != GameManager.attempts || cancellationTokenSource.IsCancellationRequested || cancellationTokenBossDefeated.IsCancellationRequested)
+                {
+                    print("RLGL RETURNING");
                     return;
                 }
                 
@@ -610,16 +682,19 @@ public class Level9 : MonoBehaviour
                 float initialPlayerX = playerObject.transform.position.x;
                 float initialPlayerY = playerObject.transform.position.y;
 
+                print("watching player now");
+
                 //* wait
                 while (elapsedTime < randomTime)
                 {
                     elapsedTime += Time.deltaTime;
 
-                    if (Math.Abs(playerObject.transform.position.x) > (Math.Abs(initialPlayerX) + 0.3f) || Math.Abs(playerObject.transform.position.y) > (Math.Abs(initialPlayerY ) + 0.3f))
+                    if (Math.Abs(playerObject.transform.position.x) > (Math.Abs(initialPlayerX) + 0.3f) || Math.Abs(playerObject.transform.position.x) < (Math.Abs(initialPlayerX) - 0.3f) || Math.Abs(playerObject.transform.position.y) > (Math.Abs(initialPlayerY) + 0.3f) || Math.Abs(playerObject.transform.position.y) < (Math.Abs(initialPlayerY) - 0.3f))
                     {
                         playerScript.ForceKillPlayer();
                         return;
                     }
+                    else
 
                     //* return if player dies or cancellation is requested
                     if (beforeAttempt != GameManager.attempts || cancellationTokenSource.IsCancellationRequested)
@@ -654,7 +729,7 @@ public class Level9 : MonoBehaviour
             playerRenderer.material.color = new Color(initialColor.r, 0.78f, 0.78f, initialColor.a);
             gameObject.SetActive(false);
         }
-        catch (System.Exception )
+        catch (System.Exception)
         {
             return;
         }

@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
     {
         if (shouldJump && isOnGround)
         {
-            print("JUMP FORCE");
+            //print("JUMP FORCE");
             isOnGround = false;
             shouldJump = false;
             playerBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
             {
                 if (isOnGround)
                 {
-                    print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
+                    //print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
                     shouldJump = true;
                 } 
             }

@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,15 +26,15 @@ public class Laser : MonoBehaviour
 
     }
 
-    public async Task ShootLaser()
+    public async Task ShootLaser(CancellationTokenSource cancellationTokenSource)
     {
         try
         {
             float elapsedTime = 0f;
-            SoundFxManager.Instance.PlayRandomSoundFxClip(laserShootFx, transform, laserVolume);
+            _ = SoundFxManager.Instance.PlayRandomSoundFxClipAsync(laserShootFx, transform, laserVolume, cancellationTokenSource);
 
             //* shoot laser
-            while (elapsedTime < 0.5f)
+            while (elapsedTime < 0.7f)
             {
                 //* move temp values
                 elapsedTime += Time.deltaTime;
@@ -44,7 +45,7 @@ public class Laser : MonoBehaviour
                 tempXScale = Mathf.Lerp(initialXScale, finalXScale, elapsedTime/0.5f);
 
                 //* reset laser if player dies
-                if (Player.isPlayerAlive == false)
+                if (Player.isPlayerAlive == false || cancellationTokenSource.IsCancellationRequested)
                 {
                     gameObject.transform.localScale = new Vector3(initialXScale, 6f, 0.5f);
                     return;
@@ -59,7 +60,7 @@ public class Laser : MonoBehaviour
             elapsedTime = 0;
 
             //* unshoot laser
-            while (elapsedTime < 0.5)
+            while (elapsedTime < 0.7)
             {
                 elapsedTime += Time.deltaTime;
                 tempXScale = Mathf.Lerp(finalXScale, initialXScale, elapsedTime/0.5f);
@@ -69,7 +70,7 @@ public class Laser : MonoBehaviour
                 }
 
                 //* reset laser if player dies
-                if (Player.isPlayerAlive == false)
+                if (Player.isPlayerAlive == false  || cancellationTokenSource.IsCancellationRequested)
                 {
                     gameObject.transform.localScale = new Vector3(initialXScale, 6f, 1);
                     return;
@@ -80,7 +81,7 @@ public class Laser : MonoBehaviour
                 await Task.Yield();
             }
             gameObject.transform.localScale = new Vector3(initialXScale, 6f, 1);
-
+            await Task.Delay(300);
         }
         catch (System.Exception)
         {
