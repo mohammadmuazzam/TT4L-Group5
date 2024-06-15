@@ -1,6 +1,9 @@
+using System;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Level9 : MonoBehaviour
@@ -52,7 +55,7 @@ public class Level9 : MonoBehaviour
             hasTriggered[i] = false;
         }
         
-        //* boss at 4 health
+        //? boss at 4 health
         if (BossParent.bossHealth == 4)
         {
             //* player position
@@ -67,6 +70,7 @@ public class Level9 : MonoBehaviour
             //* bossCat position
             bossCatObject.transform.position = new Vector3(19.95f, 1, 0);
         }
+        
         //? boss at 3 health, shoot bullet
         else if (BossParent.bossHealth == 3)
         {
@@ -81,7 +85,6 @@ public class Level9 : MonoBehaviour
             catBossScript.BossDefaultAnimation();
 
             //* boss shooting bullets
-            print("Level9, Awake, calling BossShootAtRandomTime:\ncatBossScript.bossShootControl: " + catBossScript.bossShootControl);
             catBossScript.bossShootControl = true; 
             BossShootAtRandomTime();
         
@@ -93,7 +96,7 @@ public class Level9 : MonoBehaviour
                       
         }
 
-        //* health 2, laser cat
+        //? health 2, laser cat
         else if (BossParent.bossHealth == 2)
         {
             //* player position
@@ -115,12 +118,13 @@ public class Level9 : MonoBehaviour
             if (movingSpike != null)
                 Destroy(movingSpike);
         }
-        //* squid cat
+
+        //? health 1, RLGL cat
         else if (BossParent.bossHealth == 1)
         {
             //* player position
-            playerObject.transform.position = new Vector3(53f, 0, 0);
-            playerScript.minX = 124f;
+            playerObject.transform.position = new Vector3(120f, 0, 0);
+            playerScript.minX = 117f;
             playerScript.maxX = 162.23f;
 
             //* boss cat position
@@ -128,10 +132,15 @@ public class Level9 : MonoBehaviour
             bossCatObject.transform.position = new Vector3(175, 2, 0);
             laserScript.laserCollider.enabled = false;
 
+            //* RLGL Control
+            catBossScript.bossRLGLControl = true;
+            BossRLGL();
+
             //* camera
-            cameraScript.minX = 115.6f;
+            cameraScript.minX = 125f;
             cameraScript.maxX = 154f;
             mainCamera.transform.position = new Vector3(cameraScript.minX, mainCamera.transform.position.y, mainCamera.transform.position.z);
+            
             //* destroy moving spike
             if (movingSpike != null)
                 Destroy(movingSpike);
@@ -304,6 +313,17 @@ public class Level9 : MonoBehaviour
                             _ = catBossScript.BossShootLaser();
                         }
                         break;
+
+                        case "3 Trap 1 Trigger":
+                        if (!hasTriggered[14])
+                        {
+                            hasTriggered[14] = true;
+                            for (int i = 18; i <= 24; i++)
+                            {
+                                await trapScripts[i].PermanentMoveTrap();
+                            }
+                        }
+                        break;
                     }
                 }
             }
@@ -339,6 +359,7 @@ public class Level9 : MonoBehaviour
             
         }
 
+        //* health 1, red light green light
         if (BossParent.bossHealth == 1 && !BossParent.hasDamagedBoss[2])
         {
             BossParent.hasDamagedBoss[2] = true;
@@ -346,6 +367,8 @@ public class Level9 : MonoBehaviour
             catBossScript.BossDefaultAnimation();
 
             await PlayerSlowMoAfterBossKill(154f, 162.23f, new Vector3(175, 2, 0));
+
+
         }
     }
 
@@ -489,30 +512,21 @@ public class Level9 : MonoBehaviour
     {
         while (BossParent.bossHealth == 3 && catBossScript.bossShootControl)
         {
-            /*if (!Player.isPlayerAlive)
-            {
-                print("BossShootAtRandom, RETURNING: player isn't alive, " + Player.isPlayerAlive);
-                return;
-            }*/
             int beforeAttempt = GameManager.attempts;
 
-            print("level9 shooting, attempt: " + GameManager.attempts);
-            Stopwatch watch = Stopwatch.StartNew();
-            watch.Start();
             if (catBossScript.bossShootControl && !PauseMenu.isPaused)
                 await catBossScript.ShootNormalBullets();
-            watch.Stop();
-            print($"elapsed time for ShootNormalBullets in Boss: {watch.ElapsedMilliseconds}");
+
             if (beforeAttempt != GameManager.attempts)
             {
                 return;
             }
             
             //* random time to shoot
-            float randomTime = Random.Range (1.4f, 3.4f);
+            float randomTime = UnityEngine.Random.Range (1.4f, 3.4f);
             float elapsedTime = 0;
 
-            //* waiting
+            //* wait
             while (elapsedTime < randomTime)
             {
                 elapsedTime += Time.deltaTime;
@@ -520,14 +534,11 @@ public class Level9 : MonoBehaviour
                 //* return if player dies or cancellation is requested
                 if (beforeAttempt != GameManager.attempts || cancellationTokenSource.IsCancellationRequested)
                 {
-                    //print($"returning as attempt has changed, beforeAttempt: {beforeAttempt}, currentAttempt: {GameManager.attempts}" + " or cancellation requested");
-                    //catBossScript.bossShootControl = false;
                     return;
                 }
 
                 await Task.Yield();
             }
-            //await Task.Delay (randomTime);
         }
     }
 
@@ -553,7 +564,7 @@ public class Level9 : MonoBehaviour
             await catBossScript.BossShootLaser();
 
             //* random time to shoot
-            float randomTime = Random.Range (0.8f, 1.5f);
+            float randomTime = UnityEngine.Random.Range (0.8f, 1.5f);
             float elapsedTime = 0;
 
             //* waiting
@@ -572,7 +583,60 @@ public class Level9 : MonoBehaviour
         }
         
     }
+    
+    private async void BossRLGL()
+    {
+        try
+        {
+            print("RLGL called");
+            while (BossParent.bossHealth == 1 && catBossScript.bossRLGLControl)
+            {
+                int beforeAttempt = GameManager.attempts;
 
+                //* start count down
+                if (catBossScript.bossRLGLControl && !PauseMenu.isPaused)
+                    await catBossScript.BossRedLightGreenLight();
+
+                if (beforeAttempt != GameManager.attempts)
+                {
+                    return;
+                }
+                
+                //* random watch player time
+                float randomTime = UnityEngine.Random.Range (1.4f, 3.4f);
+                float elapsedTime = 0;
+
+                //* initial player position
+                float initialPlayerX = playerObject.transform.position.x;
+                float initialPlayerY = playerObject.transform.position.y;
+
+                //* wait
+                while (elapsedTime < randomTime)
+                {
+                    elapsedTime += Time.deltaTime;
+
+                    if (Math.Abs(playerObject.transform.position.x) > (Math.Abs(initialPlayerX) + 0.3f) || Math.Abs(playerObject.transform.position.y) > (Math.Abs(initialPlayerY ) + 0.3f))
+                    {
+                        playerScript.ForceKillPlayer();
+                        return;
+                    }
+
+                    //* return if player dies or cancellation is requested
+                    if (beforeAttempt != GameManager.attempts || cancellationTokenSource.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    await Task.Yield();
+                }
+            }
+        }
+        catch (System.Exception)
+        {
+            return;
+        }
+        
+    }
     private async Task ChangePlayerColor()
     {
         try

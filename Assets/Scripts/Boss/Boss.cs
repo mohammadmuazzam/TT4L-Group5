@@ -8,14 +8,15 @@ public class Boss : MonoBehaviour
     [SerializeField] bool shoot;
     [SerializeField] private GameObject bulletObject;
     [SerializeField] private AudioClip[] gunshotAudioClip;
+    [SerializeField] private AudioClip[] rLGLAudioClip;
     [SerializeField] private AudioClip telekinesisAudioClip;
-    [Range(0,1)] [SerializeField] private float volumeGun, volumeTelekinesis;
+    [Range(0,1)] [SerializeField] private float volumeGun, volumeTelekinesis, volumeRLGL;
 
     private Laser laserScript;
     private Animator bossAnimator;
     private GameObject bulletObjectClone;
     private Bullets bulletObjectCloneScript;
-    public bool bossShootControl, bossShootLaserControl;
+    public bool bossShootControl, bossShootLaserControl, bossRLGLActiveCheck, bossRLGLControl;
 
     private const string EMPTY_STANCE_TRIGGER = "Empty Stance";
     private const string USE_PISTOL_TRIGGER = "Use Pistol";
@@ -25,6 +26,7 @@ public class Boss : MonoBehaviour
     {
         bossShootControl = true;
         bossShootLaserControl = false;
+        bossRLGLActiveCheck = false;
         bossAnimator = GetComponent<Animator>();
         bossAnimator.SetTrigger(EMPTY_STANCE_TRIGGER);  
 
@@ -105,5 +107,25 @@ public class Boss : MonoBehaviour
             return;
         }
         
+    }
+
+    public async Task BossRedLightGreenLight()
+    {
+        try
+        {
+            //* start count down to watch player
+            bossRLGLActiveCheck = false;
+            transform.Rotate(0, 180, 0);
+            SoundFxManager.Instance.PlayRandomSoundFxClip(rLGLAudioClip, transform, volumeRLGL);
+            await Task.Delay(3500);
+
+            //* watch player
+            transform.Rotate(0, 180 , 0);
+            bossRLGLActiveCheck = true;
+        }
+        catch (System.Exception)
+        {
+
+        }
     }
 }
