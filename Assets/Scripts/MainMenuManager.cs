@@ -23,6 +23,7 @@ public class MainMenuManager : MonoBehaviour
 
     void OnVideoEnd(VideoPlayer vp)
     {
+        print("video ended");
         // Unsubscribe from the event
         videoPlayer.loopPointReached -= OnVideoEnd;
 
