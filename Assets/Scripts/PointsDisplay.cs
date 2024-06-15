@@ -8,10 +8,13 @@ public class PointsDisplay : MonoBehaviour
     [SerializeField] TextMeshProUGUI showTime;
     [SerializeField] TextMeshProUGUI showAttempts;
     [SerializeField] TextMeshProUGUI showPoints;
+    [SerializeField] TextMeshProUGUI showCoins;
     GameObject gameManager;
     private float elapsedTime;
     private int playerAttempts;
     private int calculatePoints;
+
+    private int coinsCollected;
     void Start()
     {
         // get time, attempts, coins
@@ -29,6 +32,9 @@ public class PointsDisplay : MonoBehaviour
             if (calculatePoints > 10000)
             calculatePoints = 10000;
             showPoints.text = calculatePoints.ToString();
+
+            coinsCollected = GameManager.coinCount;
+            showCoins.text = coinsCollected.ToString();
         }
     }
 }
