@@ -61,44 +61,51 @@ public class Trap : MonoBehaviour
     //* move trap await Task.Delay(timer)
     public async Task PermanentMoveTrap(float startX, float startY, float stopX, float stopY)
     {
-        Stopwatch watch = Stopwatch.StartNew();
-        bool hasFinishedMoving = false;
-        watch.Start();
-        //print("Starting PermanentMoveTrap");
-
-        if (stopX < startX) negativeX = true;
-        else negativeX = false;
-
-        if (stopY < startY) negativeY = true;
-        else negativeY = false;
-
-        //* play sound
-        if (trapOut != null && Player.isPlayerAlive)
-            SoundFxManager.Instance.PlaySoundFxClip(trapOut, transform, volumeOut);
-
-
-        while(!hasFinishedMoving)
+        try
         {
-            ActivateTrap(stopX, stopY);
-            
-            // if trap has reached final position
-            if ((!negativeX && transform.localPosition.x >= stopX) || (negativeX && transform.localPosition.x <= stopX))
-            {
-                if ((!negativeY && transform.localPosition.y >= stopY) || (negativeY && transform.localPosition.y <= stopY))
-                {
-                    if (startX != stopX)
-                        tempPos.x = stopX;
+            Stopwatch watch = Stopwatch.StartNew();
+            bool hasFinishedMoving = false;
+            watch.Start();
+            //print("Starting PermanentMoveTrap");
 
-                    if (startY != stopY)
-                        tempPos.y = stopY;
-                    transform.localPosition = tempPos;
-                    hasFinishedMoving = true;
+            if (stopX < startX) negativeX = true;
+            else negativeX = false;
+
+            if (stopY < startY) negativeY = true;
+            else negativeY = false;
+
+            //* play sound
+            if (trapOut != null && Player.isPlayerAlive)
+                SoundFxManager.Instance.PlaySoundFxClip(trapOut, transform, volumeOut);
+
+
+            while(!hasFinishedMoving)
+            {
+                ActivateTrap(stopX, stopY);
+                
+                // if trap has reached final position
+                if ((!negativeX && transform.localPosition.x >= stopX) || (negativeX && transform.localPosition.x <= stopX))
+                {
+                    if ((!negativeY && transform.localPosition.y >= stopY) || (negativeY && transform.localPosition.y <= stopY))
+                    {
+                        if (startX != stopX)
+                            tempPos.x = stopX;
+
+                        if (startY != stopY)
+                            tempPos.y = stopY;
+                        transform.localPosition = tempPos;
+                        hasFinishedMoving = true;
+                    }
                 }
+                await Task.Yield();
             }
-            await Task.Yield();
+            watch.Stop();
+            //print($"elapsed time: {watch.ElapsedMilliseconds}");
         }
-        watch.Stop();
-        //print($"elapsed time: {watch.ElapsedMilliseconds}");
+        catch(Exception)
+        {
+            return;
+        }
     }
     public async Task PermanentMoveTrap()
     {
@@ -197,33 +204,40 @@ public class Trap : MonoBehaviour
     //* move trap out of initial position
     private void ActivateTrap(float stopX, float stopY)
     {
-        tempPos = transform.localPosition;
-        
-        if ((!negativeX && transform.localPosition.x < stopX) || (negativeX && transform.localPosition.x > stopX))
+        try
         {
-            //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
-            tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX * Time.deltaTime;
-            //print("ActivatingTrap in X");
-        }
-        else
-        {
-            //UnityEngine.Debug.Log("not ActivatingTrap in X");
-        }
+            tempPos = transform.localPosition;
             
+            if ((!negativeX && transform.localPosition.x < stopX) || (negativeX && transform.localPosition.x > stopX))
+            {
+                //* (negativeX ? -1 : 1) returns -1 if negativeX is true and 1 if negativeX is false
+                tempPos.x += (negativeX ? -1 : 1) * 0.1f * moveSpeedX * Time.deltaTime;
+                //print("ActivatingTrap in X");
+            }
+            else
+            {
+                //UnityEngine.Debug.Log("not ActivatingTrap in X");
+            }
+                
 
-        if ((!negativeY && transform.localPosition.y < stopY) || (negativeY && transform.localPosition.y > stopY))
-        {
-            tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY * Time.deltaTime;
-            //print("ActivatingTrap in Y");
-        }
-        else
-        {
-            //UnityEngine.Debug.Log("not ActivatingTrap in Y");
-        }
+            if ((!negativeY && transform.localPosition.y < stopY) || (negativeY && transform.localPosition.y > stopY))
+            {
+                tempPos.y += (negativeY ? -1 : 1) * 0.1f * moveSpeedY * Time.deltaTime;
+                //print("ActivatingTrap in Y");
+            }
+            else
+            {
+                //UnityEngine.Debug.Log("not ActivatingTrap in Y");
+            }
+                
             
-        
-        transform.localPosition = tempPos;
-        //print("After ActivateTrap - position: " + transform.localPosition);
+            transform.localPosition = tempPos;
+            //print("After ActivateTrap - position: " + transform.localPosition);
+        }
+        catch (Exception)
+        {
+            return;
+        }
     }
     
     //* move trap back to initial position

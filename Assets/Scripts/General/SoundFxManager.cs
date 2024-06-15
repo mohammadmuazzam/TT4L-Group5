@@ -1,14 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Diagnostics;
+using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
+using Unity.Mathematics;
 using UnityEngine;
-
 public class SoundFxManager : MonoBehaviour
 {
     [SerializeField] private AudioSource soundFxSource;
     public static SoundFxManager Instance;
+    private CancellationTokenSource cancellationTokenSource;
 
-    private AudioSource audioSource;
+    private AudioSource audioSource, audioSourceAsync;
     //private bool fadingOut;
 
     void Awake()
@@ -16,6 +19,7 @@ public class SoundFxManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            cancellationTokenSource = new CancellationTokenSource();
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -49,7 +53,7 @@ public class SoundFxManager : MonoBehaviour
 
     public void PlayRandomSoundFxClip(AudioClip[] clips, Transform spawnTransform, float volume)
     {
-        int randomIndex = Random.Range(0, clips.Length);
+        int randomIndex = UnityEngine.Random.Range(0, clips.Length);
         // instantiate audio source prefab
         audioSource = Instantiate(soundFxSource, spawnTransform.position, Quaternion.identity);
 
@@ -65,6 +69,58 @@ public class SoundFxManager : MonoBehaviour
         Destroy(audioSource.gameObject, clipLength);
     }
 
+    public async Task PlayRandomSoundFxClipAsync(AudioClip[] clips, Transform spawnTransform, float volume, CancellationTokenSource cancellationTokenSourceOutSide)
+    {
+        int randomIndex = UnityEngine.Random.Range(0, clips.Length);
+        //* instantiate audio source prefab
+        audioSourceAsync = Instantiate(soundFxSource, spawnTransform.position, Quaternion.identity);
+
+        //* assign audio clip and volume
+        audioSourceAsync.clip = clips[randomIndex];
+        audioSourceAsync.volume = volume;
+
+        //* get audio clip length and destroy audio source object after sound has played
+        float clipLength = audioSourceAsync.clip.length;
+        float elapsedTime = 0;
+
+        bool pausing = true;
+        int beforeAttempt = GameManager.attempts;
+
+        while (elapsedTime < clipLength)
+        {
+            //* return if player dies or restart or cancellation is requested
+            if (beforeAttempt != GameManager.attempts || cancellationTokenSource.IsCancellationRequested || cancellationTokenSourceOutSide.IsCancellationRequested)
+            {
+                print("RETURN, OutSideToken: " + cancellationTokenSourceOutSide);
+                Destroy(audioSourceAsync.gameObject);
+                return;
+            }
+
+            //* pause audio
+            if (PauseMenu.isPaused)
+            {
+                print("pausing audio");
+                audioSource.Pause();
+                pausing = true;
+            }
+            //* play audio
+            else
+            {
+                elapsedTime += Time.deltaTime;
+                
+                if (pausing)
+                {
+                    print("playing audio");
+                    audioSourceAsync.Play();
+                    pausing = false;
+                }
+            }
+            await Task.Yield();
+        }
+        print("DESTROYING AUDIOSOURCE OBJECT");
+        Destroy(audioSourceAsync.gameObject);
+    }
+
     public bool IsSoundFxPlaying()
     {
         if (audioSource != null)
@@ -78,12 +134,12 @@ public class SoundFxManager : MonoBehaviour
             
     }
 
-    async void FadeOutSoundFx()
+        void OnApplicationQuit()
     {
-        while (audioSource.volume > 0)
+        if (cancellationTokenSource != null)
         {
-            audioSource.volume -= 0.01f;
-            await Task.Yield();
+            cancellationTokenSource.Cancel();
+            cancellationTokenSource.Dispose();
         }
     }
 }

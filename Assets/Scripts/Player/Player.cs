@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private float movementX;
     private bool isOnGround, isCrouch, isOnMovingPlatform = false;
     public static bool isPlayerAlive;
-    public static bool shouldJump = false;
+    public static bool shouldJump;
     public static bool canPlayerMove;
 
 
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
         //* default value
         isPlayerAlive = true;
         canPlayerMove = true;
+        shouldJump = false;
         Time.timeScale = 1f;
         playerBody.velocity = new Vector2(playerBody.velocity.x, 0);
     }
@@ -66,8 +67,10 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (shouldJump)
+        if (shouldJump && isOnGround)
         {
+            //print("JUMP FORCE");
+            isOnGround = false;
             shouldJump = false;
             playerBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
@@ -85,7 +88,7 @@ public class Player : MonoBehaviour
             transform.position += new Vector3(movementX, 0f) * speed * Time.deltaTime;
 
             // crouch
-            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.LeftControl))
             {
                 isCrouch = true;
             }
@@ -107,19 +110,13 @@ public class Player : MonoBehaviour
             }
 
             // jump
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
             {
-                //print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
                 if (isOnGround)
                 {
-                    isOnGround = false;
+                    //print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
                     shouldJump = true;
-                }
-                else
-                {
-                    //print("CAN'T JUMP: PLAYER ISN'T ON GROUND: " + DateTime.Now.TimeOfDay);
-                }
-                    
+                } 
             }
         }
         
@@ -132,6 +129,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap") && canPlayerDie)
         {
             SoundFxManager.Instance.PlayRandomSoundFxClip(deathSoundFx, transform, volume);
+            print("PLAYER KILLED");
             isPlayerAlive = false;
         }
     }
@@ -141,7 +139,8 @@ public class Player : MonoBehaviour
         // collision with ground or platform
         if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("Moving Platform"))
         {
-            isOnGround = true;
+            if (!shouldJump)
+                isOnGround = true;
             if (collision.gameObject.CompareTag("Moving Platform"))
             {
                 isOnMovingPlatform = true;
@@ -200,7 +199,13 @@ public class Player : MonoBehaviour
             {
                 sr.flipX = true;
             }
-        }
-        
+        } 
+    }
+
+    public void ForceKillPlayer()
+    {
+        SoundFxManager.Instance.PlayRandomSoundFxClip(deathSoundFx, transform, volume);
+        print("PLAYER KILLED");
+        isPlayerAlive = false;    
     }
 }   

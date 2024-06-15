@@ -491,8 +491,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  sfxNameOut: 
-  sfxNameIn: 
+  trapOut: {fileID: 0}
+  trapIn: {fileID: 0}
+  volumeOut: 0
+  volumeIn: 0
 --- !u!1 &214574015
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +645,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &341858619
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2476383186239410731, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_Name
+      value: Sound Fx Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.181525
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.44744036
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.10440316
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
 --- !u!1 &357575625
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,8 +895,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  sfxNameOut: 
-  sfxNameIn: 
+  trapOut: {fileID: 0}
+  trapIn: {fileID: 0}
+  volumeOut: 0
+  volumeIn: 0
 --- !u!60 &395238802
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1525,8 +1586,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  sfxNameOut: 
-  sfxNameIn: 
+  trapOut: {fileID: 0}
+  trapIn: {fileID: 0}
+  volumeOut: 0
+  volumeIn: 0
 --- !u!1 &573583034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,8 +2360,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  sfxNameOut: 
-  sfxNameIn: 
+  trapOut: {fileID: 0}
+  trapIn: {fileID: 0}
+  volumeOut: 0
+  volumeIn: 0
 --- !u!60 &741941573
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3002,8 +3067,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  sfxNameOut: 
-  sfxNameIn: 
+  trapOut: {fileID: 0}
+  trapIn: {fileID: 0}
+  volumeOut: 0
+  volumeIn: 0
 --- !u!1 &930933244
 GameObject:
   m_ObjectHideFlags: 0
@@ -13380,7 +13447,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1192283600}
   - component: {fileID: 1192283599}
-  - component: {fileID: 1192283598}
   - component: {fileID: 1192283601}
   m_Layer: 0
   m_Name: Main Camera
@@ -13389,14 +13455,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1192283598
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192283597}
-  m_Enabled: 1
 --- !u!20 &1192283599
 Camera:
   m_ObjectHideFlags: 0
@@ -13480,6 +13538,7 @@ MonoBehaviour:
   minY: -7.58
   maxY: 5.78
   moveOnY: 1
+  playerDependant: 0
 --- !u!1 &1300809080
 GameObject:
   m_ObjectHideFlags: 0
@@ -25574,3 +25633,4 @@ SceneRoots:
   - {fileID: 660037778}
   - {fileID: 431029387}
   - {fileID: 1010407710}
+  - {fileID: 341858619}
