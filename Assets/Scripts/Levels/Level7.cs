@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
@@ -15,9 +16,12 @@ public class Level7 : MonoBehaviour
     [SerializeField] private PolygonCollider2D trapCollider;
     [SerializeField] private ParticleSystem explosionParticles1;
     [SerializeField] private ParticleSystem explosionParticles2;
+    [SerializeField] private AudioClip slowBeep, fastBeep, explosionClip;
+    [Range(0, 1)] [SerializeField] private float slowBeepVolume, fastBeepVolume, explosionVolume;
     [Range (100,1500)][SerializeField] int bombTimer;
     
     private bool closeTrapTriggered1, platform1Moved, notExploded1, platform2Moved, gateMoved, spikeActivated, notExploded2;
+    private CancellationTokenSource cancellationTokenSource;
     [SerializeField] private GameObject explodingPlatform1, explodingPlatform2, platformGate;
 
     void Awake()
@@ -32,6 +36,8 @@ public class Level7 : MonoBehaviour
         
         platformGate.SetActive(false);
         trapCollider.enabled = false;
+
+        cancellationTokenSource = new CancellationTokenSource();
     }
 
     // Update is called once per frame
@@ -71,19 +77,27 @@ public class Level7 : MonoBehaviour
                     }
                     break;
 
-                    case "Explosion Trigger 1":
-                    if (!notExploded1 && trapTriggerScript.movingPlatformIsInTrigger)
+                    case "Explosion Trigger 1": //* bomb
+                    if (!notExploded1 && trapTriggerScript.movingPlatformIsInTrigger) //* explosion 
                     {
-                        await Task.Delay(bombTimer);
                         try
                         {
+                            notExploded1 = true;
+                            closeTrapTriggered1 = true;
+
+                            //* beeps
+                            await SoundFxManager.Instance.PlaySoundFxClipAsync(slowBeep, trapScripts[0].gameObject.transform, slowBeepVolume, cancellationTokenSource);
+                            await SoundFxManager.Instance.PlaySoundFxClipAsync(slowBeep, trapScripts[0].gameObject.transform, slowBeepVolume, cancellationTokenSource);
+                            await SoundFxManager.Instance.PlaySoundFxClipAsync(fastBeep, trapScripts[0].gameObject.transform, fastBeepVolume, cancellationTokenSource);
+
+                            SoundFxManager.Instance.PlaySoundFxClip(explosionClip, trapScripts[0].gameObject.transform, explosionVolume);
                             explosionParticles1.Play();
                             explodingPlatform1.SetActive(false);
                             trapScripts[0].gameObject.SetActive(false);
                         }
                         catch (Exception)
                         {
-
+                            return;
                         }
                     }
                     break;
@@ -118,9 +132,11 @@ public class Level7 : MonoBehaviour
                     case "Explosion Trigger 2":
                     if (!notExploded2 && Player.shouldJump)
                     {
-                        await Task.Delay (bombTimer);
                         try
                         {
+                            notExploded2 = true;
+                            await SoundFxManager.Instance.PlaySoundFxClipAsync(fastBeep, trapScripts[0].gameObject.transform, fastBeepVolume, cancellationTokenSource);
+                            SoundFxManager.Instance.PlaySoundFxClip(explosionClip, trapScripts[0].gameObject.transform, explosionVolume);
                             explosionParticles2.Play ();
                             explodingPlatform2.SetActive(false);
                         }
@@ -130,6 +146,15 @@ public class Level7 : MonoBehaviour
                     break;
                 }
             }
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        if (cancellationTokenSource != null)
+        {
+            cancellationTokenSource.Cancel();
+            cancellationTokenSource.Dispose();
         }
     }
 
