@@ -938,7 +938,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1, g: 0.8257018, b: 0.21226418, a: 1}
     m_PressedColor: {r: 1, g: 0.54949003, b: 0, a: 1}
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1493,6 +1493,7 @@ MonoBehaviour:
   showAttempts: {fileID: 1331711393}
   showPoints: {fileID: 1847143751}
   showCoins: {fileID: 1704643531}
+  nextLevel: {fileID: 1659205432}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -179,9 +179,9 @@ public class Level9 : MonoBehaviour
                         case "Floor Fall Trigger":
                         if (!fallingPlatformActivated)
                         {
+                            fallingPlatformActivated = true;
                             await Task.Delay(500);
                             _ = trapScripts[0].PermanentMoveTrap();
-                            fallingPlatformActivated = true;
                         }
                         break;
 
@@ -266,9 +266,9 @@ public class Level9 : MonoBehaviour
                         case "Spike Down Trigger":
                         if (!hasTriggered[10])
                         {
-                            await Task.Delay(1500);
-                            _ = trapScripts[12].PermanentMoveTrap();
                             hasTriggered[10] = true;
+                            await Task.Delay(1500);
+                            _ = trapScripts[12].PermanentMoveTrap();                            
                         }
                         break;
 

@@ -163,9 +163,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.214
   volumeIn: 0
 --- !u!4 &3258201
 Transform:
@@ -1318,9 +1318,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 729127ad096cd294390b4e23771e49d7, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.131
   volumeIn: 0
 --- !u!60 &141712214
 PolygonCollider2D:
@@ -1619,7 +1619,7 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 0}
   volumeOut: 0
   volumeIn: 0
@@ -1861,10 +1861,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
-  trapIn: {fileID: 0}
-  volumeOut: 0
-  volumeIn: 0
+  trapOut: {fileID: 8300000, guid: b2635250e7c63474e94dd1979431eb11, type: 3}
+  trapIn: {fileID: 8300000, guid: c88bb173035560d43b0ebde7cac6e35a, type: 3}
+  volumeOut: 0.244
+  volumeIn: 0.131
 --- !u!61 &194736565
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2315,9 +2315,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.162
   volumeIn: 0
 --- !u!1 &217886574
 GameObject:
@@ -2408,9 +2408,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 8c1eb934f1905194ba491905776b1d21, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.219
   volumeIn: 0
 --- !u!60 &219307046
 PolygonCollider2D:
@@ -2669,9 +2669,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 8c1eb934f1905194ba491905776b1d21, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.194
   volumeIn: 0
 --- !u!1 &260807092
 GameObject:
@@ -3883,9 +3883,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.144
   volumeIn: 0
 --- !u!60 &444003139
 PolygonCollider2D:
@@ -4586,9 +4586,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 8c1eb934f1905194ba491905776b1d21, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.162
   volumeIn: 0
 --- !u!1 &506478388
 GameObject:
@@ -4771,9 +4771,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 8c1eb934f1905194ba491905776b1d21, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.225
   volumeIn: 0
 --- !u!60 &534199647
 PolygonCollider2D:
@@ -5165,9 +5165,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.15
   volumeIn: 0
 --- !u!60 &544214943
 PolygonCollider2D:
@@ -5359,9 +5359,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.131
   volumeIn: 0
 --- !u!60 &589456403
 PolygonCollider2D:
@@ -5520,9 +5520,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: f59db99a1053915479bbdf7562780fa9, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.231
   volumeIn: 0
 --- !u!61 &593182038
 BoxCollider2D:
@@ -6355,9 +6355,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2bfa9fad8d874fa4f968c102cf74bd17, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.18045448
   volumeIn: 0
 --- !u!1 &799662772
 GameObject:
@@ -6679,9 +6679,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 729127ad096cd294390b4e23771e49d7, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.169
   volumeIn: 0
 --- !u!1 &825435831
 GameObject:
@@ -7092,10 +7092,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
-  trapIn: {fileID: 0}
-  volumeOut: 0
-  volumeIn: 0
+  trapOut: {fileID: 8300000, guid: 7ca254bfc18192d44b0b52fd00053334, type: 3}
+  trapIn: {fileID: 8300000, guid: b2635250e7c63474e94dd1979431eb11, type: 3}
+  volumeOut: 0.231
+  volumeIn: 0.125
 --- !u!61 &853961372
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8289,9 +8289,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 729127ad096cd294390b4e23771e49d7, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.144
   volumeIn: 0
 --- !u!1 &1160170796
 GameObject:
@@ -8858,9 +8858,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 043da3be09dee6d4bb796fc97ce7f692, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.052
   volumeIn: 0
 --- !u!1 &1256329719
 GameObject:
@@ -9174,9 +9174,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 8c1eb934f1905194ba491905776b1d21, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.169
   volumeIn: 0
 --- !u!60 &1287291875
 PolygonCollider2D:
@@ -9925,9 +9925,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 729127ad096cd294390b4e23771e49d7, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.15
   volumeIn: 0
 --- !u!60 &1431093640
 PolygonCollider2D:
@@ -10330,9 +10330,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 8c1eb934f1905194ba491905776b1d21, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.162
   volumeIn: 0
 --- !u!1 &1481547602
 GameObject:
@@ -10492,10 +10492,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
-  trapIn: {fileID: 0}
-  volumeOut: 0
-  volumeIn: 0
+  trapOut: {fileID: 8300000, guid: b2635250e7c63474e94dd1979431eb11, type: 3}
+  trapIn: {fileID: 8300000, guid: c88bb173035560d43b0ebde7cac6e35a, type: 3}
+  volumeOut: 0.202
+  volumeIn: 0.139
 --- !u!1 &1510701271
 GameObject:
   m_ObjectHideFlags: 0
@@ -11210,9 +11210,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.162
   volumeIn: 0
 --- !u!1 &1661495405
 GameObject:
@@ -12046,9 +12046,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.214
   volumeIn: 0
 --- !u!1 &2088218464
 GameObject:
@@ -12196,7 +12196,7 @@ MonoBehaviour:
   moveAmountX: 0
   moveAmountY: -12.84
   moveSpeedX: 0
-  moveSpeedY: 20
+  moveSpeedY: 200
   waitTime: 0
   finalScaleX: 0
   finalScaleY: 0
@@ -12204,9 +12204,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 7ca254bfc18192d44b0b52fd00053334, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.219
   volumeIn: 0
 --- !u!1 &2098635880
 GameObject:
@@ -12349,9 +12349,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: c9ff4572047b93b458af940c8d7b4813, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.10794417
   volumeIn: 0
 --- !u!212 &2100789032
 SpriteRenderer:
