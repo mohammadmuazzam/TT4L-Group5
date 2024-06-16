@@ -29,6 +29,13 @@ public class mainmenubuttons : MonoBehaviour
         SceneManager.LoadSceneAsync("InstructionPage");
     }
 
+    public async void CreditPage()
+    {
+        await Task.Delay (generalSounds.clickSoundInMs);
+
+        SceneManager.LoadSceneAsync("CreditScene");
+    }
+
     public async void BackToMainMenu()
     {
         await Task.Delay (generalSounds.clickSoundInMs);
