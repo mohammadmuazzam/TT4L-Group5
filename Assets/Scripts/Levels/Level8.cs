@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Level8 : MonoBehaviour
@@ -10,10 +12,12 @@ public class Level8 : MonoBehaviour
     
     [SerializeField]
     private GameObject[] trapTriggers;
+    [SerializeField] private GameObject spikeDisable;
 
     [SerializeField] private Lightning lightningScripts;
 
     private bool trap1Activated,trap2Activated,trap3Activated,trap4Activated,trap5Activated;
+    private CancellationTokenSource cancellationTokenLightning;
 
     public float playerMinX, playerMaxX;
 
@@ -26,6 +30,9 @@ public class Level8 : MonoBehaviour
         trap3Activated = false;
         trap4Activated = false;
         trap5Activated = false;
+
+        cancellationTokenLightning = new CancellationTokenSource();
+        spikeDisable.SetActive(false);
     }
 
     // Update is called once per frame
@@ -64,7 +71,7 @@ public class Level8 : MonoBehaviour
                     case "Trap Trigger 3":
                     if(!trap3Activated && trap2Activated)
                     {
-                        StartCoroutine(lightningScripts.SpawnLightning());
+                        _ = lightningScripts.SpawnLightning(cancellationTokenLightning);
                         trap3Activated = true;
                     }
                     break;
@@ -80,15 +87,22 @@ public class Level8 : MonoBehaviour
                     case "Trap Trigger 5":
                     if(!trap5Activated && trap4Activated )
                     {
+                        spikeDisable.SetActive(true);
                         _ = trapScripts[3].PermanentMoveTrap();
                         trap5Activated = true;
                     }
                     break;
-
-
-
                 }
             }
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        if (cancellationTokenLightning != null)
+        {
+            cancellationTokenLightning.Cancel();
+            cancellationTokenLightning.Dispose();
         }
     }
 }

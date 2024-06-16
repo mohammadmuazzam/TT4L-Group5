@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Level4 : MonoBehaviour
@@ -8,11 +10,17 @@ public class Level4 : MonoBehaviour
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private Lightning lightningScripts;
     [SerializeField] private LevelSpecificTrap rockScript;
-
     [SerializeField] private GameObject[] trapTriggers;
+
+    private CancellationTokenSource cancellationTokenLightning;
 
     private bool hasTriggered1, hasTriggered2, hasTriggered3, hasTriggered4, hasTriggered5, 
     hasTriggered6, hasTriggered7 , pitTrigger, tempSpike = false;
+
+    void Awake()
+    {
+        cancellationTokenLightning = new CancellationTokenSource();
+    }
 
     void LateUpdate()
     {
@@ -35,7 +43,7 @@ public class Level4 : MonoBehaviour
                     if (!hasTriggered1)
                     {
                         hasTriggered1 = true;
-                        StartCoroutine(lightningScripts.SpawnLightning()); 
+                        _ = lightningScripts.SpawnLightning(cancellationTokenLightning); 
                     }
                     break;
 
@@ -108,6 +116,15 @@ public class Level4 : MonoBehaviour
                     break;
                 }
             }
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        if (cancellationTokenLightning != null)
+        {
+            cancellationTokenLightning.Cancel();
+            cancellationTokenLightning.Dispose();
         }
     }
 }

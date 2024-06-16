@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ public class Player : MonoBehaviour
 
     //* movement 
     private float movementX;
-    private bool isOnGround, isCrouch, isOnMovingPlatform = false;
+    private bool isOnGround, isCrouch, isWalking, isOnMovingPlatform, jumpAgain = false;
     public static bool isPlayerAlive;
     public static bool shouldJump;
     public static bool canPlayerMove;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
     //* CONSTANTS
     private const string CROUCH_ANIMATION_CONDITION = "Crouch";
     private const string IDLE_ANIMATION_CONDITION = "IdleStand";
+    private const string WALK_ANIMATION_CONDITION = "Walk";
 
     PlatformMovement movingPlatformScript;
     Vector3 tempPos;
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
         isPlayerAlive = true;
         canPlayerMove = true;
         shouldJump = false;
+        jumpAgain = true;
         Time.timeScale = 1f;
         playerBody.velocity = new Vector2(playerBody.velocity.x, 0);
     }
@@ -61,8 +64,6 @@ public class Player : MonoBehaviour
 
         if (isOnMovingPlatform)
             MoveXPlayerWithPlatform(movingPlatformObject);
-
-        
     }
 
     void FixedUpdate()
@@ -76,14 +77,22 @@ public class Player : MonoBehaviour
         }
     }
 
-    void PlayerMovement()
+    async void PlayerMovement()
     {
         // horizontal movement
         if (canPlayerMove)
         {
             movementX = Input.GetAxisRaw("Horizontal");
             if (movementX != 0f)
+            {
                 lastXMovement = movementX;
+                isWalking = true;
+            }
+            else 
+            {
+                isWalking = false;
+            }
+                
 
             transform.position += new Vector3(movementX, 0f) * speed * Time.deltaTime;
 
@@ -112,10 +121,13 @@ public class Player : MonoBehaviour
             // jump
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
             {
-                if (isOnGround)
+                if (isOnGround && jumpAgain)
                 {
                     //print("JUMP PRESSED: " + DateTime.Now.TimeOfDay);
                     shouldJump = true;
+                    jumpAgain = false;
+                    await Task.Delay(100);
+                    jumpAgain = true;
                 } 
             }
         }
@@ -175,14 +187,32 @@ public class Player : MonoBehaviour
 
     void AnimatePlayer()
     {
-        // if crouch, then change to crouch animation
+        //* if crouch
         if (isCrouch) 
         {
+            //* crouch ONLY
             playerAnimator.SetBool(CROUCH_ANIMATION_CONDITION, true);
             playerAnimator.SetBool(IDLE_ANIMATION_CONDITION, false);
+
+            //* if crouch and walking
+            if (isWalking)
+            {
+                playerAnimator.SetBool(WALK_ANIMATION_CONDITION, true);
+            }
+            else
+            {
+                playerAnimator.SetBool(WALK_ANIMATION_CONDITION, false);
+            }
         }
-        else 
+        else if (isWalking) //* if walking ONLY
         {
+            playerAnimator.SetBool(WALK_ANIMATION_CONDITION, true);
+            playerAnimator.SetBool(CROUCH_ANIMATION_CONDITION, false);
+            playerAnimator.SetBool(IDLE_ANIMATION_CONDITION, false);
+        }
+        else //* idle stance
+        {
+            playerAnimator.SetBool(WALK_ANIMATION_CONDITION, false);
             playerAnimator.SetBool(CROUCH_ANIMATION_CONDITION, false);
             playerAnimator.SetBool(IDLE_ANIMATION_CONDITION, true);
         }

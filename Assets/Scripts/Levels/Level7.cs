@@ -12,13 +12,13 @@ public class Level7 : MonoBehaviour
 {
     [SerializeField] private Trap[] trapScripts;
     [SerializeField] private GameObject[] trapTriggers;
+    [SerializeField] private PolygonCollider2D trapCollider;
     [SerializeField] private ParticleSystem explosionParticles1;
     [SerializeField] private ParticleSystem explosionParticles2;
     [Range (100,1500)][SerializeField] int bombTimer;
     
     private bool closeTrapTriggered1, platform1Moved, notExploded1, platform2Moved, gateMoved, spikeActivated, notExploded2;
-    [SerializeField] private GameObject explodingPlatform1;
-    [SerializeField] private GameObject explodingPlatform2;
+    [SerializeField] private GameObject explodingPlatform1, explodingPlatform2, platformGate;
 
     void Awake()
     {
@@ -29,6 +29,9 @@ public class Level7 : MonoBehaviour
         gateMoved = false;
         spikeActivated = false;
         notExploded2 = false;
+        
+        platformGate.SetActive(false);
+        trapCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -54,6 +57,7 @@ public class Level7 : MonoBehaviour
                     case "Close Trap Trigger 1":
                     if (trapTriggerScript.movingPlatformIsInTrigger && !closeTrapTriggered1)
                     {
+                        trapCollider.enabled = true;
                         _ = trapScripts[0].TemporaryMoveTrap();
                         closeTrapTriggered1 = true;
                     }
@@ -95,8 +99,11 @@ public class Level7 : MonoBehaviour
                     case "Gate Trigger":
                     if (!gateMoved && Player.shouldJump)
                     {
-                        _= trapScripts[3].PermanentMoveTrap();
                         gateMoved = true;
+                        await trapScripts[3].PermanentMoveTrap();
+                        await Task.Delay(700);
+                        platformGate.SetActive(true);
+
                     }
                     break;
 

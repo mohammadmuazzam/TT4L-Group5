@@ -1036,6 +1036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerReachesGate: 0
+  levelMenuControllers: []
 --- !u!61 &425401242
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1799,8 +1800,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  sfxNameOut: 
-  sfxNameIn: 
+  trapOut: {fileID: 0}
+  trapIn: {fileID: 0}
+  volumeOut: 0
+  volumeIn: 0
 --- !u!1 &654021083
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,7 +3923,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1393905733}
   - component: {fileID: 1393905732}
-  - component: {fileID: 1393905731}
   - component: {fileID: 1393905734}
   m_Layer: 0
   m_Name: Main Camera
@@ -3929,14 +3931,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1393905731
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1393905730}
-  m_Enabled: 1
 --- !u!20 &1393905732
 Camera:
   m_ObjectHideFlags: 0
@@ -4020,6 +4014,7 @@ MonoBehaviour:
   minY: 0
   maxY: 0
   moveOnY: 0
+  playerDependant: 0
 --- !u!1 &1481047642
 GameObject:
   m_ObjectHideFlags: 0

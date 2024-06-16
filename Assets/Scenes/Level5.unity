@@ -267,35 +267,9 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 1.1999999, y: -0.745}
-      - {x: 1.17, y: -0.695}
-      - {x: 1.01, y: -0.415}
-      - {x: 0.97999996, y: -0.36499998}
-      - {x: 0.82, y: -0.085}
-      - {x: 0.78999996, y: -0.035}
-      - {x: 0.71, y: 0.105}
-      - {x: 0.64, y: 0.225}
-      - {x: 0.34, y: 0.745}
-      - {x: 0.16, y: 1.055}
-      - {x: 0.049999997, y: 1.245}
-      - {x: 0.01, y: 1.295}
-      - {x: -0.02, y: 1.295}
-      - {x: -0.04, y: 1.285}
-      - {x: -0.17, y: 1.0649999}
-      - {x: -0.37, y: 0.72499996}
-      - {x: -0.45, y: 0.585}
-      - {x: -0.62, y: 0.295}
-      - {x: -0.7, y: 0.155}
-      - {x: -0.90999997, y: -0.205}
-      - {x: -0.98999995, y: -0.345}
-      - {x: -1.09, y: -0.515}
-      - {x: -1.17, y: -0.655}
-      - {x: -1.28, y: -0.84499997}
-      - {x: -1.38, y: -1.015}
-      - {x: -1.5, y: -1.225}
-      - {x: -1.5, y: -1.295}
-      - {x: 1.5, y: -1.295}
-      - {x: 1.5, y: -1.275}
-      - {x: 1.28, y: -0.885}
+      - {x: 1.4622663, y: -1.248766}
+      - {x: -1.4896405, y: -1.2302661}
+      - {x: 0.010141373, y: 1.2924451}
   m_UseDelaunayMesh: 0
 --- !u!212 &143800022
 SpriteRenderer:
@@ -372,8 +346,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  sfxNameOut: 
-  sfxNameIn: 
+  trapOut: {fileID: 0}
+  trapIn: {fileID: 0}
+  volumeOut: 0
+  volumeIn: 0
 --- !u!1 &171464632
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +577,6 @@ GameObject:
   m_Component:
   - component: {fileID: 197834021}
   - component: {fileID: 197834020}
-  - component: {fileID: 197834019}
   - component: {fileID: 197834022}
   m_Layer: 0
   m_Name: Main Camera
@@ -610,14 +585,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &197834019
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197834018}
-  m_Enabled: 1
 --- !u!20 &197834020
 Camera:
   m_ObjectHideFlags: 0
@@ -701,6 +668,7 @@ MonoBehaviour:
   minY: 0
   maxY: 0
   moveOnY: 0
+  playerDependant: 0
 --- !u!1 &251476435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,8 +1169,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  sfxNameOut: 
-  sfxNameIn: 
+  trapOut: {fileID: 0}
+  trapIn: {fileID: 0}
+  volumeOut: 0
+  volumeIn: 0
 --- !u!60 &405803868
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2581,8 +2551,6 @@ MonoBehaviour:
   - {fileID: 1082960416}
   - {fileID: 966359435}
   - {fileID: 485342069}
-  playerMinX: 0
-  playerMaxX: 0
 --- !u!1 &770511882
 GameObject:
   m_ObjectHideFlags: 0
@@ -3101,7 +3069,7 @@ Transform:
   m_GameObject: {fileID: 966359435}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.257763, y: -0.12065506, z: -0.34243038}
+  m_LocalPosition: {x: 19.98, y: -0.12065506, z: -0.34243038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3692,6 +3660,63 @@ Transform:
   - {fileID: 519574462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1247530009
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2476383186239410731, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_Name
+      value: Sound Fx Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.181525
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.44744036
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.10440316
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612477092673241681, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: efcf5353e5f555d4aa38ac197aa58aa0, type: 3}
 --- !u!1 &1289497274
 GameObject:
   m_ObjectHideFlags: 0
@@ -3909,8 +3934,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  sfxNameOut: 
-  sfxNameIn: 
+  trapOut: {fileID: 0}
+  trapIn: {fileID: 0}
+  volumeOut: 0
+  volumeIn: 0
 --- !u!1 &1406263202
 GameObject:
   m_ObjectHideFlags: 0
@@ -5230,6 +5257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerReachesGate: 0
+  levelMenuControllers: []
 --- !u!212 &1848195943
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5874,4 +5902,5 @@ SceneRoots:
   - {fileID: 1547261070}
   - {fileID: 996652336}
   - {fileID: 1848195944}
+  - {fileID: 1247530009}
   - {fileID: 7012385143674180998}

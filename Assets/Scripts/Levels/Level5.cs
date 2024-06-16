@@ -13,9 +13,6 @@ public class Level5 : MonoBehaviour
 
     private bool trap1Activated,trap2Activated,trap3Activated;
 
-    public float playerMinX, playerMaxX;
-
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -60,7 +57,7 @@ public class Level5 : MonoBehaviour
                     case "Trap Trigger 3":
                     if (!trap3Activated)
                     {
-                        _ = trapScripts[1].PermanentMoveTrap();
+                        _ = trapScripts[2].PermanentMoveTrap();
                         trap3Activated = true;
                     }
                     break;

@@ -674,7 +674,6 @@ GameObject:
   m_Component:
   - component: {fileID: 478444938}
   - component: {fileID: 478444937}
-  - component: {fileID: 478444936}
   - component: {fileID: 478444939}
   m_Layer: 0
   m_Name: Main Camera
@@ -683,14 +682,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &478444936
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478444935}
-  m_Enabled: 1
 --- !u!20 &478444937
 Camera:
   m_ObjectHideFlags: 0
@@ -774,6 +765,7 @@ MonoBehaviour:
   minY: 0
   maxY: 10
   moveOnY: 0
+  playerDependant: 0
 --- !u!1 &553163140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,6 +1202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerReachesGate: 0
+  levelMenuControllers: []
 --- !u!212 &685676513
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2577,7 +2570,6 @@ GameObject:
   - component: {fileID: 1157972732}
   - component: {fileID: 1157972735}
   - component: {fileID: 1157972734}
-  - component: {fileID: 1157972736}
   m_Layer: 0
   m_Name: Lightning Trap
   m_TagString: Trap
@@ -2664,7 +2656,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b8ac0009fecc74da273755f4e88d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 1.5
+  lightningAudioClip:
+  - {fileID: 8300000, guid: ed43bac986a7bd54d904c4c4bca68637, type: 3}
+  volume: 0.462
 --- !u!60 &1157972735
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2724,102 +2718,6 @@ PolygonCollider2D:
       - {x: 3.5184596, y: -1.5440758}
       - {x: 3.7215705, y: -1.8046063}
   m_UseDelaunayMesh: 0
---- !u!82 &1157972736
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1157972731}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -8493030676994186847, guid: 7fd51196a8c7bde4384fe61d8abb2a2a, type: 2}
-  m_audioClip: {fileID: 8300000, guid: ed43bac986a7bd54d904c4c4bca68637, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1244977419
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,53 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
+using System.Threading;
 
 public class Lightning : MonoBehaviour
 {
-    // Start is called before the first frame update
-    Renderer lightningRenderer;
-    Color color;
-    private AudioSource audioSource;
-    [SerializeField] private float waitTime;
+    [SerializeField] private AudioClip[] lightningAudioClip;
+    [Range(0,1)] [SerializeField] private float volume;
+    private Renderer lightningRenderer;
+    private Color color;
+    private PolygonCollider2D lightningCollider;
+    
     void Awake()
     {
         lightningRenderer = GetComponent<Renderer>();
+        lightningCollider = GetComponent<PolygonCollider2D>();
+        lightningCollider.enabled = false;
         color = lightningRenderer.material.color;
         color.a = 0;
         lightningRenderer.material.color = color;
-        gameObject.SetActive(false);
-
-        audioSource = GetComponent<AudioSource>();
     }
 
     // spawn lightning and play sound
-    public IEnumerator SpawnLightning()
+    public async Task SpawnLightning(CancellationTokenSource cancellationTokenSource)
     {
+        print("starting lightning");
+        _ = SoundFxManager.Instance.PlayRandomSoundFxClipAsync(lightningAudioClip, transform, volume, cancellationTokenSource);
         AddLightning();
-        if (audioSource != null)
-            audioSource.Play();
-        yield return new WaitForSeconds(waitTime);
+        await Task.Delay(2500);
         RemoveLightning();
     }
 
     private void AddLightning()
     {
-        while (color.a < 1)
+        try
         {
-            color.a += 0.01f;
+            color.a = 1f;
             lightningRenderer.material.color = color;
+            lightningCollider.enabled = true;
+            print("collider enabled");
+            
+            print("lightning enabled");
+            
         }
-        gameObject.SetActive(true);
+        catch (System.Exception)
+        {
+            return;
+        }
+        
     }
 
     private void RemoveLightning()
     {
-        while (color.a > 0)
+        try
         {
-            color.a -= 0.01f;
+            color.a = 0;
             lightningRenderer.material.color = color;
-            print("color.a: " + color.a);
+            lightningCollider.enabled = false;
         }
-        gameObject.SetActive(false);
+        catch(System.Exception)
+        {
+            return;
+        }
     }
 }

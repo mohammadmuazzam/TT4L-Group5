@@ -264,15 +264,15 @@ public class Trap : MonoBehaviour
             doneScaling = false;
             while (!doneScaling)
             {
-
+                //* scale rock
                 tempCurrentScaleX = transform.localScale.x;
-                tempCurrentScaleX += (isScaleUpX? 1 : -1) * scaleSpeedX * 0.01f;
+                tempCurrentScaleX += (isScaleUpX? 1 : -1) * scaleSpeedX * Time.deltaTime;
 
                 tempCurrentScaleY = transform.localScale.y;
-                tempCurrentScaleY += (isScaleUpY? 1 : -1) * scaleSpeedY * 0.01f;
+                tempCurrentScaleY += (isScaleUpY? 1 : -1) * scaleSpeedY * Time.deltaTime;
 
 
-                // stop scaling condition
+                //* stop scaling condition
                 if ((isScaleUpX && tempCurrentScaleX >= finalScaleX) || (!isScaleUpX && tempCurrentScaleX <= finalScaleX))
                 {
                     if ((isScaleUpY && tempCurrentScaleY >= finalScaleY) || (!isScaleUpY && tempCurrentScaleY <= finalScaleY))
@@ -299,10 +299,10 @@ public class Trap : MonoBehaviour
             while (!doneScaling2)
             {
                 tempCurrentScaleX = transform.localScale.x;
-                tempCurrentScaleX += (isScaleUpX? -1 : 1) * scaleSpeedX * 0.01f;
+                tempCurrentScaleX += (isScaleUpX? -1 : 1) * scaleSpeedX * Time.deltaTime;
 
                 tempCurrentScaleY = transform.localScale.y;
-                tempCurrentScaleY += (isScaleUpY? -1 : 1) * scaleSpeedY * 0.01f;
+                tempCurrentScaleY += (isScaleUpY? -1 : 1) * scaleSpeedY * Time.deltaTime;
 
                 // stop scaling condition
                 if ((isScaleUpX && tempCurrentScaleX <= initialScaleX) || (!isScaleUpX && tempCurrentScaleX >= initialScaleX))
