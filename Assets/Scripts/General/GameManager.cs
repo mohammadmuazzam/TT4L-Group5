@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         GateDoor.playerWins -= LevelEnd;
     }
 
-    public void LevelEnd()
+    public async void LevelEnd()
     {
         // move to EndPage and calculate elapsed time
         endTime = DateTime.Now.TimeOfDay;
@@ -82,6 +82,13 @@ public class GameManager : MonoBehaviour
         // this check is so that we don't double check
         if (elapsedTime.ToString() == "00:00:00")
             elapsedTime = endTime - startTime;
+
+        while (SoundFxManager.Instance.IsSoundFxPlaying())
+        {
+            Time.timeScale = 0f;
+            await Task.Yield();
+        }
+        await Task.Delay(100);
         
         SceneManager.LoadScene("EndPage");
     }

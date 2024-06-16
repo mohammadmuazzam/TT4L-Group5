@@ -23,7 +23,7 @@ public class GateDoor : MonoBehaviour
         playerReachesGate = false;
         cancellationTokenSource = new CancellationTokenSource();
     }
-    async void OnTriggerEnter2D (Collider2D player)
+    void OnTriggerEnter2D (Collider2D player)
     {
         UnlockNewLevel();
         if (player.gameObject.CompareTag("Player"))
@@ -33,7 +33,7 @@ public class GateDoor : MonoBehaviour
             if (playerWins != null)
             {
                 Player.canPlayerMove = false;
-                await SoundFxManager.Instance.PlaySoundFxClipAsync(winningAudioClip, transform, volume, cancellationTokenSource);
+                SoundFxManager.Instance.PlaySoundFxClip(winningAudioClip, transform, volume);
                 playerWins();
             }
         }

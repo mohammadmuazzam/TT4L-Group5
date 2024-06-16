@@ -346,9 +346,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 2ee01e3a3ea7fe141bea73159f6649c2, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.225
   volumeIn: 0
 --- !u!1 &171464632
 GameObject:
@@ -1169,10 +1169,10 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
-  trapIn: {fileID: 0}
-  volumeOut: 0
-  volumeIn: 0
+  trapOut: {fileID: 8300000, guid: c9ff4572047b93b458af940c8d7b4813, type: 3}
+  trapIn: {fileID: 8300000, guid: ec1e99b19cbf70649ac4cb31e295ca0a, type: 3}
+  volumeOut: 0.225
+  volumeIn: 0.125
 --- !u!60 &405803868
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3934,9 +3934,9 @@ MonoBehaviour:
   scaleSpeedY: 0
   offsetInitialYPos: 0
   offsetInitialXPos: 0
-  trapOut: {fileID: 0}
+  trapOut: {fileID: 8300000, guid: 729127ad096cd294390b4e23771e49d7, type: 3}
   trapIn: {fileID: 0}
-  volumeOut: 0
+  volumeOut: 0.213
   volumeIn: 0
 --- !u!1 &1406263202
 GameObject:
@@ -5257,6 +5257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerReachesGate: 0
+  winningAudioClip: {fileID: 0}
+  volume: 0
   levelMenuControllers: []
 --- !u!212 &1848195943
 SpriteRenderer:
