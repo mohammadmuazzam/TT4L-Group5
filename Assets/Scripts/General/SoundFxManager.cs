@@ -72,11 +72,64 @@ public class SoundFxManager : MonoBehaviour
     public async Task PlayRandomSoundFxClipAsync(AudioClip[] clips, Transform spawnTransform, float volume, CancellationTokenSource cancellationTokenSourceOutSide)
     {
         int randomIndex = UnityEngine.Random.Range(0, clips.Length);
+        if (randomIndex == clips.Length)
+            randomIndex = 0;
         //* instantiate audio source prefab
         audioSourceAsync = Instantiate(soundFxSource, spawnTransform.position, Quaternion.identity);
 
         //* assign audio clip and volume
         audioSourceAsync.clip = clips[randomIndex];
+        audioSourceAsync.volume = volume;
+
+        //* get audio clip length and destroy audio source object after sound has played
+        float clipLength = audioSourceAsync.clip.length;
+        float elapsedTime = 0;
+
+        bool pausing = true;
+        int beforeAttempt = GameManager.attempts;
+
+        while (elapsedTime < clipLength)
+        {
+            //* return if player dies or restart or cancellation is requested
+            if (beforeAttempt != GameManager.attempts || cancellationTokenSource.IsCancellationRequested || cancellationTokenSourceOutSide.IsCancellationRequested)
+            {
+                print("RETURN, OutSideToken: " + cancellationTokenSourceOutSide);
+                Destroy(audioSourceAsync.gameObject);
+                return;
+            }
+
+            //* pause audio
+            if (PauseMenu.isPaused)
+            {
+                print("pausing audio");
+                audioSource.Pause();
+                pausing = true;
+            }
+            //* play audio
+            else
+            {
+                elapsedTime += Time.deltaTime;
+                
+                if (pausing)
+                {
+                    print("playing audio");
+                    audioSourceAsync.Play();
+                    pausing = false;
+                }
+            }
+            await Task.Yield();
+        }
+        print("DESTROYING AUDIOSOURCE OBJECT");
+        Destroy(audioSourceAsync.gameObject);
+    }
+
+    public async Task PlaySoundFxClipAsync(AudioClip clips, Transform spawnTransform, float volume, CancellationTokenSource cancellationTokenSourceOutSide)
+    {
+        //* instantiate audio source prefab
+        audioSourceAsync = Instantiate(soundFxSource, spawnTransform.position, Quaternion.identity);
+
+        //* assign audio clip and volume
+        audioSourceAsync.clip = clips;
         audioSourceAsync.volume = volume;
 
         //* get audio clip length and destroy audio source object after sound has played

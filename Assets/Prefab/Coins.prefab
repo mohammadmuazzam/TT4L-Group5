@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1283709203
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3f6209ef50ac9a641b483d643095c334, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -133,4 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121558641dbab9841afc27b73eab36db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatDistance: 0.25
+  moveSpeed: 1
+  coinsCollectSound: {fileID: 8300000, guid: 0c898aaa9d3779c429e6f52419a35828, type: 3}
+  volume: 0.406
   gameManager: {fileID: 0}

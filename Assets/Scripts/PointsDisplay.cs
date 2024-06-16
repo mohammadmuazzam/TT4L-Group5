@@ -27,14 +27,15 @@ public class PointsDisplay : MonoBehaviour
             playerAttempts = GameManager.attempts;
             showAttempts.text = playerAttempts.ToString();
 
-            calculatePoints = (int)(10000 /(elapsedTime*(playerAttempts/2)));
+            coinsCollected = GameManager.coinCount;
+            showCoins.text = coinsCollected.ToString();
+            
+            calculatePoints = (int)(10000 /(elapsedTime*playerAttempts));
+            calculatePoints = calculatePoints + 50*coinsCollected;
             print($"elapsed time: {elapsedTime}");
             if (calculatePoints > 10000)
             calculatePoints = 10000;
             showPoints.text = calculatePoints.ToString();
-
-            coinsCollected = GameManager.coinCount;
-            showCoins.text = coinsCollected.ToString();
         }
     }
 }

@@ -22,9 +22,23 @@ public class mainmenubuttons : MonoBehaviour
         SceneManager.LoadSceneAsync ("LoadScene");
     }
 
-    public IEnumerator QuitGame() 
+    public async void InstructionPage()
     {
-        yield return new WaitForSeconds(generalSounds.clickSound.clip.length);
+        await Task.Delay (generalSounds.clickSoundInMs);
+
+        SceneManager.LoadSceneAsync("InstructionPage");
+    }
+
+    public async void BackToMainMenu()
+    {
+        await Task.Delay (generalSounds.clickSoundInMs);
+
+        SceneManager.LoadSceneAsync("MainMenu");
+    }
+
+    public async void QuitGame() 
+    {
+        await Task.Delay(generalSounds.clickSoundInMs);
 
         Debug.Log ("Quit");
         Application.Quit();

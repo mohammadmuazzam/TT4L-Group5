@@ -5,20 +5,36 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public Button playButton; // Reference to the play button
+    public Button playButton;
+    [SerializeField] Button[] buttons;
     public VideoPlayer videoPlayer; // Reference to the video player
     public string level1SceneName = "Level1"; // Name of the Level 1 scene
 
     public void OnPlayButtonClicked()
     {
-        // Hide the Play button
-        playButton.gameObject.SetActive(false);
+        print("lock level: " + PlayerPrefs.GetInt("LockLevel"));
 
-        // Subscribe to the loopPointReached event to know when the video ends
-        videoPlayer.loopPointReached += OnVideoEnd;
+        //* play video on new game
+        if (PlayerPrefs.GetInt("LockLevel") == 0)
+        {
+            // disable buttons
+            playButton.gameObject.SetActive(false);
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].gameObject.SetActive(false);
+            }
 
-        // Play the video
-        videoPlayer.Play();
+            // Subscribe to the loopPointReached event to know when the video ends
+            videoPlayer.loopPointReached += OnVideoEnd;
+
+            videoPlayer.Play();
+        }
+        else
+        {
+            string levelName = "Level" + PlayerPrefs.GetInt("LockLevel").ToString();
+            SceneManager.LoadScene(levelName);
+        }
+        
     }
 
     void OnVideoEnd(VideoPlayer vp)

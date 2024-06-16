@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             attempts = 1;
+            attempts = 0;
+            coinCount = 0;
             DontDestroyOnLoad(gameObject);
         }
         else
